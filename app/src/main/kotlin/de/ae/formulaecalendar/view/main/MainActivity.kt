@@ -11,7 +11,7 @@ import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
 
 class MainActivity : AppCompatActivity() {
-    val model = RemoteStore()
+    val model = RemoteStore
     val observer = AndroidSchedulers.mainThread()
     val subscriber = Schedulers.newThread()
 

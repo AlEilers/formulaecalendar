@@ -16,7 +16,7 @@ import rx.Observable
  * Created by aeilers on 27.12.2016.
  */
 
-class RemoteStore : DataStore {
+object RemoteStore : DataStore {
 
     private val rest: RestService
     private var allChampionShips: Observable<ChampionshipsData>
@@ -25,7 +25,7 @@ class RemoteStore : DataStore {
     private var driverStanding: Observable<de.ae.formulaecalendar.remote.pojo.driverstanding.ChampionshipData>
     private var teamStanding: Observable<de.ae.formulaecalendar.remote.pojo.teamstanding.ChampionshipData>
 
-    constructor() {
+    init {
         val gson = GsonBuilder()
                 .setDateFormat("d.M.yyyy")
                 .create()
@@ -37,16 +37,6 @@ class RemoteStore : DataStore {
                 .build()
 
         rest = retrofit.create(RestService::class.java)
-
-        allChampionShips = createAllChampionShips()
-        currentChampionShip = createCurrentChampionShip()
-        currentRaceCalendar = createCurrentRaceCalendar()
-        driverStanding = createDriverStanding()
-        teamStanding = createTeamStanding()
-    }
-
-    constructor(rest: RestService) {
-        this.rest = rest
 
         allChampionShips = createAllChampionShips()
         currentChampionShip = createCurrentChampionShip()
