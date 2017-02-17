@@ -35,15 +35,15 @@ class MainActivity constructor() : AppCompatActivity(), MainView {
         pager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tab_layout))
         tab_layout.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener{
             override fun onTabReselected(tab: TabLayout.Tab?) {
-                pager.setCurrentItem(tab?.position ?: 0)
+                //do nothing
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {
-                throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
+                //do nothing
             }
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                throw UnsupportedOperationException("not implemented") //To change body of created functions use File | Settings | File Templates.
+                pager.setCurrentItem(tab?.position ?: 0)
             }
         })
 

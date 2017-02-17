@@ -13,7 +13,7 @@ import android.widget.TextView
 import de.ae.formulaecalendar.R
 import de.ae.formulaecalendar.remote.pojo.calendar.CalendarDatum
 import de.ae.formulaecalendar.remote.pojo.calendar.RaceCalendarData
-import de.ae.formulaecalendar.view.DetailsActivity
+import de.ae.formulaecalendar.view.details.DetailsActivity
 import kotlinx.android.synthetic.main.race_card.view.*
 import org.threeten.bp.ZoneId
 import org.threeten.bp.format.DateTimeFormatter
@@ -48,10 +48,10 @@ class RaceAdapter : RecyclerView.Adapter<RaceHolder> {
     override fun onBindViewHolder(holder: RaceHolder, position: Int) {
         val race = calendar?.calendarData?.get(position)
 
-        holder.description.setText(race?.raceName)
+        holder.description.text = race?.raceName
 
         val zdt = race?.raceStart?.withZoneSameInstant(zone)
-        holder.date.setText(zdt?.format(DateTimeFormatter.ofPattern(format)))
+        holder.date.text = zdt?.format(DateTimeFormatter.ofPattern(format))
 
         //TODO ResourceManager
         /*val resourceView = ResourceManager.Instance.getResourceId(race?.city)

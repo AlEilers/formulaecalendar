@@ -1,4 +1,4 @@
-package de.ae.formulaecalendar.view
+package de.ae.formulaecalendar.view.details
 
 import android.support.v7.app.AppCompatActivity
 
