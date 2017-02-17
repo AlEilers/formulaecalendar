@@ -4,10 +4,9 @@ import de.ae.formulaecalendar.remote.DataStore
 import de.ae.formulaecalendar.remote.RemoteStore
 import de.ae.formulaecalendar.remote.pojo.teamstanding.ChampionshipData
 import rx.Scheduler
+import rx.Subscriber
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
-import rx.Subscriber
-import rx.internal.operators.OperatorReplay.observeOn
 
 
 /**

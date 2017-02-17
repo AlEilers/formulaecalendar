@@ -14,7 +14,7 @@ import rx.schedulers.Schedulers
  */
 class CalendarPresenter(val view: CalendarView, val model: DataStore, val observer: Scheduler, val subscriber: Scheduler) {
 
-    constructor(view: CalendarView) : this(view = view, model = RemoteStore, observer = AndroidSchedulers.mainThread(), subscriber = Schedulers.newThread())
+    constructor(view: CalendarView) : this(view, RemoteStore, AndroidSchedulers.mainThread(), Schedulers.newThread())
 
     fun loadContent() {
         view.setLoadingViewVisibility(true)

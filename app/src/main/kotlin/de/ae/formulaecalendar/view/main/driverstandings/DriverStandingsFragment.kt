@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.fragment_driver_standings.view.*
  * Created by alexa on 17.02.2017.
  */
 class DriverStandingsFragment : Fragment(), DriverStandingsView {
-    private var presenter: DriverStandingsPresenter? = null
+    private val presenter: DriverStandingsPresenter = DriverStandingsPresenter(this)
 
     private var adapter: ResultsAdapter? = null
     private var snackbar: Snackbar? = null
@@ -53,7 +53,6 @@ class DriverStandingsFragment : Fragment(), DriverStandingsView {
         cardList?.setAdapter(adapter)
 
         //load content by presenter
-        presenter = DriverStandingsPresenter(this)
         presenter?.loadContent()
 
         return view
@@ -82,8 +81,8 @@ class DriverStandingsFragment : Fragment(), DriverStandingsView {
 
     override fun setSnackbarVisibility(visible: Boolean) {
         if (visible) {
-            snackbar = Snackbar.make(calendar_cardList, R.string.connection_fault, Snackbar.LENGTH_INDEFINITE)
-            snackbar?.setAction(R.string.snackbar_retry, { presenter?.loadContent() })
+            snackbar = Snackbar.make(cardList!!, R.string.connection_fault, Snackbar.LENGTH_INDEFINITE)
+            snackbar?.setAction(R.string.snackbar_retry, { presenter.loadContent() })
             if (fragmentVisible) {
                 snackbar?.show()
             }

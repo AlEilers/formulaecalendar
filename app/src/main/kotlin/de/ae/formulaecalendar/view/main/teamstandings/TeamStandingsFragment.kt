@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.fragment_team_standings.view.*
  * Created by alexa on 17.02.2017.
  */
 class TeamStandingsFragment :Fragment(),TeamStandingsView{
-    private var presenter: TeamStandingsPresenter? = null
+    private val presenter: TeamStandingsPresenter = TeamStandingsPresenter(this)
 
     private var adapter: ResultsAdapter? = null
     private var snackbar: Snackbar? = null
@@ -53,7 +53,6 @@ class TeamStandingsFragment :Fragment(),TeamStandingsView{
         cardList?.setAdapter(adapter)
 
         //load content by presenter
-        presenter = TeamStandingsPresenter(this)
         presenter?.loadContent()
 
         return view
@@ -82,8 +81,8 @@ class TeamStandingsFragment :Fragment(),TeamStandingsView{
 
     override fun setSnackbarVisibility(visible: Boolean) {
         if (visible) {
-            snackbar = Snackbar.make(calendar_cardList, R.string.connection_fault, Snackbar.LENGTH_INDEFINITE)
-            snackbar?.setAction(R.string.snackbar_retry, { presenter?.loadContent() })
+            snackbar = Snackbar.make(cardList!!, R.string.connection_fault, Snackbar.LENGTH_INDEFINITE)
+            snackbar?.setAction(R.string.snackbar_retry, { presenter.loadContent() })
             if (fragmentVisible) {
                 snackbar?.show()
             }
