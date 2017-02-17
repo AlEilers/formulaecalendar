@@ -1,22 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="de.ae.formulaecalendar">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/icon"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/icon_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:ignore="ManifestResource">
+
+        <!-- Main -->
         <activity android:name=".view.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+            <meta-data
+                android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts" />
         </activity>
+
+        <!-- Details -->
+        <activity
+            android:name=".view.details.DetailsActivity"
+            android:parentActivityName=".view.main.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="de.ae.formulaecalendar.view.main.MainActivity" />
+        </activity>
+
+        <!-- -Preference -->
+        <activity
+            android:name=".settings.MyPreferenceActivity"
+            android:parentActivityName=".view.main.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="de.ae.formulaecalendar.view.main.MainActivity" />
+        </activity>
+
+        <!-- About -->
+        <activity
+            android:name=".view.about.AboutActivity"
+            android:parentActivityName=".settings.MyPreferenceActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="de.ae.formulaecalendar.settings.MyPreferenceActivity" />
+
+            <intent-filter>
+                <action android:name="de.ae.formulaecalendar.view.about.AboutActivity" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <!-- Notification
+        <service
+            android:name=".notification.NotificationService"
+            android:exported="false" />
+
+        <receiver android:name=".notification.NotificationReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver> -->
+
+        <!-- Widgets
+        <receiver android:name=".widget.BrightCountdownWidgetProvider">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/countdown_widget_bright_info" />
+        </receiver>
+        <receiver android:name=".widget.DarkCountdownWidgetProvider">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/countdown_widget_dark_info" />
+        </receiver> -->
     </application>
 
 </manifest>

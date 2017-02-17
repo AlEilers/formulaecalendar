@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView android:id="@+id/card_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentTop="true"
+    android:layout_alignParentStart="true"
+    android:layout_alignParentLeft="true"
+    card_view:cardCornerRadius="@dimen/card_corner_radius"
+    android:layout_margin="@dimen/card_margin"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:text="@string/card_next_up"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/card_race_next"
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large.Inverse"
+            android:background="@color/colorPrimaryDark"
+            android:paddingLeft="@dimen/card_padding_left"
+            android:visibility="gone" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/card_height_image"
+            android:id="@+id/card_race_image"
+            android:layout_below="@+id/card_race_next"
+            android:scaleType="centerCrop"
+            android:transitionName="city"
+            android:background="@color/background_no_image" />
+
+        <TextView
+            android:text="City/Country"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/card_height_image_textview"
+            android:id="@+id/card_race_description"
+            android:layout_alignBottom="@+id/card_race_image"
+            android:background="@color/colorCardTextBackground"
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large.Inverse"
+            android:paddingLeft="@dimen/card_padding_left" />
+
+        <TextView
+            android:text="26. Jun. 2017 16:00 Uhr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/card_race_date"
+            android:layout_below="@+id/card_race_image"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="@dimen/card_margin_top"
+            android:paddingLeft="@dimen/card_padding_left"
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault.Medium" />
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

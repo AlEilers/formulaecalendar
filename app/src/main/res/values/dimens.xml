@@ -1,0 +1,19 @@
+<resources>
+    <!-- CardView -->
+    <dimen name="card_max_width">-2px</dimen> <!-- match parent -->
+    <dimen name="card_height_image">120dp</dimen>
+    <dimen name="card_height_image_textview">30dp</dimen>
+    <dimen name="card_padding_left">5dp</dimen>
+    <dimen name="card_margin_top">3dp</dimen>
+    <dimen name="card_corner_radius">2dp</dimen>
+    <dimen name="card_margin">5dp</dimen>
+
+    <!-- details -->
+    <dimen name="details_image_height">200dp</dimen>
+    <dimen name="details_text_padding_left">15dp</dimen>
+    <dimen name="details_text_padding_top">10dp</dimen>
+    <dimen name="details_icon_size">40dp</dimen>
+    <dimen name="details_results_pos_size">25sp</dimen>
+    <dimen name="details_results_pos_width">150dp</dimen>
+    <dimen name="details_results_padding_top">5dp</dimen>
+</resources>

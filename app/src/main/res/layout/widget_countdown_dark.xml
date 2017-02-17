@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/widget_layout">
+
+    <TextView
+        android:id="@+id/widget_text_nextup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/widget_next_up"
+        android:textColor="@android:color/black"
+        android:textSize="15sp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/widget_text_city"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textColor="@android:color/black"
+        android:textSize="15sp"
+        android:layout_below="@+id/widget_text_nextup"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/widget_text_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-smallcaps"
+        android:text="@string/widget_loading"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@android:color/black"
+        android:textSize="40sp"
+        android:layout_below="@+id/widget_text_city"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/widget_text_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-condensed"
+        android:text=""
+        android:textColor="@android:color/black"
+        android:textSize="15sp"
+        android:layout_below="@+id/widget_text_time"
+        android:layout_centerHorizontal="true" />
+</RelativeLayout>

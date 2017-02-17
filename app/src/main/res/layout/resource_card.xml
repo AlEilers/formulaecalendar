@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView android:id="@+id/card_view_about"
+    android:layout_width="@dimen/card_max_width"
+    android:layout_height="wrap_content"
+    android:layout_alignParentTop="true"
+    android:layout_alignParentStart="true"
+    android:layout_alignParentLeft="true"
+    card_view:cardCornerRadius="@dimen/card_corner_radius"
+    android:layout_margin="@dimen/card_margin"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto">
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/card_about_image"
+            card_view:srcCompat="@drawable/berlin"
+            android:scaleType="centerCrop"
+            android:visibility="gone" />
+
+        <TextView
+            android:text="Resource Title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/card_about_title"
+            android:paddingLeft="@dimen/card_padding_left"
+            android:visibility="gone"
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
+
+        <TextView
+            android:text="Author: Firstname Lastname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/card_about_author"
+            android:paddingLeft="@dimen/card_padding_left"
+            android:visibility="gone"
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+
+        <TextView
+            android:text="Resource Dexcription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/card_about_description"
+            android:paddingLeft="@dimen/card_padding_left"
+            android:visibility="gone" />
+
+        <TextView
+            android:text="Resource License"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/card_about_license"
+            android:paddingLeft="@dimen/card_padding_left"
+            android:visibility="gone" />
+
+
+        <TextView
+            android:text="Resource URI"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/card_about_uri"
+            android:paddingLeft="@dimen/card_padding_left"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>
