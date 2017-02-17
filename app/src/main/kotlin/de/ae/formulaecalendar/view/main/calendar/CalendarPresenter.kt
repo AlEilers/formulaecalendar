@@ -1,0 +1,44 @@
+package de.ae.formulaecalendar.view.main.calendar
+
+import de.ae.formulaecalendar.remote.DataStore
+import de.ae.formulaecalendar.remote.RemoteStore
+import de.ae.formulaecalendar.remote.pojo.calendar.RaceCalendarData
+import rx.Scheduler
+import rx.Subscriber
+import rx.android.schedulers.AndroidSchedulers
+import rx.schedulers.Schedulers
+
+
+/**
+ * Created by alexa on 17.02.2017.
+ */
+class CalendarPresenter(val view: CalendarView, val model: DataStore, val observer: Scheduler, val subscriber: Scheduler) {
+
+    constructor(view: CalendarView) : this(view = view, model = RemoteStore, observer = AndroidSchedulers.mainThread(), subscriber = Schedulers.newThread())
+
+    fun loadContent() {
+        view.setLoadingViewVisibility(true)
+        view.setRecyclerViewVisibility(false)
+
+        model.getCurrentRaceCalendar()
+                .subscribeOn(subscriber) // Create a new Thread
+                .observeOn(observer) // Use the UI thread
+                .subscribe(object : Subscriber<RaceCalendarData>() {
+                    override fun onCompleted() {
+                        view.setLoadingViewVisibility(false)
+                        view.setRecyclerViewVisibility(true)
+                        view.setSnackbarVisibility(false)
+                    }
+
+                    override fun onError(e: Throwable) {
+                        view.setLoadingViewVisibility(false)
+                        view.setRecyclerViewVisibility(false)
+                        view.setSnackbarVisibility(true)
+                    }
+
+                    override fun onNext(data: RaceCalendarData) {
+                        view.setContent(data)
+                    }
+                })
+    }
+}

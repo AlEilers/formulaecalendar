@@ -63,7 +63,8 @@
             </intent-filter>
         </activity>
 
-        <!-- Notification
+        <!--
+        Notification
         <service
             android:name=".notification.NotificationService"
             android:exported="false" />
@@ -72,9 +73,12 @@
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
-        </receiver> -->
+        </receiver>
+        -->
 
-        <!-- Widgets
+
+        <!--
+        Widgets
         <receiver android:name=".widget.BrightCountdownWidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -92,7 +96,8 @@
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/countdown_widget_dark_info" />
-        </receiver> -->
+        </receiver>
+        -->
     </application>
 
 </manifest>
