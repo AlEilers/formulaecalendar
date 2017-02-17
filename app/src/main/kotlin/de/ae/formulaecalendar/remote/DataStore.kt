@@ -12,16 +12,16 @@ import rx.Observable
 
 interface DataStore {
 
-    fun getAllChampionShips(): Observable<ChampionshipsData>
+    fun getAllChampionShips(): Observable<ChampionshipsData?>
 
-    fun getCurrentChampionShip(): Observable<ChampsDatum>
+    fun getCurrentChampionShip(): Observable<ChampsDatum?>
 
-    fun getCurrentRaceCalendar(): Observable<RaceCalendarData>
+    fun getCurrentRaceCalendar(): Observable<RaceCalendarData?>
 
-    fun getDriverStanding(): Observable<de.ae.formulaecalendar.remote.pojo.driverstanding.ChampionshipData>
+    fun getDriverStanding(): Observable<de.ae.formulaecalendar.remote.pojo.driverstanding.ChampionshipData?>
 
-    fun getTeamStanding(): Observable<de.ae.formulaecalendar.remote.pojo.teamstanding.ChampionshipData>
+    fun getTeamStanding(): Observable<de.ae.formulaecalendar.remote.pojo.teamstanding.ChampionshipData?>
 
-    fun getRaceResult(raceId: String): Observable<Session>
+    fun getRaceResult(raceId: String): Observable<Session?>
 
 }
