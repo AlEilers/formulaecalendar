@@ -8,7 +8,7 @@ import android.view.Menu
 import android.view.MenuItem
 import com.jakewharton.threetenabp.AndroidThreeTen
 import de.ae.formulaecalendar.R
-import de.ae.formulaecalendar.settings.MyPreferenceActivity
+import de.ae.formulaecalendar.view.settings.MyPreferenceActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.toolbar.*
 

@@ -41,7 +41,7 @@
 
         <!-- -Preference -->
         <activity
-            android:name=".settings.MyPreferenceActivity"
+            android:name="de.ae.formulaecalendar.view.settings.MyPreferenceActivity"
             android:parentActivityName=".view.main.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -51,10 +51,10 @@
         <!-- About -->
         <activity
             android:name=".view.about.AboutActivity"
-            android:parentActivityName=".settings.MyPreferenceActivity">
+            android:parentActivityName="de.ae.formulaecalendar.view.settings.MyPreferenceActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="de.ae.formulaecalendar.settings.MyPreferenceActivity" />
+                android:value="de.ae.formulaecalendar.view.settings.MyPreferenceActivity" />
 
             <intent-filter>
                 <action android:name="de.ae.formulaecalendar.view.about.AboutActivity" />
