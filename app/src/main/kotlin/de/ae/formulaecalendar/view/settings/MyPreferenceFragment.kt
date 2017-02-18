@@ -58,7 +58,7 @@ class MyPreferenceFragment : PreferenceFragment(), ActivityCompat.OnRequestPermi
                     calendarChanged = true
                 } else {
                     (findPreference(calendar) as SwitchPreference).isChecked = false
-                    Log.w(MyPreferenceFragment::class.simpleName, "Permission Calendar not granted")
+                    Log.w("MyPreferenceFragment", "Permission Calendar not granted")
                 }
             }
 

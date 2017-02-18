@@ -49,7 +49,7 @@ class DetailsPresenter constructor(val view: DetailsView, val model: DataStore, 
                             view.setRaceLoadingVisibility(false)
                             view.setMainViewVisibility(false)
                             view.setRaceSnackbarVisibility(true)
-                            Log.w(DetailsPresenter::class.simpleName, "Cannot load view: ${t.message}")
+                            Log.w("DetailsPresenter", "Cannot load view: ${t.message}")
                         }
 
                         override fun onNext(data: RaceCalendarData) {
@@ -57,7 +57,7 @@ class DetailsPresenter constructor(val view: DetailsView, val model: DataStore, 
                             if (nextRace != null) {
                                 setContent(nextRace)
                             } else {
-                                Log.w(DetailsPresenter::class.simpleName, "Cannot load view: next race from Server is null")
+                                Log.w("DetailsPresenter", "Cannot load view: next race from Server is null")
                             }
                         }
                     })
@@ -148,7 +148,7 @@ class DetailsPresenter constructor(val view: DetailsView, val model: DataStore, 
                         view.setResultsLoadingVisibility(false)
                         view.setResultsVisibility(false)
                         view.setResultsSnackbarVisibility(true)
-                        Log.w(DetailsPresenter::class.simpleName, "Cannot load view: ${t.message}")
+                        Log.w("DetailsPresenter", "Cannot load view: ${t.message}")
                     }
 
                     override fun onNext(session: Session) {
@@ -156,7 +156,7 @@ class DetailsPresenter constructor(val view: DetailsView, val model: DataStore, 
                         if (results != null) {
                             view.setResults(results)
                         } else {
-                            Log.w(DetailsPresenter::class.simpleName, "Cannot load view: results from Server are null")
+                            Log.w("DetailsPresenter", "Cannot load view: results from Server are null")
                         }
                     }
                 })

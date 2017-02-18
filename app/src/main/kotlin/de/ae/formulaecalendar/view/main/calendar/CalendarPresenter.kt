@@ -1,5 +1,6 @@
 package de.ae.formulaecalendar.view.main.calendar
 
+import android.util.Log
 import de.ae.formulaecalendar.remote.DataStore
 import de.ae.formulaecalendar.remote.RemoteStore
 import de.ae.formulaecalendar.remote.pojo.calendar.RaceCalendarData
@@ -30,10 +31,11 @@ class CalendarPresenter(val view: CalendarView, val model: DataStore, val observ
                         view.setSnackbarVisibility(false)
                     }
 
-                    override fun onError(e: Throwable) {
+                    override fun onError(t: Throwable) {
                         view.setLoadingViewVisibility(false)
                         view.setRecyclerViewVisibility(false)
                         view.setSnackbarVisibility(true)
+                        Log.w("CalendarPresenter","Cannot load view: ${t.message}")
                     }
 
                     override fun onNext(data: RaceCalendarData) {

@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
+import android.util.Log
 import de.ae.formulaecalendar.R
 import de.ae.formulaecalendar.remote.DataStore
 import de.ae.formulaecalendar.remote.RemoteStore
@@ -30,8 +31,8 @@ class MainPresenter constructor(val view: MainView, val model: DataStore, val ob
 
                     }
 
-                    override fun onError(e: Throwable) {
-                        //just do nothing
+                    override fun onError(t: Throwable) {
+                        Log.w("MainPresenter","Cannot load view: ${t.message}")
                     }
 
                     override fun onNext(champsDatum: ChampsDatum) {
@@ -39,6 +40,8 @@ class MainPresenter constructor(val view: MainView, val model: DataStore, val ob
                         if (title != null) {
                             title = title.substring(0, 1).toUpperCase() + title.substring(1).toLowerCase()
                             view.setTitle(title)
+                        }else{
+                            Log.w("MainPresenter","Cannot load view: title is null")
                         }
                     }
                 })

@@ -1,5 +1,6 @@
 package de.ae.formulaecalendar.view.main.teamstandings
 
+import android.util.Log
 import de.ae.formulaecalendar.remote.DataStore
 import de.ae.formulaecalendar.remote.RemoteStore
 import de.ae.formulaecalendar.remote.pojo.teamstanding.ChampionshipData
@@ -30,10 +31,11 @@ class TeamStandingsPresenter(val view: TeamStandingsView, val model: DataStore, 
                         view.setSnackbarVisibility(false)
                     }
 
-                    override fun onError(e: Throwable) {
+                    override fun onError(t: Throwable) {
                         view.setLoadingViewVisibility(false)
                         view.setRecyclerViewVisibility(false)
                         view.setSnackbarVisibility(true)
+                        Log.w("TeamStandingsPresenter","Cannot load view: ${t.message}")
                     }
 
                     override fun onNext(championshipData: ChampionshipData) {
