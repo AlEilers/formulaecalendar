@@ -44,7 +44,7 @@ class DetailsActivity constructor() : AppCompatActivity(), DetailsView {
         details_recycler_results.setNestedScrollingEnabled(false)
 
         setSupportActionBar(toolbar_view)
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         //Transparent Action Bar for >API21
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

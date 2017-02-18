@@ -78,9 +78,12 @@ class CalendarDatum : Serializable {
             return zoneId
         } else {
             for (zone in ZoneId.getAvailableZoneIds()) {
-                if (zone.toLowerCase().contains(city!!.toLowerCase().replace("\\s+".toRegex(), "")) || zone.toLowerCase().contains(city!!.toLowerCase().replace("\\s+".toRegex(), "_"))) {
-                    zoneId = ZoneId.of(zone)
-                    return zoneId
+                val cityString = city?.toLowerCase()
+                if (cityString != null) {
+                    if (zone.toLowerCase().contains(cityString.replace("\\s+".toRegex(), "")) || zone.toLowerCase().contains(cityString.replace("\\s+".toRegex(), "_"))) {
+                        zoneId = ZoneId.of(zone)
+                        return zoneId
+                    }
                 }
             }
             return null

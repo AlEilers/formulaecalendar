@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import de.ae.formulaecalendar.R
 import de.ae.formulaecalendar.remote.pojo.teamstanding.ChampionshipData
 import kotlinx.android.synthetic.main.fragment_calendar.*
+import kotlinx.android.synthetic.main.fragment_team_standings.*
 import kotlinx.android.synthetic.main.fragment_team_standings.view.*
 
 
@@ -81,7 +82,7 @@ class TeamStandingsFragment :Fragment(),TeamStandingsView{
 
     override fun setSnackbarVisibility(visible: Boolean) {
         if (visible) {
-            snackbar = Snackbar.make(cardList!!, R.string.connection_fault, Snackbar.LENGTH_INDEFINITE)
+            snackbar = Snackbar.make(team_result_list, R.string.connection_fault, Snackbar.LENGTH_INDEFINITE)
             snackbar?.setAction(R.string.snackbar_retry, { presenter.loadContent() })
             if (fragmentVisible) {
                 snackbar?.show()
