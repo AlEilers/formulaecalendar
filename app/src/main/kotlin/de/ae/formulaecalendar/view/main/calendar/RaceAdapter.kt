@@ -13,6 +13,7 @@ import android.widget.TextView
 import de.ae.formulaecalendar.R
 import de.ae.formulaecalendar.remote.pojo.calendar.CalendarDatum
 import de.ae.formulaecalendar.remote.pojo.calendar.RaceCalendarData
+import de.ae.formulaecalendar.resource.LocalResourceStore
 import de.ae.formulaecalendar.view.details.DetailsActivity
 import kotlinx.android.synthetic.main.race_card.view.*
 import org.threeten.bp.ZoneId
@@ -53,11 +54,10 @@ class RaceAdapter : RecyclerView.Adapter<RaceHolder> {
         val zdt = race?.raceStart?.withZoneSameInstant(zone)
         holder.date.text = zdt?.format(DateTimeFormatter.ofPattern(format))
 
-        //TODO ResourceManager
-        /*val resourceView = ResourceManager.Instance.getResourceId(race?.city)
-        if (resourceView >= 0) {
+        val resourceView = LocalResourceStore.getResourceId(race?.city ?: "-")
+        if (resourceView != null && resourceView >= 0) {
             holder.image.setImageResource(resourceView)
-        }*/
+        }
 
         holder.image.setOnClickListener { startDetails(it, position) }
 
