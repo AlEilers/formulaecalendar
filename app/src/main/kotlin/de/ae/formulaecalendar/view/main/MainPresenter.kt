@@ -6,6 +6,7 @@ import android.content.Intent
 import android.net.Uri
 import android.util.Log
 import de.ae.formulaecalendar.R
+import de.ae.formulaecalendar.notification.NotificationReceiver
 import de.ae.formulaecalendar.remote.DataStore
 import de.ae.formulaecalendar.remote.RemoteStore
 import de.ae.formulaecalendar.remote.pojo.series.ChampsDatum
@@ -76,7 +77,6 @@ class MainPresenter constructor(val view: MainView, val model: DataStore, val ob
     }
 
     fun scheduleNotifications(activity: Activity) {
-        //TODO Notification
-        //NotificationReceiver.scheduleNotifications(activity, model.getCurrentRaceCalendar())
+        NotificationReceiver().scheduleNotifications(activity, model.getCurrentRaceCalendar())
     }
 }
