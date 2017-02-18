@@ -52,7 +52,7 @@ class DetailsActivity constructor() : AppCompatActivity(), DetailsView {
         }
 
         //get Extra
-        val race = intent.getSerializableExtra("race") as CalendarDatum
+        val race = intent.getSerializableExtra("race") as CalendarDatum?
 
         presenter.loadData(race)
     }

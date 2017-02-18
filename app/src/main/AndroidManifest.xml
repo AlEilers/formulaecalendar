@@ -77,8 +77,7 @@
         -->
 
 
-        <!--
-        Widgets
+        <!-- Widgets -->
         <receiver android:name=".widget.BrightCountdownWidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -97,7 +96,6 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/countdown_widget_dark_info" />
         </receiver>
-        -->
     </application>
 
 </manifest>
