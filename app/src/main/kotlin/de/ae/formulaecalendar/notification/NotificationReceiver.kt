@@ -56,9 +56,9 @@ class NotificationReceiver : BroadcastReceiver() {
                                     intent.putExtra("race", race)
                                     val pendingIntent = PendingIntent.getService(context, Integer.parseInt(race.sequence), intent, 0)
                                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                                        alarmManager.setExact(AlarmManager.RTC_WAKEUP, raceStart - offset, pendingIntent)
+                                        alarmManager.setExact(AlarmManager.RTC_WAKEUP, raceStart - finoffset, pendingIntent)
                                     } else {
-                                        alarmManager.set(AlarmManager.RTC_WAKEUP, raceStart - offset, pendingIntent)
+                                        alarmManager.set(AlarmManager.RTC_WAKEUP, raceStart - finoffset, pendingIntent)
                                     }
                                 }
                             }
