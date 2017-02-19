@@ -9,6 +9,7 @@ import android.preference.SwitchPreference
 import android.support.v4.app.ActivityCompat
 import android.util.Log
 import de.ae.formulaecalendar.R
+import de.ae.formulaecalendar.calendar.MyCalendarProvider
 import de.ae.formulaecalendar.notification.NotificationReceiver
 import de.ae.formulaecalendar.remote.RemoteStore
 
@@ -69,9 +70,8 @@ class MyPreferenceFragment : PreferenceFragment(), ActivityCompat.OnRequestPermi
     }
 
     override fun onStop() {
-        //TODO Calendar
         if (calendarChanged) {
-            //MyCalendarProvider(this).manageCalendar(RemoteStore.Instance.getCurrentRaceCalendar())
+            MyCalendarProvider(this.activity).manageCalendar(this.activity, RemoteStore.getCurrentRaceCalendar())
             calendarChanged = false
         }
         if (notificationChanged) {

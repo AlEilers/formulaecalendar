@@ -6,6 +6,7 @@ import android.content.Intent
 import android.net.Uri
 import android.util.Log
 import de.ae.formulaecalendar.R
+import de.ae.formulaecalendar.calendar.MyCalendarProvider
 import de.ae.formulaecalendar.notification.NotificationReceiver
 import de.ae.formulaecalendar.remote.DataStore
 import de.ae.formulaecalendar.remote.RemoteStore
@@ -72,8 +73,7 @@ class MainPresenter constructor(val view: MainView, val model: DataStore, val ob
     }
 
     fun manageCalendar(activity: Activity) {
-        //TODO Calendar
-        //MyCalendarProvider(activity).manageCalendar(model.getCurrentRaceCalendar())
+        MyCalendarProvider(activity).manageCalendar(activity, model.getCurrentRaceCalendar())
     }
 
     fun scheduleNotifications(activity: Activity) {
