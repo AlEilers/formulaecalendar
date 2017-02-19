@@ -5,7 +5,7 @@ import android.view.View
 import kotlinx.android.synthetic.main.race_card.view.*
 
 /**
- * Created by alexa on 17.02.2017.
+ * Created by aeilers on 17.02.2017.
  */
 class RaceHolder constructor(itemView: View): RecyclerView.ViewHolder(itemView) {
     val description = itemView.card_race_description

@@ -9,7 +9,7 @@ import de.ae.formulaecalendar.R
 import de.ae.formulaecalendar.resource.Resource
 
 /**
- * Created by alexa on 19.02.2017.
+ * Created by aeilers on 19.02.2017.
  */
 class ResourceAdapter constructor(context: Context) : RecyclerView.Adapter<ResourceHolder>() {
     private val author = context.getString(R.string.about_author)

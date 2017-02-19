@@ -16,7 +16,7 @@ import android.app.Notification.CATEGORY_ALARM
 import org.threeten.bp.ZoneId
 
 /**
- * Created by alexa on 18.02.2017.
+ * Created by aeilers on 18.02.2017.
  */
 class NotificationService: IntentService("NotificationService") {
 

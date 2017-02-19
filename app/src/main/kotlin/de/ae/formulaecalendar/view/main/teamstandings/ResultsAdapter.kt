@@ -9,7 +9,7 @@ import de.ae.formulaecalendar.view.details.ResultsHolder
 
 
 /**
- * Created by alexa on 17.02.2017.
+ * Created by aeilers on 17.02.2017.
  */
 class ResultsAdapter: RecyclerView.Adapter<ResultsHolder>(){
     private var data: ChampionshipData? = null

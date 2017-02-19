@@ -13,7 +13,7 @@ import de.ae.formulaecalendar.R
 import de.ae.formulaecalendar.view.details.DetailsActivity
 
 /**
- * Created by alexa on 18.02.2017.
+ * Created by aeilers on 18.02.2017.
  */
 abstract class CountdownWidgetProvider constructor(val layout:Int): AppWidgetProvider(), CountdownWidgetView {
     private val PREF = "widget_next_race"

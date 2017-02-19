@@ -3,7 +3,7 @@ package de.ae.formulaecalendar.widget
 import android.content.Context
 
 /**
- * Created by alexa on 18.02.2017.
+ * Created by aeilers on 18.02.2017.
  */
 interface CountdownWidgetView {
 

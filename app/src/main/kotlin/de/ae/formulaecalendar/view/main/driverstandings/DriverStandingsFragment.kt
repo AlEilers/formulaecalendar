@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.fragment_driver_standings.view.*
 
 
 /**
- * Created by alexa on 17.02.2017.
+ * Created by aeilers on 17.02.2017.
  */
 class DriverStandingsFragment : Fragment(), DriverStandingsView {
     private val presenter: DriverStandingsPresenter = DriverStandingsPresenter(this)

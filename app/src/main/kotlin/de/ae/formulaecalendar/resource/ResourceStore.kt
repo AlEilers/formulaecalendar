@@ -1,7 +1,7 @@
 package de.ae.formulaecalendar.resource
 
 /**
- * Created by alexa on 18.02.2017.
+ * Created by aeilers on 18.02.2017.
  */
 interface ResourceStore {
 

@@ -21,7 +21,7 @@ import org.threeten.bp.format.DateTimeFormatter
 
 
 /**
- * Created by alexa on 17.02.2017.
+ * Created by aeilers on 17.02.2017.
  */
 class RaceAdapter : RecyclerView.Adapter<RaceHolder> {
     private val context: Context

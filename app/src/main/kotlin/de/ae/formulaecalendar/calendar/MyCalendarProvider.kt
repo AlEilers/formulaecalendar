@@ -20,7 +20,7 @@ import rx.Subscriber
 import rx.schedulers.Schedulers
 
 /**
- * Created by alexa on 19.02.2017.
+ * Created by aeilers on 19.02.2017.
  */
 class MyCalendarProvider {
     private val prefCalendar = "pref_calendar"

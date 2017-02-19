@@ -16,7 +16,7 @@ import rx.Subscriber
 import rx.schedulers.Schedulers
 
 /**
- * Created by alexa on 18.02.2017.
+ * Created by aeilers on 18.02.2017.
  */
 class NotificationReceiver : BroadcastReceiver() {
     val pref_notification = "pref_notification"

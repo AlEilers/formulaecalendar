@@ -5,7 +5,7 @@ import de.ae.formulaecalendar.R
 import java.util.*
 
 /**
- * Created by alexa on 18.02.2017.
+ * Created by aeilers on 18.02.2017.
  */
 object LocalResourceStore : ResourceStore {
     private val resources = ArrayList<Resource>()

@@ -19,7 +19,7 @@ import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
 
 /**
- * Created by alexa on 18.02.2017.
+ * Created by aeilers on 18.02.2017.
  */
 class DetailsPresenter constructor(val view: DetailsView, val model: DataStore, val observer: Scheduler, val subscriber: Scheduler, val resource: ResourceStore) {
 

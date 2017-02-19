@@ -11,7 +11,7 @@ import rx.schedulers.Schedulers
 
 
 /**
- * Created by alexa on 17.02.2017.
+ * Created by aeilers on 17.02.2017.
  */
 class TeamStandingsPresenter(val view: TeamStandingsView, val model: DataStore, val observer: Scheduler, val subscriber: Scheduler) {
 

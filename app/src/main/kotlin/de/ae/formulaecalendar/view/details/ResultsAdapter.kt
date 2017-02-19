@@ -7,7 +7,7 @@ import de.ae.formulaecalendar.R
 import de.ae.formulaecalendar.remote.pojo.race.SesRace
 
 /**
- * Created by alexa on 18.02.2017.
+ * Created by aeilers on 18.02.2017.
  */
 class ResultsAdapter : RecyclerView.Adapter<ResultsHolder>() {
     private val DNF = "DNF"

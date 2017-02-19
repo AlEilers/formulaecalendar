@@ -4,7 +4,7 @@ import de.ae.formulaecalendar.resource.LocalResourceStore
 import de.ae.formulaecalendar.resource.ResourceStore
 
 /**
- * Created by alexa on 19.02.2017.
+ * Created by aeilers on 19.02.2017.
  */
 class AboutPresenter constructor(val view: AboutView, val model: ResourceStore) {
 

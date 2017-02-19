@@ -6,7 +6,7 @@ import kotlinx.android.synthetic.main.results_item.view.*
 
 
 /**
- * Created by alexa on 17.02.2017.
+ * Created by aeilers on 17.02.2017.
  */
 class ResultsHolder constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
     var pos = itemView.results_pos

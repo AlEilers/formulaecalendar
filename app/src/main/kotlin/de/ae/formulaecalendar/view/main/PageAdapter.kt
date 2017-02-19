@@ -8,7 +8,7 @@ import de.ae.formulaecalendar.view.main.driverstandings.DriverStandingsFragment
 import de.ae.formulaecalendar.view.main.teamstandings.TeamStandingsFragment
 
 /**
- * Created by alexa on 17.02.2017.
+ * Created by aeilers on 17.02.2017.
  */
 class PageAdapter(fm: FragmentManager?, val numOfTabs: Int) : FragmentStatePagerAdapter(fm) {
 

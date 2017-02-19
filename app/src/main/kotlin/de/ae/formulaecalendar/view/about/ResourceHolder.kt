@@ -5,7 +5,7 @@ import android.view.View
 import kotlinx.android.synthetic.main.resource_card.view.*
 
 /**
- * Created by alexa on 19.02.2017.
+ * Created by aeilers on 19.02.2017.
  */
 class ResourceHolder constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val image = itemView.card_about_image

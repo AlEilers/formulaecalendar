@@ -15,7 +15,7 @@ import de.ae.formulaecalendar.remote.pojo.race.SesRace
 import kotlinx.android.synthetic.main.activity_details.*
 
 /**
- * Created by alexa on 17.02.2017.
+ * Created by aeilers on 17.02.2017.
  */
 class DetailsActivity constructor() : AppCompatActivity(), DetailsView {
     companion object {

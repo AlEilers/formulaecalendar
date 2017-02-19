@@ -15,7 +15,7 @@ import kotlinx.android.synthetic.main.fragment_calendar.view.*
 
 
 /**
- * Created by alexa on 17.02.2017.
+ * Created by aeilers on 17.02.2017.
  */
 class CalendarFragment : Fragment(), CalendarView {
     private val presenter = CalendarPresenter(this)

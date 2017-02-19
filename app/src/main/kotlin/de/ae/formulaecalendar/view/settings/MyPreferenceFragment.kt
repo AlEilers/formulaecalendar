@@ -14,7 +14,7 @@ import de.ae.formulaecalendar.notification.NotificationReceiver
 import de.ae.formulaecalendar.remote.RemoteStore
 
 /**
- * Created by alexa on 18.02.2017.
+ * Created by aeilers on 18.02.2017.
  */
 class MyPreferenceFragment : PreferenceFragment(), ActivityCompat.OnRequestPermissionsResultCallback {
     private val MY_PERMISSIONS_REQUEST_WRITE_CALENDAR = 1

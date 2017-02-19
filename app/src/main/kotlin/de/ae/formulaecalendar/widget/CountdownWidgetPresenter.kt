@@ -14,7 +14,7 @@ import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
 
 /**
- * Created by alexa on 18.02.2017.
+ * Created by aeilers on 18.02.2017.
  */
 class CountdownWidgetPresenter constructor(val view: CountdownWidgetView, val model: DataStore, val observer: Scheduler, val subscriber: Scheduler) {
     private val HOUR_IN_MILLIS = (1000 * 60 * 60).toLong()

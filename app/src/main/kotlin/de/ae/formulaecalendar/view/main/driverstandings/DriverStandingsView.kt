@@ -3,7 +3,7 @@ package de.ae.formulaecalendar.view.main.driverstandings
 import de.ae.formulaecalendar.remote.pojo.driverstanding.ChampionshipData
 
 /**
- * Created by alexa on 17.02.2017.
+ * Created by aeilers on 17.02.2017.
  */
 interface DriverStandingsView {
 
