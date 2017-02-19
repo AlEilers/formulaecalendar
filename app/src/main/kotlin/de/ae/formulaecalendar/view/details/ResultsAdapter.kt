@@ -18,7 +18,7 @@ class ResultsAdapter : RecyclerView.Adapter<ResultsHolder>() {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ResultsHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.results_item, parent, false)
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.race_results_item, parent, false)
         return ResultsHolder(itemView)
     }
 

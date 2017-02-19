@@ -2,7 +2,7 @@ package de.ae.formulaecalendar.view.details
 
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import kotlinx.android.synthetic.main.results_item.view.*
+import kotlinx.android.synthetic.main.race_results_item.view.*
 
 
 /**
