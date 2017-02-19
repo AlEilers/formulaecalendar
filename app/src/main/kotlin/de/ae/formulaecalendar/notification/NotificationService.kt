@@ -13,6 +13,7 @@ import de.ae.formulaecalendar.view.details.DetailsActivity
 import org.threeten.bp.format.DateTimeFormatter
 
 import android.app.Notification.CATEGORY_ALARM
+import org.threeten.bp.ZoneId
 
 /**
  * Created by alexa on 18.02.2017.
@@ -28,7 +29,8 @@ class NotificationService: IntentService("NotificationService") {
 
         //create Notification
         val format = getString(R.string.format_date) + ' ' + getString(R.string.format_time)
-        val time = race.raceStart.format(DateTimeFormatter.ofPattern(format))
+        val zdt = race?.raceStart?.withZoneSameInstant(ZoneId.systemDefault())
+        val time = zdt.format(DateTimeFormatter.ofPattern(format))
 
         val newIntent = Intent(this, DetailsActivity::class.java)
         val pendingIntent = PendingIntent.getActivity(this, 0, newIntent, PendingIntent.FLAG_UPDATE_CURRENT)
