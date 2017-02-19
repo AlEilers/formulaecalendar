@@ -25,8 +25,8 @@ class ResultsAdapter : RecyclerView.Adapter<ResultsHolder>() {
     override fun onBindViewHolder(holder: ResultsHolder, position: Int) {
         val standing = data?.standings?.get(position)
         holder.pos.text = standing?.pos
-        holder.name.text = standing?.teamName
-        holder.description.text = standing?.country
+        holder.name.text = standing?.driverName
+        holder.description.text = standing?.teamName
     }
 
     override fun getItemCount(): Int {
