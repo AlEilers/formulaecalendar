@@ -10,7 +10,7 @@ class AboutPresenter constructor(val view: AboutView, val model: ResourceStore) 
 
     constructor(view: AboutView) : this(view, LocalResourceStore)
 
-    internal fun loadContent() {
+    fun loadContent() {
         view.setContent(model.getResources())
     }
 

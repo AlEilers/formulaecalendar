@@ -15,7 +15,7 @@ import de.ae.formulaecalendar.remote.pojo.calendar.CalendarDatum
 import de.ae.formulaecalendar.remote.pojo.calendar.RaceCalendarData
 import de.ae.formulaecalendar.resource.LocalResourceStore
 import de.ae.formulaecalendar.view.details.DetailsActivity
-import kotlinx.android.synthetic.main.race_card.view.*
+import kotlinx.android.synthetic.main.calendar_item.view.*
 import org.threeten.bp.ZoneId
 import org.threeten.bp.format.DateTimeFormatter
 
@@ -42,7 +42,7 @@ class RaceAdapter : RecyclerView.Adapter<RaceHolder> {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RaceHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.race_card, parent, false)
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.calendar_item, parent, false)
         return RaceHolder(itemView)
     }
 

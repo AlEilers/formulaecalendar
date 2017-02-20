@@ -1,43 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="horizontal"
     android:paddingTop="@dimen/details_results_padding_top">
 
     <TextView
-        android:text="12"
-        android:layout_height="wrap_content"
         android:id="@+id/results_pos"
-        android:layout_weight="1"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textSize="20sp"
-        android:textAlignment="viewEnd"
-        android:gravity="end"
+        android:layout_width="@dimen/details_results_pos_width"
+        android:layout_height="wrap_content"
         android:layout_gravity="end"
+        android:layout_weight="1"
+        android:gravity="end"
         android:paddingRight="@dimen/details_results_pos_size"
         android:paddingTop="@dimen/details_results_padding_top"
-        android:layout_width="@dimen/details_results_pos_width"
+        android:text="12"
+        android:textAlignment="viewEnd"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textSize="20sp"
         android:textStyle="normal|bold" />
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:orientation="vertical">
 
         <TextView
-            android:text="Driver Name"
+            android:id="@+id/results_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/results_name"
+            android:text="Driver Name"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="#FF000000" />
 
         <TextView
-            android:text="Team"
+            android:id="@+id/results_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/results_description"
+            android:text="Team"
             android:textAppearance="@style/TextAppearance.AppCompat.Small" />
     </LinearLayout>
 

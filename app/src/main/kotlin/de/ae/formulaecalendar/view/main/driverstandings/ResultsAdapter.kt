@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import de.ae.formulaecalendar.R
 import de.ae.formulaecalendar.remote.pojo.driverstanding.ChampionshipData
-import de.ae.formulaecalendar.view.details.ResultsHolder
 
 /**
  * Created by aeilers on 17.02.2017.
@@ -18,7 +17,7 @@ class ResultsAdapter : RecyclerView.Adapter<ResultsHolder>() {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ResultsHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.results_item, parent, false)
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.driver_results_item, parent, false)
         return ResultsHolder(itemView)
     }
 
@@ -27,6 +26,7 @@ class ResultsAdapter : RecyclerView.Adapter<ResultsHolder>() {
         holder.pos.text = standing?.pos
         holder.name.text = standing?.driverName
         holder.description.text = standing?.teamName
+        holder.points.text = standing?.totalPoints + " P."
     }
 
     override fun getItemCount(): Int {
