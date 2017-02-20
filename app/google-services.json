@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "801993252642",
+    "firebase_url": "https://formula-e-calendar.firebaseio.com",
+    "project_id": "formula-e-calendar",
+    "storage_bucket": "formula-e-calendar.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:801993252642:android:6e6a347b00b2ed3b",
+        "android_client_info": {
+          "package_name": "de.ae.formulaecalendar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "801993252642-eacegrj025gtfj5kgvjukv0ujrnb0ut6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "de.ae.formulaecalendar",
+            "certificate_hash": "655BCA3DA2138B57539B1DE4984830EF3BFB81EB"
+          }
+        },
+        {
+          "client_id": "801993252642-f3sjdlctb3elo4c0r8ftvfs1intvggqu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDposOVrvGrASHzDVl3akO-w_lNOM2RR7I"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "801993252642-f3sjdlctb3elo4c0r8ftvfs1intvggqu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
