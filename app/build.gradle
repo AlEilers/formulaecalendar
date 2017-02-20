@@ -54,8 +54,10 @@ dependencies {
     //ThreeTen Android backport
     compile 'com.jakewharton.threetenabp:threetenabp:1.0.4'
 
-
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
+    //Test
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.mockito:mockito-core:1.10.19'
+    testCompile ('org.threeten:threetenbp:1.3.3'){ //to use ThreeTenBP without initialization
+        exclude group:'com.jakewharton.threetenabp', module:'threetenabp'
+    }
 }
