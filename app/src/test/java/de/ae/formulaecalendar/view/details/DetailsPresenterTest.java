@@ -1,13 +1,16 @@
 package de.ae.formulaecalendar.view.details;
 
 import android.content.Context;
+import android.util.Log;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -29,7 +32,8 @@ import static org.mockito.Mockito.when;
  * Created by aeilers on 13.01.2017.
  */
 
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(PowerMockRunner.class)
+@PrepareForTest(Log.class)
 public class DetailsPresenterTest {
     private static final String RESOURCE_NO_RACE = "no upcoming race";
     private static final String TEST_CITY = "Berlin";
@@ -37,7 +41,7 @@ public class DetailsPresenterTest {
     private static final String TEST_ROUND = "1";
     private static final String RESOURCE_ROUND = "Round";
     private static final String ROUND_RESULT = RESOURCE_ROUND + " " + TEST_ROUND;
-    private static final String TEST_RACEID = "teest_raceid";
+    private static final String TEST_RACEID = "0815";
     private static final Date TEST_DATE = new Date(1920754800000l); //2030/11/13
     private static final String RESOURCE_DATE = "LLL dd, yyyy";
     private static final String RESOURCE_TIME = "hh:mm a";
@@ -83,6 +87,8 @@ public class DetailsPresenterTest {
 
     @Before
     public void initialize() {
+        PowerMockito.mockStatic(Log.class);
+
         //create race
         calendarDatum = new CalendarDatum();
         calendarDatum.setSequence(TEST_ROUND);
@@ -268,8 +274,7 @@ public class DetailsPresenterTest {
 
     @Test
     public void loadContentError() {
-        //TODO implement Error
-        //when(model.getCurrentRaceCalendar()).thenReturn(Observable.error(new Exception("TEST", null)));
+        when(model.getCurrentRaceCalendar()).thenReturn((Observable) Observable.error(new Exception("TEST", null)));
 
         DetailsPresenter presenter = new DetailsPresenter(view, model, Schedulers.immediate(), Schedulers.immediate(), LocalResourceStore.INSTANCE);
         presenter.loadData(null);
@@ -305,8 +310,7 @@ public class DetailsPresenterTest {
 
     @Test
     public void loadResultsError() {
-        //TODO implement Error
-        //when(model.getRaceResult(TEST_RACEID)).thenReturn(Observable.error(new Exception("TEST", null)));
+        when(model.getRaceResult(TEST_RACEID)).thenReturn((Observable) Observable.error(new Exception("TEST", null)));
 
         DetailsPresenter presenter = new DetailsPresenter(view, model, Schedulers.immediate(), Schedulers.immediate(), LocalResourceStore.INSTANCE);
         calendarDatum.setHasRaceResults(true);

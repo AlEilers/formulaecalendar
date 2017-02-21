@@ -1,10 +1,15 @@
 package de.ae.formulaecalendar.view.main;
 
+import android.util.Log;
+
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 
 import de.ae.formulaecalendar.remote.DataStore;
 import de.ae.formulaecalendar.remote.pojo.series.ChampsDatum;
@@ -17,7 +22,8 @@ import static org.mockito.Mockito.when;
  * Created by aeilers on 13.01.2017.
  */
 
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(PowerMockRunner.class)
+@PrepareForTest(Log.class)
 public class MainPresenterTest {
     private static final String CHAMPIONSHIP_NAME = "TEST_CC";
     private static final String CHAMPIONSHIP_NAME_2 = "Test_cc";
@@ -32,6 +38,11 @@ public class MainPresenterTest {
             viewTitle = title;
         }
     };
+
+    @Before
+    public void initialize() {
+        PowerMockito.mockStatic(Log.class);
+    }
 
     @Test
     public void loadContent() {
@@ -50,8 +61,7 @@ public class MainPresenterTest {
     public void loadContentError() {
         viewTitle = CHAMPIONSHIP_NAME;
 
-        //TODO implement Error
-        //when(model.getCurrentChampionShip()).thenReturn(Observable.error(new Exception("TEST", null)));
+        when(model.getCurrentChampionShip()).thenReturn((Observable) Observable.error(new Exception("TEST", null)));
 
         MainPresenter p = new MainPresenter(view, model, Schedulers.immediate(), Schedulers.immediate());
         p.loadContent();

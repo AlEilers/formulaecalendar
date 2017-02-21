@@ -1,10 +1,15 @@
 package de.ae.formulaecalendar.view.main.calendar;
 
+import android.util.Log;
+
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 
 import de.ae.formulaecalendar.remote.DataStore;
 import de.ae.formulaecalendar.remote.pojo.calendar.RaceCalendarData;
@@ -17,7 +22,8 @@ import static org.mockito.Mockito.when;
  * Created by aeilers on 12.01.2017.
  */
 
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(PowerMockRunner.class)
+@PrepareForTest(Log.class)
 public class CalendarPresenterTest {
     private RaceCalendarData raceCalendarData = null;
     private boolean loadingViewVisible = false;
@@ -49,6 +55,11 @@ public class CalendarPresenterTest {
         }
     };
 
+    @Before
+    public void initialize() {
+        PowerMockito.mockStatic(Log.class);
+    }
+
     @Test
     public void loadContent() {
         raceCalendarData = null;
@@ -75,8 +86,7 @@ public class CalendarPresenterTest {
         recyclerViewVisible = true;
         snackbarVisible = false;
 
-        //TODO implement Error
-        //when(model.getCurrentRaceCalendar()).thenReturn(Observable.error(new Exception("TEST", null)));
+        when(model.getCurrentRaceCalendar()).thenReturn((Observable) Observable.error(new Exception("TEST", null)));
 
         CalendarPresenter p = new CalendarPresenter(view, model, Schedulers.immediate(), Schedulers.immediate());
         p.loadContent();
