@@ -23,7 +23,7 @@ class DetailsActivity constructor() : AppCompatActivity(), DetailsView {
         val ANIMATION = "city"
     }
 
-    private var presenter: DetailsPresenter = DetailsPresenter(this)
+    private var presenter: DetailsPresenter? = null
 
     private var adapter: ResultsAdapter? = null
     private var snackbar: Snackbar? = null
@@ -54,11 +54,12 @@ class DetailsActivity constructor() : AppCompatActivity(), DetailsView {
         //get Extra
         val race = intent.getSerializableExtra("race") as CalendarDatum?
 
-        presenter.loadData(race)
+        presenter = DetailsPresenter(this)
+        presenter?.loadData(race)
     }
 
     fun openMap(view: View) {
-        presenter.openMap()
+        presenter?.openMap()
     }
 
     override fun getContext(): Context {
@@ -94,7 +95,7 @@ class DetailsActivity constructor() : AppCompatActivity(), DetailsView {
     override fun setRaceSnackbarVisibility(visible: Boolean) {
         if (visible) {
             snackbar = Snackbar.make(details_recycler_results, R.string.connection_fault, Snackbar.LENGTH_INDEFINITE)
-            snackbar?.setAction(R.string.snackbar_retry, View.OnClickListener { presenter.loadData(null) })
+            snackbar?.setAction(R.string.snackbar_retry, View.OnClickListener { presenter?.loadData(null) })
                     ?.show()
         } else if (snackbar != null) {
             snackbar?.dismiss()
@@ -158,7 +159,7 @@ class DetailsActivity constructor() : AppCompatActivity(), DetailsView {
     override fun setResultsSnackbarVisibility(visible: Boolean) {
         if (visible) {
             snackbar = Snackbar.make(details_recycler_results, R.string.connection_fault, Snackbar.LENGTH_INDEFINITE)
-            snackbar?.setAction(R.string.snackbar_retry, { presenter.loadResults() })
+            snackbar?.setAction(R.string.snackbar_retry, { presenter?.loadResults() })
                     ?.show()
         } else if (snackbar != null) {
             snackbar?.dismiss()
