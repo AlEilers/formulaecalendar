@@ -20,11 +20,13 @@ import de.ae.formulaecalendar.remote.RemoteStore
 class MyPreferenceFragment : PreferenceFragment(), ActivityCompat.OnRequestPermissionsResultCallback {
     private var mFirebaseAnalytics: FirebaseAnalytics? = null
 
-    private val calendarChangeEvent = "calendar_settings_changed"
-    private val calendarPermissionParam = "permission_granted"
-    private val calendarRaceEnabledParam = "race_enabled"
-    private val calendarQualiEnabledParam = "quali_enabled"
+    private val calendarChangeEvent = "calendar_changed"
+    private val calendarChangeParam = FirebaseAnalytics.Param.VALUE
     private val calendarBundle = Bundle()
+
+    private val calendarPermissionEvent = "calendar_permission_granted"
+    private val calendarPermissionParam = FirebaseAnalytics.Param.VALUE
+    private val permissionBundle = Bundle()
 
     private val notificationChangeEvent = "notification_changed"
     private val notificationValueParam = FirebaseAnalytics.Param.VALUE
@@ -52,13 +54,12 @@ class MyPreferenceFragment : PreferenceFragment(), ActivityCompat.OnRequestPermi
 
         findPreference(calendar).onPreferenceChangeListener = Preference.OnPreferenceChangeListener { preference, newValue ->
             requestPermission()
-            calendarBundle.putBoolean(calendarRaceEnabledParam, newValue as Boolean)
+            calendarBundle.putBoolean(calendarChangeParam, newValue as Boolean)
             true
         }
 
         findPreference(quali).onPreferenceChangeListener = Preference.OnPreferenceChangeListener { preference, newValue ->
             requestPermission()
-            calendarBundle.putBoolean(calendarQualiEnabledParam, newValue as Boolean)
             true
         }
     }
@@ -78,14 +79,16 @@ class MyPreferenceFragment : PreferenceFragment(), ActivityCompat.OnRequestPermi
                     calendarChanged = true
 
                     //Firebase
-                    calendarBundle.putBoolean(calendarPermissionParam, true)
+                    permissionBundle.putBoolean(calendarPermissionParam, true)
                 } else {
                     (findPreference(calendar) as SwitchPreference).isChecked = false
                     Log.w("MyPreferenceFragment", "Permission Calendar not granted")
 
                     //Firebase
-                    calendarBundle.putBoolean(calendarPermissionParam, false)
+                    permissionBundle.putBoolean(calendarPermissionParam, false)
                 }
+
+                mFirebaseAnalytics?.logEvent(calendarPermissionEvent,permissionBundle)
             }
 
         // Add other Requests
@@ -105,7 +108,7 @@ class MyPreferenceFragment : PreferenceFragment(), ActivityCompat.OnRequestPermi
             notificationChanged = false
 
             //Firebase
-            mFirebaseAnalytics?.logEvent(notificationChangeEvent, notificationBundle);
+            mFirebaseAnalytics?.logEvent(notificationChangeEvent, notificationBundle)
         }
         super.onStop()
     }

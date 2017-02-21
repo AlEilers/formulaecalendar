@@ -1,10 +1,16 @@
 package de.ae.formulaecalendar.view.main.teamstandings;
 
+import android.util.Log;
+
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 
 import de.ae.formulaecalendar.remote.DataStore;
 import de.ae.formulaecalendar.remote.pojo.teamstanding.ChampionshipData;
@@ -17,7 +23,8 @@ import static org.mockito.Mockito.when;
  * Created by aeilers on 12.01.2017.
  */
 
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(PowerMockRunner.class)
+@PrepareForTest(Log.class)
 public class TeamStandingsPresenterTest {
     ChampionshipData championshipData = null;
     private boolean loadingViewVisible = false;
@@ -50,6 +57,11 @@ public class TeamStandingsPresenterTest {
         }
     };
 
+    @Before
+    public void initialize() {
+        PowerMockito.mockStatic(Log.class);
+    }
+
     @Test
     public void loadContent() {
         championshipData = null;
@@ -75,8 +87,7 @@ public class TeamStandingsPresenterTest {
         recyclerViewVisible = true;
         snackbarVisible = false;
 
-        //TODO implement Error
-        //when(model.getTeamStanding()).thenReturn(Observable.error(new Exception("TEST", null)));
+        when(model.getTeamStanding()).thenReturn((Observable)Observable.error(new Exception("TEST", null)));
 
         TeamStandingsPresenter p = new TeamStandingsPresenter(view, model, Schedulers.immediate(), Schedulers.immediate());
         p.loadContent();

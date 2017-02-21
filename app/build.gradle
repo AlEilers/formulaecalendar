@@ -9,8 +9,8 @@ android {
         applicationId "de.ae.formulaecalendar"
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 15
-        versionName "3.0.0"
+        versionCode 16
+        versionName "3.0.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -61,6 +61,9 @@ dependencies {
     //Test
     testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-core:1.10.19'
+    testCompile 'org.powermock:powermock:1.6.5'
+    testCompile 'org.powermock:powermock-module-junit4:1.6.5'
+    testCompile 'org.powermock:powermock-api-mockito:1.6.5'
     testCompile ('org.threeten:threetenbp:1.3.3'){ //to use ThreeTenBP without initialization
         exclude group:'com.jakewharton.threetenabp', module:'threetenabp'
     }

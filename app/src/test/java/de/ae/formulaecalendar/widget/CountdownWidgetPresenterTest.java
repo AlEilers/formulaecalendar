@@ -139,8 +139,7 @@ public class CountdownWidgetPresenterTest {
         viewDate = null;
         viewNext = -1;
 
-        //TODO implement Error
-        //when(model.getCurrentRaceCalendar()).thenReturn(Observable.error(new Exception("TEST", null)));
+        when(model.getCurrentRaceCalendar()).thenReturn((Observable) Observable.error(new Exception("TEST", null)));
 
         CountdownWidgetPresenter p = new CountdownWidgetPresenter(view, model, Schedulers.immediate(), Schedulers.immediate());
         p.loadWidget(viewNext);
