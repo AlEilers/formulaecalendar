@@ -15,9 +15,10 @@ import android.util.Log
 import de.ae.formulaecalendar.R
 import de.ae.formulaecalendar.remote.pojo.calendar.CalendarDatum
 import de.ae.formulaecalendar.remote.pojo.calendar.RaceCalendarData
-import rx.Observable
-import rx.Subscriber
-import rx.schedulers.Schedulers
+import io.reactivex.Observable
+import io.reactivex.Observer
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 
 /**
  * Created by aeilers on 19.02.2017.
@@ -66,8 +67,12 @@ class MyCalendarProvider {
         if (enableRace) { //if calendar is enabled
             obs.subscribeOn(Schedulers.newThread())
                     .observeOn(Schedulers.newThread())
-                    .subscribe(object : Subscriber<RaceCalendarData?>() {
-                        override fun onCompleted() {
+                    .subscribe(object : Observer<RaceCalendarData?> {
+                        override fun onSubscribe(d: Disposable?) {
+
+                        }
+
+                        override fun onComplete() {
 
                         }
 
@@ -92,6 +97,7 @@ class MyCalendarProvider {
                                 Log.w("MyCalendarProvider", "Cannot create calendar: raceCalendarData is null")
                             }
                         }
+
                     })
         } else if (calId > 0) { //if calendar is disabled but exists
             val uri = ContentUris.withAppendedId(CalendarContract.Calendars.CONTENT_URI, calId.toLong())

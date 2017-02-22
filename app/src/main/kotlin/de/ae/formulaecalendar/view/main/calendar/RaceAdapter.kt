@@ -8,14 +8,11 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import de.ae.formulaecalendar.R
 import de.ae.formulaecalendar.remote.pojo.calendar.CalendarDatum
 import de.ae.formulaecalendar.remote.pojo.calendar.RaceCalendarData
 import de.ae.formulaecalendar.resource.LocalResourceStore
 import de.ae.formulaecalendar.view.details.DetailsActivity
-import kotlinx.android.synthetic.main.calendar_item.view.*
 import org.threeten.bp.ZoneId
 import org.threeten.bp.format.DateTimeFormatter
 

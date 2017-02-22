@@ -4,7 +4,8 @@ import de.ae.formulaecalendar.remote.pojo.calendar.RaceCalendarData
 import de.ae.formulaecalendar.remote.pojo.race.Session
 import de.ae.formulaecalendar.remote.pojo.series.ChampionshipsData
 import de.ae.formulaecalendar.remote.pojo.series.ChampsDatum
-import rx.Observable
+import io.reactivex.Maybe
+import io.reactivex.Observable
 
 /**
  * Created by aeilers on 12.01.2017.
@@ -14,7 +15,7 @@ interface DataStore {
 
     fun getAllChampionShips(): Observable<ChampionshipsData?>
 
-    fun getCurrentChampionShip(): Observable<ChampsDatum?>
+    fun getCurrentChampionShip(): Maybe<ChampsDatum?>
 
     fun getCurrentRaceCalendar(): Observable<RaceCalendarData?>
 

@@ -3,6 +3,14 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'formulaecalendar'
+            keyPassword 'sH%3k7Uformu'
+            storeFile file('C:/Users/alexa/OneDrive/Dokumente/Sicherheit/android_keystore.jks')
+            storePassword 'sH%3k7Ukeyst'
+        }
+    }
     compileSdkVersion 25
     buildToolsVersion "25.0.0"
     defaultConfig {
@@ -17,6 +25,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config
         }
     }
     sourceSets {
@@ -47,13 +56,13 @@ dependencies {
     compile 'com.google.firebase:firebase-crash:10.0.1'
 
     //Retrofit
-    compile 'com.squareup.retrofit2:retrofit:2.1.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
-    compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0' // Rxjava 2 not released yet
+    compile 'com.squareup.retrofit2:retrofit:2.2.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.2.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava2:2.2.0'
 
     //RxJava
     //compile "io.reactivex.rxjava2:rxjava:2.0.4"  //  already added as retrofit adapter
-    compile 'io.reactivex:rxandroid:1.2.1'
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
 
     //ThreeTen Android backport
     compile 'com.jakewharton.threetenabp:threetenabp:1.0.4'

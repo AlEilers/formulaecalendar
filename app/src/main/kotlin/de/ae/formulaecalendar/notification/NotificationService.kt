@@ -2,6 +2,7 @@ package de.ae.formulaecalendar.notification
 
 import android.app.IntentService
 import android.app.Notification
+import android.app.Notification.CATEGORY_ALARM
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
@@ -10,15 +11,13 @@ import com.jakewharton.threetenabp.AndroidThreeTen
 import de.ae.formulaecalendar.R
 import de.ae.formulaecalendar.remote.pojo.calendar.CalendarDatum
 import de.ae.formulaecalendar.view.details.DetailsActivity
-import org.threeten.bp.format.DateTimeFormatter
-
-import android.app.Notification.CATEGORY_ALARM
 import org.threeten.bp.ZoneId
+import org.threeten.bp.format.DateTimeFormatter
 
 /**
  * Created by aeilers on 18.02.2017.
  */
-class NotificationService: IntentService("NotificationService") {
+class NotificationService : IntentService("NotificationService") {
 
     override fun onHandleIntent(intent: Intent?) {
 

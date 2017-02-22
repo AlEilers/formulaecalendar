@@ -4,10 +4,11 @@ import android.util.Log
 import de.ae.formulaecalendar.remote.DataStore
 import de.ae.formulaecalendar.remote.RemoteStore
 import de.ae.formulaecalendar.remote.pojo.teamstanding.ChampionshipData
-import rx.Scheduler
-import rx.Subscriber
-import rx.android.schedulers.AndroidSchedulers
-import rx.schedulers.Schedulers
+import io.reactivex.Observer
+import io.reactivex.Scheduler
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 
 
 /**
@@ -24,8 +25,12 @@ class TeamStandingsPresenter(val view: TeamStandingsView, val model: DataStore, 
         model.getTeamStanding()
                 .subscribeOn(subscriber) // Create a new Thread
                 .observeOn(observer) // Use the UI thread
-                .subscribe(object : Subscriber<ChampionshipData>() {
-                    override fun onCompleted() {
+                .subscribe(object : Observer<ChampionshipData?> {
+                    override fun onSubscribe(d: Disposable?) {
+
+                    }
+
+                    override fun onComplete() {
                         view.setLoadingViewVisibility(false)
                         view.setRecyclerViewVisibility(true)
                         view.setSnackbarVisibility(false)
@@ -35,11 +40,13 @@ class TeamStandingsPresenter(val view: TeamStandingsView, val model: DataStore, 
                         view.setLoadingViewVisibility(false)
                         view.setRecyclerViewVisibility(false)
                         view.setSnackbarVisibility(true)
-                        Log.w("TeamStandingsPresenter","Cannot load view: ${t.message}")
+                        Log.w("TeamStandingsPresenter", "Cannot load view: ${t.message}")
                     }
 
-                    override fun onNext(championshipData: ChampionshipData) {
-                        view.setContent(championshipData)
+                    override fun onNext(championshipData: ChampionshipData?) {
+                        if (championshipData != null) {
+                            view.setContent(championshipData)
+                        }
                     }
                 })
     }

@@ -6,10 +6,11 @@ import de.ae.formulaecalendar.remote.pojo.race.Session
 import de.ae.formulaecalendar.remote.pojo.series.ChampionshipsData
 import de.ae.formulaecalendar.remote.pojo.series.ChampsDatum
 import de.ae.formulaecalendar.remote.rest.RestService
+import io.reactivex.Maybe
+import io.reactivex.Observable
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import rx.Observable
 
 
 /**
@@ -20,7 +21,7 @@ object RemoteStore : DataStore {
 
     private val rest: RestService
     private var allChampionShips: Observable<ChampionshipsData?>
-    private var currentChampionShip: Observable<ChampsDatum?>
+    private var currentChampionShip: Maybe<ChampsDatum?>
     private var currentRaceCalendar: Observable<RaceCalendarData?>
     private var driverStanding: Observable<de.ae.formulaecalendar.remote.pojo.driverstanding.ChampionshipData?>
     private var teamStanding: Observable<de.ae.formulaecalendar.remote.pojo.teamstanding.ChampionshipData?>
@@ -33,7 +34,7 @@ object RemoteStore : DataStore {
         val retrofit = Retrofit.Builder()
                 .baseUrl(RestService.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build()
 
         rest = retrofit.create(RestService::class.java)
@@ -56,22 +57,23 @@ object RemoteStore : DataStore {
         return allChampionShips
     }
 
-    private fun createCurrentChampionShip(): Observable<ChampsDatum?> {
+    private fun createCurrentChampionShip(): Maybe<ChampsDatum?> {
         return allChampionShips
                 .map { it?.champsData }
                 .flatMapIterable { it }
-                .first { it.status.equals("Active") }
+                .filter { it.status.equals("Active") }
+                .firstElement()
                 .doOnError { currentChampionShip = createCurrentChampionShip() }
                 .cache()
     }
 
-    override fun getCurrentChampionShip(): Observable<ChampsDatum?> {
+    override fun getCurrentChampionShip(): Maybe<ChampsDatum?> {
         return currentChampionShip
     }
 
     private fun createCurrentRaceCalendar(): Observable<RaceCalendarData?> {
         return currentChampionShip
-                .flatMap { rest.getCalendar(it?.championshipId ?: "") }
+                .flatMapObservable { rest.getCalendar(it?.championshipId ?: "") }
                 .map { it.serieData?.raceCalendar?.raceCalendarData }
                 .doOnError { currentRaceCalendar = createCurrentRaceCalendar() }
                 .cache()
@@ -81,9 +83,9 @@ object RemoteStore : DataStore {
         return currentRaceCalendar
     }
 
-    private fun createDriverStanding(): Observable<de.ae.formulaecalendar.remote.pojo.driverstanding.ChampionshipData?>{
+    private fun createDriverStanding(): Observable<de.ae.formulaecalendar.remote.pojo.driverstanding.ChampionshipData?> {
         return currentChampionShip
-                .flatMap { rest.getDriverStanding(it?.championshipId ?: "")}
+                .flatMapObservable { rest.getDriverStanding(it?.championshipId ?: "") }
                 .map { it.serieData?.championshipStanding?.championshipData }
                 .doOnError { driverStanding = createDriverStanding() }
                 .cache()
@@ -93,9 +95,9 @@ object RemoteStore : DataStore {
         return driverStanding
     }
 
-    private fun createTeamStanding(): Observable<de.ae.formulaecalendar.remote.pojo.teamstanding.ChampionshipData?>{
+    private fun createTeamStanding(): Observable<de.ae.formulaecalendar.remote.pojo.teamstanding.ChampionshipData?> {
         return currentChampionShip
-                .flatMap { rest.getTeamStanding(it?.championshipId ?: "") }
+                .flatMapObservable { rest.getTeamStanding(it?.championshipId ?: "") }
                 .map { it.serieData?.championshipStanding?.championshipData }
                 .doOnError { teamStanding = createTeamStanding() }
                 .cache()
