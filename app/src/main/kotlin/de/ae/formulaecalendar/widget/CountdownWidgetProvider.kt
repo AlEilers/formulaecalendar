@@ -15,7 +15,7 @@ import de.ae.formulaecalendar.view.details.DetailsActivity
 /**
  * Created by aeilers on 18.02.2017.
  */
-abstract class CountdownWidgetProvider constructor(val layout:Int): AppWidgetProvider(), CountdownWidgetView {
+abstract class CountdownWidgetProvider constructor(val layout: Int) : AppWidgetProvider(), CountdownWidgetView {
     private val PREF = "widget_next_race"
 
     private val presenter = CountdownWidgetPresenter(this)
@@ -41,7 +41,7 @@ abstract class CountdownWidgetProvider constructor(val layout:Int): AppWidgetPro
 
     override fun setContent(title: String?, countdown: String?, date: String?, openDetails: Boolean) {
         val ids = appWidgetIds
-        if(ids !=null) {
+        if (ids != null) {
             for (widgetId in ids) {
 
                 val remoteViews = RemoteViews(context?.packageName, layout)

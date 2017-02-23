@@ -13,8 +13,8 @@ import org.powermock.modules.junit4.PowerMockRunner;
 
 import de.ae.formulaecalendar.remote.DataStore;
 import de.ae.formulaecalendar.remote.pojo.driverstanding.ChampionshipData;
-import rx.Observable;
-import rx.schedulers.Schedulers;
+import io.reactivex.Observable;
+import io.reactivex.schedulers.Schedulers;
 
 import static org.mockito.Mockito.when;
 
@@ -71,7 +71,7 @@ public class DriverStandingsPresenterTest {
         ChampionshipData data = new ChampionshipData();
         when(model.getDriverStanding()).thenReturn(Observable.just(data));
 
-        DriverStandingsPresenter p = new DriverStandingsPresenter(view, model, Schedulers.immediate(), Schedulers.immediate());
+        DriverStandingsPresenter p = new DriverStandingsPresenter(view, model, Schedulers.trampoline(), Schedulers.trampoline());
         p.loadContent();
         Assert.assertNotNull(championshipData);
         Assert.assertFalse(loadingViewVisible);
@@ -88,7 +88,7 @@ public class DriverStandingsPresenterTest {
 
         when(model.getDriverStanding()).thenReturn((Observable) Observable.error(new Exception("TEST", null)));
 
-        DriverStandingsPresenter p = new DriverStandingsPresenter(view, model, Schedulers.immediate(), Schedulers.immediate());
+        DriverStandingsPresenter p = new DriverStandingsPresenter(view, model, Schedulers.trampoline(), Schedulers.trampoline());
         p.loadContent();
         Assert.assertFalse(loadingViewVisible);
         Assert.assertFalse(recyclerViewVisible);

@@ -13,8 +13,8 @@ import org.powermock.modules.junit4.PowerMockRunner;
 
 import de.ae.formulaecalendar.remote.DataStore;
 import de.ae.formulaecalendar.remote.pojo.series.ChampsDatum;
-import rx.Observable;
-import rx.schedulers.Schedulers;
+import io.reactivex.Maybe;
+import io.reactivex.schedulers.Schedulers;
 
 import static org.mockito.Mockito.when;
 
@@ -50,9 +50,9 @@ public class MainPresenterTest {
 
         ChampsDatum datum = new ChampsDatum();
         datum.setChampionship(CHAMPIONSHIP_NAME);
-        when(model.getCurrentChampionShip()).thenReturn(Observable.just(datum));
+        when(model.getCurrentChampionShip()).thenReturn(Maybe.just(datum));
 
-        MainPresenter p = new MainPresenter(view, model, Schedulers.immediate(), Schedulers.immediate());
+        MainPresenter p = new MainPresenter(view, model, Schedulers.trampoline(), Schedulers.trampoline());
         p.loadContent();
         Assert.assertEquals(viewTitle, CHAMPIONSHIP_NAME_2);
     }
@@ -61,9 +61,9 @@ public class MainPresenterTest {
     public void loadContentError() {
         viewTitle = CHAMPIONSHIP_NAME;
 
-        when(model.getCurrentChampionShip()).thenReturn((Observable) Observable.error(new Exception("TEST", null)));
+        when(model.getCurrentChampionShip()).thenReturn((Maybe) Maybe.error(new Exception("TEST", null)));
 
-        MainPresenter p = new MainPresenter(view, model, Schedulers.immediate(), Schedulers.immediate());
+        MainPresenter p = new MainPresenter(view, model, Schedulers.trampoline(), Schedulers.trampoline());
         p.loadContent();
         Assert.assertEquals(viewTitle, CHAMPIONSHIP_NAME);
     }

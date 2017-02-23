@@ -7,15 +7,14 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
 import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import de.ae.formulaecalendar.remote.DataStore;
 import de.ae.formulaecalendar.remote.pojo.teamstanding.ChampionshipData;
-import rx.Observable;
-import rx.schedulers.Schedulers;
+import io.reactivex.Observable;
+import io.reactivex.schedulers.Schedulers;
 
 import static org.mockito.Mockito.when;
 
@@ -72,7 +71,7 @@ public class TeamStandingsPresenterTest {
         ChampionshipData data = new ChampionshipData();
         when(model.getTeamStanding()).thenReturn(Observable.just(data));
 
-        TeamStandingsPresenter p = new TeamStandingsPresenter(view, model, Schedulers.immediate(), Schedulers.immediate());
+        TeamStandingsPresenter p = new TeamStandingsPresenter(view, model, Schedulers.trampoline(), Schedulers.trampoline());
         p.loadContent();
         Assert.assertNotNull(championshipData);
         Assert.assertFalse(loadingViewVisible);
@@ -87,9 +86,9 @@ public class TeamStandingsPresenterTest {
         recyclerViewVisible = true;
         snackbarVisible = false;
 
-        when(model.getTeamStanding()).thenReturn((Observable)Observable.error(new Exception("TEST", null)));
+        when(model.getTeamStanding()).thenReturn((Observable) Observable.error(new Exception("TEST", null)));
 
-        TeamStandingsPresenter p = new TeamStandingsPresenter(view, model, Schedulers.immediate(), Schedulers.immediate());
+        TeamStandingsPresenter p = new TeamStandingsPresenter(view, model, Schedulers.trampoline(), Schedulers.trampoline());
         p.loadContent();
         Assert.assertFalse(loadingViewVisible);
         Assert.assertFalse(recyclerViewVisible);

@@ -5,9 +5,9 @@ import de.ae.formulaecalendar.remote.pojo.driverstanding.DriverStanding
 import de.ae.formulaecalendar.remote.pojo.race.Result
 import de.ae.formulaecalendar.remote.pojo.series.Series
 import de.ae.formulaecalendar.remote.pojo.teamstanding.TeamStanding
+import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Query
-import rx.Observable
 
 
 /**

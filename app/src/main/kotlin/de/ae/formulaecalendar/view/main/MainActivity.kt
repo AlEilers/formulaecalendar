@@ -33,7 +33,7 @@ class MainActivity constructor() : AppCompatActivity(), MainView {
 
         pager.adapter = PageAdapter(supportFragmentManager, tab_layout.tabCount)
         pager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tab_layout))
-        tab_layout.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener{
+        tab_layout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(tab: TabLayout.Tab?) {
                 //do nothing
             }

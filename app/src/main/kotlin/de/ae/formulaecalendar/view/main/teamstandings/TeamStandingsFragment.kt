@@ -10,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import de.ae.formulaecalendar.R
 import de.ae.formulaecalendar.remote.pojo.teamstanding.ChampionshipData
-import kotlinx.android.synthetic.main.fragment_calendar.*
 import kotlinx.android.synthetic.main.fragment_team_standings.*
 import kotlinx.android.synthetic.main.fragment_team_standings.view.*
 
@@ -18,7 +17,7 @@ import kotlinx.android.synthetic.main.fragment_team_standings.view.*
 /**
  * Created by aeilers on 17.02.2017.
  */
-class TeamStandingsFragment :Fragment(),TeamStandingsView{
+class TeamStandingsFragment : Fragment(), TeamStandingsView {
     private val presenter: TeamStandingsPresenter = TeamStandingsPresenter(this)
 
     private var adapter: ResultsAdapter? = null

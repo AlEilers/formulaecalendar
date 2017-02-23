@@ -19,8 +19,8 @@ import de.ae.formulaecalendar.R;
 import de.ae.formulaecalendar.remote.DataStore;
 import de.ae.formulaecalendar.remote.pojo.calendar.CalendarDatum;
 import de.ae.formulaecalendar.remote.pojo.calendar.RaceCalendarData;
-import rx.Observable;
-import rx.schedulers.Schedulers;
+import io.reactivex.Observable;
+import io.reactivex.schedulers.Schedulers;
 
 import static org.mockito.Mockito.when;
 
@@ -122,7 +122,7 @@ public class CountdownWidgetPresenterTest {
 
         when(model.getCurrentRaceCalendar()).thenReturn(Observable.just(raceCalendarData));
 
-        CountdownWidgetPresenter p = new CountdownWidgetPresenter(view, model, Schedulers.immediate(), Schedulers.immediate());
+        CountdownWidgetPresenter p = new CountdownWidgetPresenter(view, model, Schedulers.trampoline(), Schedulers.trampoline());
         p.loadWidget(viewNext);
 
         Assert.assertEquals(TEST_RACE_NAME, viewTitle);
@@ -141,7 +141,7 @@ public class CountdownWidgetPresenterTest {
 
         when(model.getCurrentRaceCalendar()).thenReturn((Observable) Observable.error(new Exception("TEST", null)));
 
-        CountdownWidgetPresenter p = new CountdownWidgetPresenter(view, model, Schedulers.immediate(), Schedulers.immediate());
+        CountdownWidgetPresenter p = new CountdownWidgetPresenter(view, model, Schedulers.trampoline(), Schedulers.trampoline());
         p.loadWidget(viewNext);
 
         Assert.assertEquals("", viewTitle);
@@ -160,7 +160,7 @@ public class CountdownWidgetPresenterTest {
 
         when(model.getCurrentRaceCalendar()).thenReturn(Observable.just(raceCalendarData));
 
-        CountdownWidgetPresenter p = new CountdownWidgetPresenter(view, model, Schedulers.immediate(), Schedulers.immediate());
+        CountdownWidgetPresenter p = new CountdownWidgetPresenter(view, model, Schedulers.trampoline(), Schedulers.trampoline());
         p.loadWidget(viewNext);
 
         Assert.assertEquals("TEST_CITY", viewTitle);
@@ -180,7 +180,7 @@ public class CountdownWidgetPresenterTest {
         raceCalendarData.setCalendarData(new ArrayList<CalendarDatum>());
         when(model.getCurrentRaceCalendar()).thenReturn(Observable.just(raceCalendarData));
 
-        CountdownWidgetPresenter p = new CountdownWidgetPresenter(view, model, Schedulers.immediate(), Schedulers.immediate());
+        CountdownWidgetPresenter p = new CountdownWidgetPresenter(view, model, Schedulers.trampoline(), Schedulers.trampoline());
         p.loadWidget(viewNext);
 
         Assert.assertEquals("", viewTitle);

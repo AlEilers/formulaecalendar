@@ -5,13 +5,14 @@ import de.ae.formulaecalendar.R
 import de.ae.formulaecalendar.remote.DataStore
 import de.ae.formulaecalendar.remote.RemoteStore
 import de.ae.formulaecalendar.remote.pojo.calendar.RaceCalendarData
+import io.reactivex.Observer
+import io.reactivex.Scheduler
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 import org.threeten.bp.ZoneId
 import org.threeten.bp.ZonedDateTime
 import org.threeten.bp.format.DateTimeFormatter
-import rx.Scheduler
-import rx.Subscriber
-import rx.android.schedulers.AndroidSchedulers
-import rx.schedulers.Schedulers
 
 /**
  * Created by aeilers on 18.02.2017.
@@ -31,8 +32,12 @@ class CountdownWidgetPresenter constructor(val view: CountdownWidgetView, val mo
             model.getCurrentRaceCalendar()
                     .subscribeOn(subscriber)
                     .observeOn(observer)
-                    .subscribe(object : Subscriber<RaceCalendarData>() {
-                        override fun onCompleted() {
+                    .subscribe(object : Observer<RaceCalendarData?> {
+                        override fun onSubscribe(d: Disposable?) {
+
+                        }
+
+                        override fun onComplete() {
                             //do nothing
                         }
 
@@ -41,11 +46,11 @@ class CountdownWidgetPresenter constructor(val view: CountdownWidgetView, val mo
                             val countdown = view.getContext()?.getString(R.string.widget_loading)
                             val date = ""
                             view.setContent(title, countdown, date, false)
-                            Log.w("CountdownWidgetPresente","Cannot load view: ${t.message}")
+                            Log.w("CountdownWidgetPresente", "Cannot load view: ${t.message}")
                         }
 
-                        override fun onNext(raceCalendarData: RaceCalendarData) {
-                            val next = raceCalendarData.nextRace
+                        override fun onNext(raceCalendarData: RaceCalendarData?) {
+                            val next = raceCalendarData?.nextRace
                             if (next == null) {
                                 val title = ""
                                 val countdown = view.getContext()?.getString(R.string.widget_no_next)
