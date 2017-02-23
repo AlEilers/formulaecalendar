@@ -3,14 +3,6 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    signingConfigs {
-        config {
-            keyAlias 'formulaecalendar'
-            keyPassword 'sH%3k7Uformu'
-            storeFile file('C:/Users/alexa/OneDrive/Dokumente/Sicherheit/android_keystore.jks')
-            storePassword 'sH%3k7Ukeyst'
-        }
-    }
     compileSdkVersion 25
     buildToolsVersion "25.0.0"
     defaultConfig {
@@ -25,7 +17,6 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.config
         }
     }
     sourceSets {
