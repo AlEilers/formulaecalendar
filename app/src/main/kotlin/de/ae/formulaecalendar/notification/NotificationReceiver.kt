@@ -11,9 +11,10 @@ import android.preference.PreferenceManager
 import android.util.Log
 import de.ae.formulaecalendar.remote.RemoteStore
 import de.ae.formulaecalendar.remote.pojo.calendar.RaceCalendarData
-import rx.Observable
-import rx.Subscriber
-import rx.schedulers.Schedulers
+import io.reactivex.Observable
+import io.reactivex.Observer
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 
 /**
  * Created by aeilers on 18.02.2017.
@@ -36,8 +37,12 @@ class NotificationReceiver : BroadcastReceiver() {
 
         obs.subscribeOn(Schedulers.newThread())
                 .observeOn(Schedulers.newThread())
-                .subscribe(object : Subscriber<RaceCalendarData?>() {
-                    override fun onCompleted() {
+                .subscribe(object : Observer<RaceCalendarData?> {
+                    override fun onSubscribe(d: Disposable?) {
+
+                    }
+
+                    override fun onComplete() {
 
                     }
 
@@ -62,7 +67,7 @@ class NotificationReceiver : BroadcastReceiver() {
                                     }
                                 }
                             }
-                        }else{
+                        } else {
                             Log.w("NotificationReceiver", "Cannot schedule notification: RaceCalendarData is null")
                         }
                     }

@@ -11,10 +11,11 @@ import de.ae.formulaecalendar.notification.NotificationReceiver
 import de.ae.formulaecalendar.remote.DataStore
 import de.ae.formulaecalendar.remote.RemoteStore
 import de.ae.formulaecalendar.remote.pojo.series.ChampsDatum
-import rx.Scheduler
-import rx.Subscriber
-import rx.android.schedulers.AndroidSchedulers
-import rx.schedulers.Schedulers
+import io.reactivex.MaybeObserver
+import io.reactivex.Scheduler
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 
 
 /**
@@ -28,22 +29,26 @@ class MainPresenter constructor(val view: MainView, val model: DataStore, val ob
         model.getCurrentChampionShip()
                 .subscribeOn(subscriber) // Create a new Thread
                 .observeOn(observer) // Use the UI thread
-                .subscribe(object : Subscriber<ChampsDatum>() {
-                    override fun onCompleted() {
+                .subscribe(object : MaybeObserver<ChampsDatum?> {
+                    override fun onSubscribe(d: Disposable?) {
+
+                    }
+
+                    override fun onComplete() {
 
                     }
 
                     override fun onError(t: Throwable) {
-                        Log.w("MainPresenter","Cannot load view: ${t.message}")
+                        Log.w("MainPresenter", "Cannot load view: ${t.message}")
                     }
 
-                    override fun onNext(champsDatum: ChampsDatum) {
-                        var title: String? = champsDatum.championship
+                    override fun onSuccess(champsDatum: ChampsDatum?) {
+                        var title: String? = champsDatum?.championship
                         if (title != null) {
                             title = title.substring(0, 1).toUpperCase() + title.substring(1).toLowerCase()
                             view.setTitle(title)
-                        }else{
-                            Log.w("MainPresenter","Cannot load view: title is null")
+                        } else {
+                            Log.w("MainPresenter", "Cannot load view: title is null")
                         }
                     }
                 })

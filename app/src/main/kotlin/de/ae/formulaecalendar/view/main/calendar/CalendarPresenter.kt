@@ -4,10 +4,11 @@ import android.util.Log
 import de.ae.formulaecalendar.remote.DataStore
 import de.ae.formulaecalendar.remote.RemoteStore
 import de.ae.formulaecalendar.remote.pojo.calendar.RaceCalendarData
-import rx.Scheduler
-import rx.Subscriber
-import rx.android.schedulers.AndroidSchedulers
-import rx.schedulers.Schedulers
+import io.reactivex.Observer
+import io.reactivex.Scheduler
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 
 
 /**
@@ -24,8 +25,12 @@ class CalendarPresenter(val view: CalendarView, val model: DataStore, val observ
         model.getCurrentRaceCalendar()
                 .subscribeOn(subscriber) // Create a new Thread
                 .observeOn(observer) // Use the UI thread
-                .subscribe(object : Subscriber<RaceCalendarData>() {
-                    override fun onCompleted() {
+                .subscribe(object : Observer<RaceCalendarData?> {
+                    override fun onSubscribe(d: Disposable?) {
+
+                    }
+
+                    override fun onComplete() {
                         view.setLoadingViewVisibility(false)
                         view.setRecyclerViewVisibility(true)
                         view.setSnackbarVisibility(false)
@@ -35,11 +40,13 @@ class CalendarPresenter(val view: CalendarView, val model: DataStore, val observ
                         view.setLoadingViewVisibility(false)
                         view.setRecyclerViewVisibility(false)
                         view.setSnackbarVisibility(true)
-                        Log.w("CalendarPresenter","Cannot load view: ${t.message}")
+                        Log.w("CalendarPresenter", "Cannot load view: ${t.message}")
                     }
 
-                    override fun onNext(data: RaceCalendarData) {
-                        view.setContent(data)
+                    override fun onNext(data: RaceCalendarData?) {
+                        if (data != null) {
+                            view.setContent(data)
+                        }
                     }
                 })
     }

@@ -88,7 +88,7 @@ class MyPreferenceFragment : PreferenceFragment(), ActivityCompat.OnRequestPermi
                     permissionBundle.putBoolean(calendarPermissionParam, false)
                 }
 
-                mFirebaseAnalytics?.logEvent(calendarPermissionEvent,permissionBundle)
+                mFirebaseAnalytics?.logEvent(calendarPermissionEvent, permissionBundle)
             }
 
         // Add other Requests

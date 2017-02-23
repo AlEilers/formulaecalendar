@@ -23,8 +23,8 @@ import de.ae.formulaecalendar.remote.pojo.calendar.RaceCalendarData;
 import de.ae.formulaecalendar.remote.pojo.race.SesRace;
 import de.ae.formulaecalendar.remote.pojo.race.Session;
 import de.ae.formulaecalendar.resource.LocalResourceStore;
-import rx.Observable;
-import rx.schedulers.Schedulers;
+import io.reactivex.Observable;
+import io.reactivex.schedulers.Schedulers;
 
 import static org.mockito.Mockito.when;
 
@@ -228,7 +228,7 @@ public class DetailsPresenterTest {
 
         when(model.getCurrentRaceCalendar()).thenReturn(Observable.just(raceCalendarData));
 
-        DetailsPresenter presenter = new DetailsPresenter(view, model, Schedulers.immediate(), Schedulers.immediate(), LocalResourceStore.INSTANCE);
+        DetailsPresenter presenter = new DetailsPresenter(view, model, Schedulers.trampoline(), Schedulers.trampoline(), LocalResourceStore.INSTANCE);
         presenter.loadData(null);
 
         Assert.assertTrue(viewResourceId == R.drawable.berlin);
@@ -251,7 +251,7 @@ public class DetailsPresenterTest {
 
     @Test
     public void loadContentWithRace() {
-        DetailsPresenter presenter = new DetailsPresenter(view, model, Schedulers.immediate(), Schedulers.immediate(), LocalResourceStore.INSTANCE);
+        DetailsPresenter presenter = new DetailsPresenter(view, model, Schedulers.trampoline(), Schedulers.trampoline(), LocalResourceStore.INSTANCE);
         presenter.loadData(calendarDatum);
 
         Assert.assertTrue(viewResourceId == R.drawable.berlin);
@@ -276,7 +276,7 @@ public class DetailsPresenterTest {
     public void loadContentError() {
         when(model.getCurrentRaceCalendar()).thenReturn((Observable) Observable.error(new Exception("TEST", null)));
 
-        DetailsPresenter presenter = new DetailsPresenter(view, model, Schedulers.immediate(), Schedulers.immediate(), LocalResourceStore.INSTANCE);
+        DetailsPresenter presenter = new DetailsPresenter(view, model, Schedulers.trampoline(), Schedulers.trampoline(), LocalResourceStore.INSTANCE);
         presenter.loadData(null);
         Assert.assertFalse(viewRaceLoadingVisible);
         Assert.assertFalse(viewMainVisible);
@@ -298,7 +298,7 @@ public class DetailsPresenterTest {
         session.setSesRace(result);
         when(model.getRaceResult(TEST_RACEID)).thenReturn(Observable.just(session));
 
-        DetailsPresenter presenter = new DetailsPresenter(view, model, Schedulers.immediate(), Schedulers.immediate(), LocalResourceStore.INSTANCE);
+        DetailsPresenter presenter = new DetailsPresenter(view, model, Schedulers.trampoline(), Schedulers.trampoline(), LocalResourceStore.INSTANCE);
         calendarDatum.setHasRaceResults(true);
         presenter.loadData(calendarDatum);
         Assert.assertEquals(TEST_DRIVER_NAME, viewResults.get(0).getDriverName());
@@ -312,7 +312,7 @@ public class DetailsPresenterTest {
     public void loadResultsError() {
         when(model.getRaceResult(TEST_RACEID)).thenReturn((Observable) Observable.error(new Exception("TEST", null)));
 
-        DetailsPresenter presenter = new DetailsPresenter(view, model, Schedulers.immediate(), Schedulers.immediate(), LocalResourceStore.INSTANCE);
+        DetailsPresenter presenter = new DetailsPresenter(view, model, Schedulers.trampoline(), Schedulers.trampoline(), LocalResourceStore.INSTANCE);
         calendarDatum.setHasRaceResults(true);
         presenter.loadData(calendarDatum);
         Assert.assertFalse(viewNoResultsVisibility);

@@ -3,8 +3,6 @@ package de.ae.formulaecalendar.remote.pojo.series
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-import de.ae.formulaecalendar.remote.pojo.series.SerieData
-
 class Series {
 
     @SerializedName("SerieData")

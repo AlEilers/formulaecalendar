@@ -1,4 +1,3 @@
-
 package de.ae.formulaecalendar.remote.pojo.calendar;
 
 import com.google.gson.annotations.Expose;

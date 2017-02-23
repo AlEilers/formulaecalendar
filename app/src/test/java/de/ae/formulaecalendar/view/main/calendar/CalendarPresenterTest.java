@@ -13,8 +13,8 @@ import org.powermock.modules.junit4.PowerMockRunner;
 
 import de.ae.formulaecalendar.remote.DataStore;
 import de.ae.formulaecalendar.remote.pojo.calendar.RaceCalendarData;
-import rx.Observable;
-import rx.schedulers.Schedulers;
+import io.reactivex.Observable;
+import io.reactivex.schedulers.Schedulers;
 
 import static org.mockito.Mockito.when;
 
@@ -71,7 +71,7 @@ public class CalendarPresenterTest {
         RaceCalendarData data = new RaceCalendarData();
         when(model.getCurrentRaceCalendar()).thenReturn(Observable.just(data));
 
-        CalendarPresenter p = new CalendarPresenter(view, model, Schedulers.immediate(), Schedulers.immediate());
+        CalendarPresenter p = new CalendarPresenter(view, model, Schedulers.trampoline(), Schedulers.trampoline());
         p.loadContent();
         Assert.assertNotNull(raceCalendarData);
         Assert.assertFalse(loadingViewVisible);
@@ -88,7 +88,7 @@ public class CalendarPresenterTest {
 
         when(model.getCurrentRaceCalendar()).thenReturn((Observable) Observable.error(new Exception("TEST", null)));
 
-        CalendarPresenter p = new CalendarPresenter(view, model, Schedulers.immediate(), Schedulers.immediate());
+        CalendarPresenter p = new CalendarPresenter(view, model, Schedulers.trampoline(), Schedulers.trampoline());
         p.loadContent();
         Assert.assertFalse(loadingViewVisible);
         Assert.assertFalse(recyclerViewVisible);
