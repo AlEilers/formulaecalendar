@@ -62,7 +62,7 @@ class CalendarFragment : Fragment(), CalendarView {
     override fun setContent(data: RaceCalendarData) {
         adapter?.setRaceCalendar(data)
         adapter?.notifyDataSetChanged()
-        calendar_cardList.scrollToPosition(data.posNextRace)
+        cardList?.scrollToPosition(data.posNextRace)
     }
 
     override fun setLoadingViewVisibility(visible: Boolean) {
