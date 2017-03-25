@@ -7,10 +7,10 @@ import android.net.Uri
 import android.util.Log
 import de.ae.formulaecalendar.app.R
 import de.ae.formulaecalendar.app.calendar.MyCalendarProvider
+import de.ae.formulaecalendar.app.notification.NotificationReceiver
 import de.ae.formulaecalendar.formulaerest.DataStore
 import de.ae.formulaecalendar.formulaerest.RemoteStore
 import de.ae.formulaecalendar.formulaerest.pojo.series.ChampsDatum
-import de.ae.formulaecalendar.app.notification.NotificationReceiver
 import io.reactivex.MaybeObserver
 import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers

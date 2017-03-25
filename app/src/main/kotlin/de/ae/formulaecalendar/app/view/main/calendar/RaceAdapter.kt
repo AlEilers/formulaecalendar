@@ -9,10 +9,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import de.ae.formulaecalendar.app.R
-import de.ae.formulaecalendar.formulaerest.pojo.calendar.CalendarDatum
-import de.ae.formulaecalendar.formulaerest.pojo.calendar.RaceCalendarData
 import de.ae.formulaecalendar.app.resource.LocalResourceStore
 import de.ae.formulaecalendar.app.view.details.DetailsActivity
+import de.ae.formulaecalendar.formulaerest.pojo.calendar.CalendarDatum
+import de.ae.formulaecalendar.formulaerest.pojo.calendar.RaceCalendarData
 import org.threeten.bp.ZoneId
 import org.threeten.bp.format.DateTimeFormatter
 

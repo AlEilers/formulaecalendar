@@ -6,13 +6,13 @@ import android.os.Bundle
 import android.util.Log
 import com.google.firebase.analytics.FirebaseAnalytics
 import de.ae.formulaecalendar.app.R
+import de.ae.formulaecalendar.app.resource.LocalResourceStore
+import de.ae.formulaecalendar.app.resource.ResourceStore
 import de.ae.formulaecalendar.formulaerest.DataStore
 import de.ae.formulaecalendar.formulaerest.RemoteStore
 import de.ae.formulaecalendar.formulaerest.pojo.calendar.CalendarDatum
 import de.ae.formulaecalendar.formulaerest.pojo.calendar.RaceCalendarData
 import de.ae.formulaecalendar.formulaerest.pojo.race.Session
-import de.ae.formulaecalendar.app.resource.LocalResourceStore
-import de.ae.formulaecalendar.app.resource.ResourceStore
 import io.reactivex.Observer
 import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
