@@ -1,6 +1,6 @@
 package de.ae.formulaecalendar.app.widget
 
-import de.ae.formulaecalendar.R
+import de.ae.formulaecalendar.app.R
 
 /**
  * Created by aeilers on 18.02.2017.

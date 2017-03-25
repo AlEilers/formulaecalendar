@@ -1,7 +1,7 @@
 package de.ae.formulaecalendar.app.resource
 
-import de.ae.formulaecalendar.BuildConfig
-import de.ae.formulaecalendar.R
+import de.ae.formulaecalendar.app.BuildConfig
+import de.ae.formulaecalendar.app.R
 import java.util.*
 
 /**

@@ -8,7 +8,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import com.jakewharton.threetenabp.AndroidThreeTen
-import de.ae.formulaecalendar.R
+import de.ae.formulaecalendar.app.R
 import de.ae.formulaecalendar.formulaerest.pojo.calendar.CalendarDatum
 import de.ae.formulaecalendar.app.view.details.DetailsActivity
 import org.threeten.bp.ZoneId

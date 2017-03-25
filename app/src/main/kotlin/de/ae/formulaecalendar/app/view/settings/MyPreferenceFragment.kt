@@ -9,7 +9,7 @@ import android.preference.SwitchPreference
 import android.support.v4.app.ActivityCompat
 import android.util.Log
 import com.google.firebase.analytics.FirebaseAnalytics
-import de.ae.formulaecalendar.R
+import de.ae.formulaecalendar.app.R
 import de.ae.formulaecalendar.app.calendar.MyCalendarProvider
 import de.ae.formulaecalendar.app.notification.NotificationReceiver
 import de.ae.formulaecalendar.formulaerest.RemoteStore

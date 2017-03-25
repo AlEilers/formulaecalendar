@@ -9,7 +9,7 @@ import android.content.SharedPreferences
 import android.preference.PreferenceManager
 import android.widget.RemoteViews
 import com.jakewharton.threetenabp.AndroidThreeTen
-import de.ae.formulaecalendar.R
+import de.ae.formulaecalendar.app.R
 import de.ae.formulaecalendar.app.view.details.DetailsActivity
 
 /**

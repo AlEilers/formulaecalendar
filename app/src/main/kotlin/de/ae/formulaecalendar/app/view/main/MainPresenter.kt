@@ -5,7 +5,7 @@ import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.util.Log
-import de.ae.formulaecalendar.R
+import de.ae.formulaecalendar.app.R
 import de.ae.formulaecalendar.app.calendar.MyCalendarProvider
 import de.ae.formulaecalendar.formulaerest.DataStore
 import de.ae.formulaecalendar.formulaerest.RemoteStore

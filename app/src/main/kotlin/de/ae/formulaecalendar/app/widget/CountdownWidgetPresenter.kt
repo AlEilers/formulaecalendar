@@ -1,7 +1,7 @@
 package de.ae.formulaecalendar.app.widget
 
 import android.util.Log
-import de.ae.formulaecalendar.R
+import de.ae.formulaecalendar.app.R
 import de.ae.formulaecalendar.formulaerest.DataStore
 import de.ae.formulaecalendar.formulaerest.RemoteStore
 import de.ae.formulaecalendar.formulaerest.pojo.calendar.RaceCalendarData

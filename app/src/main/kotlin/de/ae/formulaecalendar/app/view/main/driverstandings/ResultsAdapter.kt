@@ -3,7 +3,7 @@ package de.ae.formulaecalendar.app.view.main.driverstandings
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import de.ae.formulaecalendar.R
+import de.ae.formulaecalendar.app.R
 import de.ae.formulaecalendar.formulaerest.pojo.driverstanding.ChampionshipData
 
 /**

@@ -3,7 +3,7 @@ package de.ae.formulaecalendar.app.view.settings
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AppCompatActivity
-import de.ae.formulaecalendar.R
+import de.ae.formulaecalendar.app.R
 import kotlinx.android.synthetic.main.toolbar.*
 
 class MyPreferenceActivity : AppCompatActivity(), ActivityCompat.OnRequestPermissionsResultCallback {
