@@ -9,7 +9,7 @@ import android.content.Context
 import android.content.Intent
 import com.jakewharton.threetenabp.AndroidThreeTen
 import de.ae.formulaecalendar.R
-import de.ae.formulaecalendar.remote.pojo.calendar.CalendarDatum
+import de.ae.formulaecalendar.formulaerest.pojo.calendar.CalendarDatum
 import de.ae.formulaecalendar.view.details.DetailsActivity
 import org.threeten.bp.ZoneId
 import org.threeten.bp.format.DateTimeFormatter

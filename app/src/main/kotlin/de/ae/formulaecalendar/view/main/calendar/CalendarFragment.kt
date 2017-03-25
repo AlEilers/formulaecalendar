@@ -9,7 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import de.ae.formulaecalendar.R
-import de.ae.formulaecalendar.remote.pojo.calendar.RaceCalendarData
+import de.ae.formulaecalendar.formulaerest.pojo.calendar.RaceCalendarData
 import kotlinx.android.synthetic.main.fragment_calendar.*
 import kotlinx.android.synthetic.main.fragment_calendar.view.*
 

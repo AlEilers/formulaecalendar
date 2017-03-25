@@ -1,6 +1,6 @@
 package de.ae.formulaecalendar.view.main.calendar
 
-import de.ae.formulaecalendar.remote.pojo.calendar.RaceCalendarData
+import de.ae.formulaecalendar.formulaerest.pojo.calendar.RaceCalendarData
 
 
 /**

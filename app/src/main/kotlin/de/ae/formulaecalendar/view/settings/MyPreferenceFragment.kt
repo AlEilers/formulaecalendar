@@ -12,7 +12,7 @@ import com.google.firebase.analytics.FirebaseAnalytics
 import de.ae.formulaecalendar.R
 import de.ae.formulaecalendar.calendar.MyCalendarProvider
 import de.ae.formulaecalendar.notification.NotificationReceiver
-import de.ae.formulaecalendar.remote.RemoteStore
+import de.ae.formulaecalendar.formulaerest.RemoteStore
 
 /**
  * Created by aeilers on 18.02.2017.

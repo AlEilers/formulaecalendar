@@ -6,11 +6,11 @@ import android.os.Bundle
 import android.util.Log
 import com.google.firebase.analytics.FirebaseAnalytics
 import de.ae.formulaecalendar.R
-import de.ae.formulaecalendar.remote.DataStore
-import de.ae.formulaecalendar.remote.RemoteStore
-import de.ae.formulaecalendar.remote.pojo.calendar.CalendarDatum
-import de.ae.formulaecalendar.remote.pojo.calendar.RaceCalendarData
-import de.ae.formulaecalendar.remote.pojo.race.Session
+import de.ae.formulaecalendar.formulaerest.DataStore
+import de.ae.formulaecalendar.formulaerest.RemoteStore
+import de.ae.formulaecalendar.formulaerest.pojo.calendar.CalendarDatum
+import de.ae.formulaecalendar.formulaerest.pojo.calendar.RaceCalendarData
+import de.ae.formulaecalendar.formulaerest.pojo.race.Session
 import de.ae.formulaecalendar.resource.LocalResourceStore
 import de.ae.formulaecalendar.resource.ResourceStore
 import io.reactivex.Observer

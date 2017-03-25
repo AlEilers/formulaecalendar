@@ -2,9 +2,9 @@ package de.ae.formulaecalendar.widget
 
 import android.util.Log
 import de.ae.formulaecalendar.R
-import de.ae.formulaecalendar.remote.DataStore
-import de.ae.formulaecalendar.remote.RemoteStore
-import de.ae.formulaecalendar.remote.pojo.calendar.RaceCalendarData
+import de.ae.formulaecalendar.formulaerest.DataStore
+import de.ae.formulaecalendar.formulaerest.RemoteStore
+import de.ae.formulaecalendar.formulaerest.pojo.calendar.RaceCalendarData
 import io.reactivex.Observer
 import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers

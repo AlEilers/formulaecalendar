@@ -17,11 +17,11 @@ import java.util.Date;
 import java.util.List;
 
 import de.ae.formulaecalendar.R;
-import de.ae.formulaecalendar.remote.DataStore;
-import de.ae.formulaecalendar.remote.pojo.calendar.CalendarDatum;
-import de.ae.formulaecalendar.remote.pojo.calendar.RaceCalendarData;
-import de.ae.formulaecalendar.remote.pojo.race.SesRace;
-import de.ae.formulaecalendar.remote.pojo.race.Session;
+import de.ae.formulaecalendar.formulaerest.DataStore;
+import de.ae.formulaecalendar.formulaerest.pojo.calendar.CalendarDatum;
+import de.ae.formulaecalendar.formulaerest.pojo.calendar.RaceCalendarData;
+import de.ae.formulaecalendar.formulaerest.pojo.race.SesRace;
+import de.ae.formulaecalendar.formulaerest.pojo.race.Session;
 import de.ae.formulaecalendar.resource.LocalResourceStore;
 import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;

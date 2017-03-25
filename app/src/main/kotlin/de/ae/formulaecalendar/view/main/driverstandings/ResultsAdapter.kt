@@ -4,7 +4,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import de.ae.formulaecalendar.R
-import de.ae.formulaecalendar.remote.pojo.driverstanding.ChampionshipData
+import de.ae.formulaecalendar.formulaerest.pojo.driverstanding.ChampionshipData
 
 /**
  * Created by aeilers on 17.02.2017.

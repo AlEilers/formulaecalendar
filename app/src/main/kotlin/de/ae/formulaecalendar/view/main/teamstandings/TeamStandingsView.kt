@@ -1,6 +1,6 @@
 package de.ae.formulaecalendar.view.main.teamstandings
 
-import de.ae.formulaecalendar.remote.pojo.teamstanding.ChampionshipData
+import de.ae.formulaecalendar.formulaerest.pojo.teamstanding.ChampionshipData
 
 /**
  * Created by aeilers on 17.02.2017.

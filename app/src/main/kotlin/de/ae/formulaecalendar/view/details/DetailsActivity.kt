@@ -10,8 +10,8 @@ import android.view.View
 import android.view.WindowManager
 import com.jakewharton.threetenabp.AndroidThreeTen
 import de.ae.formulaecalendar.R
-import de.ae.formulaecalendar.remote.pojo.calendar.CalendarDatum
-import de.ae.formulaecalendar.remote.pojo.race.SesRace
+import de.ae.formulaecalendar.formulaerest.pojo.calendar.CalendarDatum
+import de.ae.formulaecalendar.formulaerest.pojo.race.SesRace
 import kotlinx.android.synthetic.main.activity_details.*
 
 /**

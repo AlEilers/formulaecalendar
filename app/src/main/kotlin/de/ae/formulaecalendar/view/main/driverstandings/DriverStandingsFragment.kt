@@ -9,7 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import de.ae.formulaecalendar.R
-import de.ae.formulaecalendar.remote.pojo.driverstanding.ChampionshipData
+import de.ae.formulaecalendar.formulaerest.pojo.driverstanding.ChampionshipData
 import kotlinx.android.synthetic.main.fragment_driver_standings.*
 import kotlinx.android.synthetic.main.fragment_driver_standings.view.*
 

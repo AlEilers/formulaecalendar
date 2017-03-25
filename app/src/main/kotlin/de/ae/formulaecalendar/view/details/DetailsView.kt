@@ -1,7 +1,7 @@
 package de.ae.formulaecalendar.view.details
 
 import android.content.Context
-import de.ae.formulaecalendar.remote.pojo.race.SesRace
+import de.ae.formulaecalendar.formulaerest.pojo.race.SesRace
 
 /**
  * Created by aeilers on 18.02.2017.

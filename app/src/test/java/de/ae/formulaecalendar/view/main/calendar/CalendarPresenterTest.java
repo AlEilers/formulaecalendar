@@ -11,8 +11,8 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 
-import de.ae.formulaecalendar.remote.DataStore;
-import de.ae.formulaecalendar.remote.pojo.calendar.RaceCalendarData;
+import de.ae.formulaecalendar.formulaerest.DataStore;
+import de.ae.formulaecalendar.formulaerest.pojo.calendar.RaceCalendarData;
 import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
 

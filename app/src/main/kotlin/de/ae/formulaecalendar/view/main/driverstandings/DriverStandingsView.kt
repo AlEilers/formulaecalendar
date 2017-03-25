@@ -1,6 +1,6 @@
 package de.ae.formulaecalendar.view.main.driverstandings
 
-import de.ae.formulaecalendar.remote.pojo.driverstanding.ChampionshipData
+import de.ae.formulaecalendar.formulaerest.pojo.driverstanding.ChampionshipData
 
 /**
  * Created by aeilers on 17.02.2017.
