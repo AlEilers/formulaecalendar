@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.main.teamstandings.TeamStandingsFragment">
+    tools:context=".app.view.main.teamstandings.TeamStandingsFragment">
 
     <ProgressBar
         android:id="@+id/team_progress_bar"

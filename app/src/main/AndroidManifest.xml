@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="de.ae.formulaecalendar">
+    package="de.ae.formulaecalendar.app">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_CALENDAR" />
@@ -36,25 +36,25 @@
             android:parentActivityName=".view.main.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="de.ae.formulaecalendar.view.main.MainActivity" />
+                android:value=".view.main.MainActivity" />
         </activity>
 
         <!-- -Preference -->
         <activity
-            android:name="de.ae.formulaecalendar.view.settings.MyPreferenceActivity"
+            android:name=".view.settings.MyPreferenceActivity"
             android:parentActivityName=".view.main.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="de.ae.formulaecalendar.view.main.MainActivity" />
+                android:value=".view.main.MainActivity" />
         </activity>
 
         <!-- About -->
         <activity
             android:name=".view.about.AboutActivity"
-            android:parentActivityName="de.ae.formulaecalendar.view.settings.MyPreferenceActivity">
+            android:parentActivityName=".view.settings.MyPreferenceActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="de.ae.formulaecalendar.view.settings.MyPreferenceActivity" />
+                android:value=".view.settings.MyPreferenceActivity" />
 
             <intent-filter>
                 <action android:name="de.ae.formulaecalendar.view.about.AboutActivity" />
