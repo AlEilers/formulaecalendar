@@ -18,7 +18,7 @@
         tools:ignore="ManifestResource">
 
         <!-- Main -->
-        <activity android:name=".view.main.MainActivity">
+        <activity android:name=".app.view.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -32,29 +32,29 @@
 
         <!-- Details -->
         <activity
-            android:name=".view.details.DetailsActivity"
-            android:parentActivityName=".view.main.MainActivity">
+            android:name=".app.view.details.DetailsActivity"
+            android:parentActivityName=".app.view.main.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="de.ae.formulaecalendar.view.main.MainActivity" />
+                android:value=".app.view.main.MainActivity" />
         </activity>
 
         <!-- -Preference -->
         <activity
-            android:name="de.ae.formulaecalendar.view.settings.MyPreferenceActivity"
-            android:parentActivityName=".view.main.MainActivity">
+            android:name=".app.view.settings.MyPreferenceActivity"
+            android:parentActivityName=".app.view.main.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="de.ae.formulaecalendar.view.main.MainActivity" />
+                android:value=".app.view.main.MainActivity" />
         </activity>
 
         <!-- About -->
         <activity
-            android:name=".view.about.AboutActivity"
-            android:parentActivityName="de.ae.formulaecalendar.view.settings.MyPreferenceActivity">
+            android:name=".app.view.about.AboutActivity"
+            android:parentActivityName=".app.view.settings.MyPreferenceActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="de.ae.formulaecalendar.view.settings.MyPreferenceActivity" />
+                android:value=".app.view.settings.MyPreferenceActivity" />
 
             <intent-filter>
                 <action android:name="de.ae.formulaecalendar.view.about.AboutActivity" />
@@ -65,17 +65,17 @@
 
         <!-- Notification -->
         <service
-            android:name=".notification.NotificationService"
+            android:name=".app.notification.NotificationService"
             android:exported="false" />
 
-        <receiver android:name=".notification.NotificationReceiver">
+        <receiver android:name=".app.notification.NotificationReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
 
         <!-- Widgets -->
-        <receiver android:name=".widget.BrightCountdownWidgetProvider">
+        <receiver android:name=".app.widget.BrightCountdownWidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
@@ -84,7 +84,7 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/countdown_widget_bright_info" />
         </receiver>
-        <receiver android:name=".widget.DarkCountdownWidgetProvider">
+        <receiver android:name=".app.widget.DarkCountdownWidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
