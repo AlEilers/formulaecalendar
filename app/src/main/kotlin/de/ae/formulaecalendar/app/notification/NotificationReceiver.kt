@@ -29,7 +29,7 @@ class NotificationReceiver : BroadcastReceiver() {
 
     fun scheduleNotifications(context: Context, obs: Observable<RaceCalendarData?>) {
         AndroidThreeTen.init(context)
-        
+
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
         val value = prefs.getString(pref_notification, "-1")
         val offset = value.toInt()

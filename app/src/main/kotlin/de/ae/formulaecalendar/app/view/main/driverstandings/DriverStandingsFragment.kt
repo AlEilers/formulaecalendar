@@ -10,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import de.ae.formulaecalendar.app.R
 import de.ae.formulaecalendar.formulaerest.pojo.driverstanding.ChampionshipData
-import kotlinx.android.synthetic.main.fragment_driver_standings.*
 import kotlinx.android.synthetic.main.fragment_driver_standings.view.*
 
 
@@ -40,8 +39,8 @@ class DriverStandingsFragment : Fragment(), DriverStandingsView {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater!!.inflate(R.layout.fragment_driver_standings, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val view = inflater.inflate(R.layout.fragment_driver_standings, container, false)
         cardList = view.driver_result_list
         loadingView = view.driver_progress_bar
 
@@ -80,8 +79,9 @@ class DriverStandingsFragment : Fragment(), DriverStandingsView {
     }
 
     override fun setSnackbarVisibility(visible: Boolean) {
-        if (visible) {
-            snackbar = Snackbar.make(driver_result_list, R.string.connection_fault, Snackbar.LENGTH_INDEFINITE)
+        val view = cardList
+        if (visible && view!=null) {
+            snackbar = Snackbar.make(view, R.string.connection_fault, Snackbar.LENGTH_INDEFINITE)
             snackbar?.setAction(R.string.snackbar_retry, { presenter.loadContent() })
             if (fragmentVisible) {
                 snackbar?.show()

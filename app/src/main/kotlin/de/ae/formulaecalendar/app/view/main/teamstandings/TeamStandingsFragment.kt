@@ -40,8 +40,8 @@ class TeamStandingsFragment : Fragment(), TeamStandingsView {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater!!.inflate(R.layout.fragment_team_standings, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        val view = inflater.inflate(R.layout.fragment_team_standings, container, false)
         cardList = view.team_result_list
         loadingView = view.team_progress_bar
 
@@ -80,7 +80,8 @@ class TeamStandingsFragment : Fragment(), TeamStandingsView {
     }
 
     override fun setSnackbarVisibility(visible: Boolean) {
-        if (visible) {
+        val view = cardList
+        if (visible && view!=null) {
             snackbar = Snackbar.make(team_result_list, R.string.connection_fault, Snackbar.LENGTH_INDEFINITE)
             snackbar?.setAction(R.string.snackbar_retry, { presenter.loadContent() })
             if (fragmentVisible) {
