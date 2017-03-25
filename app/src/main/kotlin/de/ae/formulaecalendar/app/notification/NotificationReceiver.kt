@@ -9,6 +9,7 @@ import android.content.Intent
 import android.os.Build
 import android.preference.PreferenceManager
 import android.util.Log
+import com.jakewharton.threetenabp.AndroidThreeTen
 import de.ae.formulaecalendar.formulaerest.RemoteStore
 import de.ae.formulaecalendar.formulaerest.pojo.calendar.RaceCalendarData
 import io.reactivex.Observable
@@ -27,6 +28,8 @@ class NotificationReceiver : BroadcastReceiver() {
     }
 
     fun scheduleNotifications(context: Context, obs: Observable<RaceCalendarData?>) {
+        AndroidThreeTen.init(context)
+        
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
         val value = prefs.getString(pref_notification, "-1")
         val offset = value.toInt()
