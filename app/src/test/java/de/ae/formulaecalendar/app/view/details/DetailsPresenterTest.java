@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import de.ae.formulaecalendar.R;
+import de.ae.formulaecalendar.app.R;
 import de.ae.formulaecalendar.app.view.details.DetailsView;
 import de.ae.formulaecalendar.formulaerest.DataStore;
 import de.ae.formulaecalendar.formulaerest.pojo.calendar.CalendarDatum;
