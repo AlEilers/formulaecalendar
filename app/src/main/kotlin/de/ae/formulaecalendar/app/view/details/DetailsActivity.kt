@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.transition.Fade
 import android.view.View
 import android.view.WindowManager
 import com.jakewharton.threetenabp.AndroidThreeTen
@@ -35,6 +36,20 @@ class DetailsActivity constructor() : AppCompatActivity(), DetailsView {
         //initialize ThreeTen
         AndroidThreeTen.init(this)
 
+        //set toolbar
+        setSupportActionBar(toolbar_view)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            val fade = Fade()
+            fade.excludeTarget(toolbar_view, true)
+            fade.excludeTarget(android.R.id.statusBarBackground, true)
+            fade.excludeTarget(android.R.id.navigationBarBackground, true)
+
+            window.enterTransition = fade
+            window.exitTransition = fade
+        }
+
         //set results adapter
         adapter = ResultsAdapter()
         val llm = LinearLayoutManager(this.getContext())
@@ -42,9 +57,6 @@ class DetailsActivity constructor() : AppCompatActivity(), DetailsView {
         details_recycler_results.setLayoutManager(llm)
         details_recycler_results.setAdapter(adapter)
         details_recycler_results.setNestedScrollingEnabled(false)
-
-        setSupportActionBar(toolbar_view)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         //Transparent Action Bar for >API21
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

@@ -1,9 +1,11 @@
 package de.ae.formulaecalendar.app.view.details
 
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import com.google.firebase.analytics.FirebaseAnalytics
 import de.ae.formulaecalendar.app.R
 import de.ae.formulaecalendar.app.resource.LocalResourceStore
@@ -209,10 +211,14 @@ class DetailsPresenter {
 
     fun openMap() {
         if (race != null) {
-            val gmmIntentUri = Uri.parse("geo:0,0?q=" + race?.city + ", " + race?.country)
-            val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
-            mapIntent.`package` = "com.google.android.apps.maps"
-            view.getContext().startActivity(mapIntent)
+            try {
+                val gmmIntentUri = Uri.parse("geo:0,0?q=" + race?.city + ", " + race?.country)
+                val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+                mapIntent.`package` = "com.google.android.apps.maps"
+                view.getContext().startActivity(mapIntent)
+            }catch (e: ActivityNotFoundException){
+                Toast.makeText(view.getContext(),R.string.details_no_mps,Toast.LENGTH_LONG).show();
+            }
         }
     }
 

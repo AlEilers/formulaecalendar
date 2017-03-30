@@ -13,6 +13,7 @@
     <string name="details_laps">Runden</string>
     <string name="details_distance">km</string>
     <string name="details_results">Ergebnisse</string>
+    <string name="details_no_mps">Google Maps nicht gefunden</string>
     <string name="details_no_results">Noch keine Ergebnisse</string>
     <string name="feedback_subject">Feedback zu Formula E Kalender</string>
     <string name="title_send_feedback">Sende feedback via</string>

@@ -85,6 +85,7 @@
     <string name="details_distance">km</string>
     <string name="details_results">Results</string>
     <string name="details_no_results">No results yet</string>
+    <string name="details_no_mps">No Google Maps found</string>
 
     <!-- widget -->
     <string name="widget_next_up">Next Race</string>
