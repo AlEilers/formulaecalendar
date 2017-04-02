@@ -71,7 +71,7 @@ abstract class CountdownWidgetProvider constructor(val layout: Int) : AppWidgetP
 
 
     override fun saveNext(millis: Long) {
-        prefs?.edit()?.putLong(PREF, millis)
+        prefs?.edit()?.putLong(PREF, millis)?.apply()
     }
 
     override fun getContext(): Context? {
