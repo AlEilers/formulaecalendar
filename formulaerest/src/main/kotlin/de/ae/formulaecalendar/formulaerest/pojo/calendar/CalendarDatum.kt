@@ -2,13 +2,9 @@ package de.ae.formulaecalendar.formulaerest.pojo.calendar
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
-import org.threeten.bp.LocalDate
-import org.threeten.bp.LocalTime
 import org.threeten.bp.ZoneId
-import org.threeten.bp.ZonedDateTime
 import java.io.Serializable
 import java.util.*
-import java.util.Calendar
 
 class CalendarDatum : Serializable {
 
