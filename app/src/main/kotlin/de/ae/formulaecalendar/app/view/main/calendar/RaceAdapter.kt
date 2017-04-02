@@ -14,6 +14,7 @@ import de.ae.formulaecalendar.app.view.details.DetailsActivity
 import de.ae.formulaecalendar.formulaerest.pojo.calendar.CalendarDatum
 import de.ae.formulaecalendar.formulaerest.pojo.calendar.RaceCalendarData
 import de.ae.formulaecalendar.formulaerest.pojo.calendar.nextRace
+import de.ae.formulaecalendar.formulaerest.pojo.calendar.raceStart
 import org.threeten.bp.ZoneId
 import org.threeten.bp.format.DateTimeFormatter
 

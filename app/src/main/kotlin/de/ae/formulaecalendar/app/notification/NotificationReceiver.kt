@@ -12,6 +12,7 @@ import android.util.Log
 import com.jakewharton.threetenabp.AndroidThreeTen
 import de.ae.formulaecalendar.formulaerest.RemoteStore
 import de.ae.formulaecalendar.formulaerest.pojo.calendar.RaceCalendarData
+import de.ae.formulaecalendar.formulaerest.pojo.calendar.raceStart
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
