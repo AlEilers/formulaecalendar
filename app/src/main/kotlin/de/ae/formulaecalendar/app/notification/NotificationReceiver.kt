@@ -56,27 +56,22 @@ class NotificationReceiver : BroadcastReceiver() {
 
                     override fun onNext(raceCalendarData: RaceCalendarData?) {
                         val alarmManager = context.getSystemService(ALARM_SERVICE) as AlarmManager
-                        val data = raceCalendarData?.calendarData
-                        if (data != null) {
-                            for (race in data) {
-                                val raceStart = race.raceStart.toEpochSecond() * 1000
-                                if (raceStart > System.currentTimeMillis() + finoffset) {
-                                    val intent = Intent(context, NotificationService::class.java)
-                                    intent.putExtra("race", race)
-                                    val pendingIntent = PendingIntent.getService(context, Integer.parseInt(race.sequence), intent, 0)
-                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                                        alarmManager.setExact(AlarmManager.RTC_WAKEUP, raceStart - finoffset, pendingIntent)
-                                    } else {
-                                        alarmManager.set(AlarmManager.RTC_WAKEUP, raceStart - finoffset, pendingIntent)
+                        raceCalendarData?.calendarData?.let {
+                            it.filter { it.raceStart.toEpochSecond() * 1000 > System.currentTimeMillis() + finoffset }
+                                    .forEach {
+                                        val intent = Intent(context, NotificationService::class.java)
+                                        intent.putExtra("race", it)
+                                        val pendingIntent = PendingIntent.getService(context, Integer.parseInt(it.sequence), intent, 0)
+                                        val raceStartMilis = it.raceStart.toEpochSecond() * 1000
+                                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                                            alarmManager.setExact(AlarmManager.RTC_WAKEUP, raceStartMilis - finoffset, pendingIntent)
+                                        } else {
+                                            alarmManager.set(AlarmManager.RTC_WAKEUP, raceStartMilis - finoffset, pendingIntent)
+                                        }
                                     }
-                                }
-                            }
-                        } else {
-                            Log.w("NotificationReceiver", "Cannot schedule notification: RaceCalendarData is null")
-                        }
+                        } ?: Log.w("NotificationReceiver", "Cannot schedule notification: RaceCalendarData is null")
                     }
                 })
-        return
     }
 
 }

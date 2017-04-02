@@ -43,13 +43,9 @@ class MainPresenter constructor(val view: MainView, val model: DataStore, val ob
                     }
 
                     override fun onSuccess(champsDatum: ChampsDatum?) {
-                        var title: String? = champsDatum?.championship
-                        if (title != null) {
-                            title = title.substring(0, 1).toUpperCase() + title.substring(1).toLowerCase()
-                            view.setTitle(title)
-                        } else {
-                            Log.w("MainPresenter", "Cannot load view: title is null")
-                        }
+                        champsDatum?.championship?.let {
+                            view.setTitle(it.substring(0, 1).toUpperCase() + it.substring(1).toLowerCase())
+                        } ?: Log.w("MainPresenter", "Cannot load view: title is null")
                     }
                 })
     }

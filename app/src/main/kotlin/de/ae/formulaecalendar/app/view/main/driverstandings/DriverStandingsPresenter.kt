@@ -44,9 +44,7 @@ class DriverStandingsPresenter(val view: DriverStandingsView, val model: DataSto
                     }
 
                     override fun onNext(championshipData: ChampionshipData?) {
-                        if (championshipData != null) {
-                            view.setContent(championshipData)
-                        }
+                        championshipData?.let { view.setContent(it) }
                     }
                 })
     }

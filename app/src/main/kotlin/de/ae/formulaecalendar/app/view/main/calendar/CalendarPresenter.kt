@@ -44,9 +44,7 @@ class CalendarPresenter(val view: CalendarView, val model: DataStore, val observ
                     }
 
                     override fun onNext(data: RaceCalendarData?) {
-                        if (data != null) {
-                            view.setContent(data)
-                        }
+                        data?.let { view.setContent(it) }
                     }
                 })
     }

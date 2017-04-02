@@ -85,12 +85,8 @@ class DetailsPresenter {
                         }
 
                         override fun onNext(data: RaceCalendarData?) {
-                            val nextRace = data?.nextRace()
-                            if (nextRace != null) {
-                                setContent(nextRace)
-                            } else {
-                                Log.w("DetailsPresenter", "Cannot load view: next race from Server is null")
-                            }
+                            data?.nextRace()?.let { setContent(it) }
+                                    ?: Log.w("DetailsPresenter", "Cannot load view: next race from Server is null")
                         }
                     })
         }
@@ -198,12 +194,8 @@ class DetailsPresenter {
                     }
 
                     override fun onNext(session: Session?) {
-                        val results = session?.sesRace
-                        if (results != null) {
-                            view.setResults(results)
-                        } else {
-                            Log.w("DetailsPresenter", "Cannot load view: results from Server are null")
-                        }
+                        session?.sesRace?.let { view.setResults(it) }
+                                ?: Log.w("DetailsPresenter", "Cannot load view: results from Server are null")
                     }
                 })
     }
@@ -215,8 +207,8 @@ class DetailsPresenter {
                 val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
                 mapIntent.`package` = "com.google.android.apps.maps"
                 view.getContext().startActivity(mapIntent)
-            }catch (e: ActivityNotFoundException){
-                Toast.makeText(view.getContext(),R.string.details_no_mps,Toast.LENGTH_LONG).show();
+            } catch (e: ActivityNotFoundException) {
+                Toast.makeText(view.getContext(), R.string.details_no_mps, Toast.LENGTH_LONG).show();
             }
         }
     }

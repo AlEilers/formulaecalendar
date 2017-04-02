@@ -44,9 +44,7 @@ class TeamStandingsPresenter(val view: TeamStandingsView, val model: DataStore, 
                     }
 
                     override fun onNext(championshipData: ChampionshipData?) {
-                        if (championshipData != null) {
-                            view.setContent(championshipData)
-                        }
+                        championshipData?.let { view.setContent(it) }
                     }
                 })
     }
