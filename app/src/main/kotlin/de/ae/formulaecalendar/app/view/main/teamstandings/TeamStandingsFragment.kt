@@ -80,9 +80,8 @@ class TeamStandingsFragment : Fragment(), TeamStandingsView {
     }
 
     override fun setSnackbarVisibility(visible: Boolean) {
-        val view = cardList
-        if (visible && view!=null) {
-            snackbar = Snackbar.make(view, R.string.connection_fault, Snackbar.LENGTH_INDEFINITE)
+        if (visible) {
+            cardList?.let { snackbar = Snackbar.make(it, R.string.connection_fault, Snackbar.LENGTH_INDEFINITE) }
             snackbar?.setAction(R.string.snackbar_retry, { presenter.loadContent() })
             if (fragmentVisible) {
                 snackbar?.show()
