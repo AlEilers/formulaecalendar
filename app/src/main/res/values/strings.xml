@@ -34,7 +34,7 @@
 
     <!-- Date and Time -->
     <string name="format_date">LLL dd, yyyy</string>
-    <string name="format_time">hh:mm a</string>
+    <string name="format_time">KK:mm a</string>
 
     <!-- Card -->
     <string name="card_next_up">Next Race</string>
