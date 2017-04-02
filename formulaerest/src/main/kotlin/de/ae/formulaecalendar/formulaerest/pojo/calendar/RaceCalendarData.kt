@@ -12,20 +12,4 @@ class RaceCalendarData {
     override fun toString(): String {
         return "RaceCalendarData{" + "calendarData=" + calendarData + '}'
     }
-
-    val posNextRace: Int
-        get() {
-            for (i in calendarData!!.indices) {
-                if (calendarData!![i].raceEnd.toEpochSecond() * 1000 > System.currentTimeMillis()) {
-                    return i
-                }
-            }
-            return -1
-        }
-
-    val nextRace: CalendarDatum?
-        get() {
-            val pos = this.posNextRace
-            return if (pos >= 0) calendarData!![pos] else null
-        }
 }

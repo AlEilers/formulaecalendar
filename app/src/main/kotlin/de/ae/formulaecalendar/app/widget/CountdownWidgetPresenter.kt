@@ -5,6 +5,7 @@ import de.ae.formulaecalendar.app.R
 import de.ae.formulaecalendar.formulaerest.DataStore
 import de.ae.formulaecalendar.formulaerest.RemoteStore
 import de.ae.formulaecalendar.formulaerest.pojo.calendar.RaceCalendarData
+import de.ae.formulaecalendar.formulaerest.pojo.calendar.nextRace
 import io.reactivex.Observer
 import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -50,7 +51,7 @@ class CountdownWidgetPresenter constructor(val view: CountdownWidgetView, val mo
                         }
 
                         override fun onNext(raceCalendarData: RaceCalendarData?) {
-                            val next = raceCalendarData?.nextRace
+                            val next = raceCalendarData?.nextRace()
                             if (next == null) {
                                 val title = ""
                                 val countdown = view.getContext()?.getString(R.string.widget_no_next)

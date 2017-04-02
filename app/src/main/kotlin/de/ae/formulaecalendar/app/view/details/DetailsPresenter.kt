@@ -14,6 +14,7 @@ import de.ae.formulaecalendar.formulaerest.DataStore
 import de.ae.formulaecalendar.formulaerest.RemoteStore
 import de.ae.formulaecalendar.formulaerest.pojo.calendar.CalendarDatum
 import de.ae.formulaecalendar.formulaerest.pojo.calendar.RaceCalendarData
+import de.ae.formulaecalendar.formulaerest.pojo.calendar.nextRace
 import de.ae.formulaecalendar.formulaerest.pojo.race.Session
 import io.reactivex.Observer
 import io.reactivex.Scheduler
@@ -86,7 +87,7 @@ class DetailsPresenter {
                         }
 
                         override fun onNext(data: RaceCalendarData?) {
-                            val nextRace = data?.nextRace
+                            val nextRace = data?.nextRace()
                             if (nextRace != null) {
                                 setContent(nextRace)
                             } else {
