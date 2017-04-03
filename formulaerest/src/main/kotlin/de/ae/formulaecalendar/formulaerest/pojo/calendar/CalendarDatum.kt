@@ -1,87 +1,53 @@
 package de.ae.formulaecalendar.formulaerest.pojo.calendar
 
-import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import org.threeten.bp.ZoneId
 import java.io.Serializable
 import java.util.*
 
-class CalendarDatum : Serializable {
+data class CalendarDatum(
+        @SerializedName("Sequence")
+        var sequence: String?,
 
-    @SerializedName("Sequence")
-    @Expose
-    var sequence: String? = null
+        @SerializedName("RaceDate")
+        var raceDate: Date?,
 
-    @SerializedName("RaceDate")
-    @Expose
-    var raceDate: Date? = null
+        @SerializedName("RaceName")
+        var raceName: String?,
 
-    @SerializedName("RaceName")
-    @Expose
-    var raceName: String? = null
+        @SerializedName("RaceId")
+        var raceId: String?,
 
-    @SerializedName("RaceId")
-    @Expose
-    var raceId: String? = null
+        @SerializedName("City")
+        var city: String?,
 
-    @SerializedName("City")
-    @Expose
-    var city: String? = null
+        @SerializedName("Country")
+        var country: String?,
 
-    @SerializedName("Country")
-    @Expose
-    var country: String? = null
+        @SerializedName("hasRaceResults")
+        var hasRaceResults: Boolean?,
 
-    @SerializedName("hasRaceResults")
-    @Expose
-    var hasRaceResults: Boolean? = null
+        @SerializedName("hasSessionResults")
+        var hasSessionResults: Boolean?,
 
-    @SerializedName("hasSessionResults")
-    @Expose
-    var hasSessionResults: Boolean? = null
+        @SerializedName("CircuitName")
+        var circuitName: String?,
 
-    @SerializedName("CircuitName")
-    @Expose
-    var circuitName: String? = null
+        @SerializedName("CircuitId")
+        var circuitId: String?,
 
-    @SerializedName("CircuitId")
-    @Expose
-    var circuitId: String? = null
+        @SerializedName("CircuitPerimeter")
+        var circuitPerimeter: String?,
 
-    @SerializedName("CircuitPerimeter")
-    @Expose
-    var circuitPerimeter: String? = null
+        @SerializedName("Laps")
+        var laps: String?,
 
-    @SerializedName("Laps")
-    @Expose
-    var laps: String? = null
+        @SerializedName("ScheduledLaps")
+        var scheduledLaps: String?,
 
-    @SerializedName("ScheduledLaps")
-    @Expose
-    var scheduledLaps: String? = null
-
-    @SerializedName("RaceDistance")
-    @Expose
-    var raceDistance: String? = null
+        @SerializedName("RaceDistance")
+        var raceDistance: String?
+) : Serializable {
 
     var zoneId: ZoneId? = null
-
-    override fun toString(): String {
-        return "CalendarDatum{" +
-                "sequence='" + sequence + '\'' +
-                ", raceDate='" + raceDate + '\'' +
-                ", raceName='" + raceName + '\'' +
-                ", raceId='" + raceId + '\'' +
-                ", city='" + city + '\'' +
-                ", country='" + country + '\'' +
-                ", hasRaceResults=" + hasRaceResults +
-                ", hasSessionResults=" + hasSessionResults +
-                ", circuitName='" + circuitName + '\'' +
-                ", circuitId='" + circuitId + '\'' +
-                ", circuitPerimeter='" + circuitPerimeter + '\'' +
-                ", laps='" + laps + '\'' +
-                ", scheduledLaps='" + scheduledLaps + '\'' +
-                ", raceDistance='" + raceDistance + '\'' +
-                '}'
-    }
 }

@@ -1,21 +1,12 @@
 package de.ae.formulaecalendar.formulaerest.pojo.driverstanding
 
-import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-class ChampionshipStanding {
+data class ChampionshipStanding(
 
-    @SerializedName("ChampionshipType")
-    @Expose
-    var championshipType: String? = null
-    @SerializedName("ChampionshipData")
-    @Expose
-    var championshipData: ChampionshipData? = null
+        @SerializedName("ChampionshipType")
+        var championshipType: String?,
 
-    override fun toString(): String {
-        return "ChampionshipStanding{" +
-                "championshipType='" + championshipType + '\'' +
-                ", championshipData=" + championshipData +
-                '}'
-    }
-}
+        @SerializedName("ChampionshipData")
+        var championshipData: ChampionshipData?
+)

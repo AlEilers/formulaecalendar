@@ -3,85 +3,50 @@ package de.ae.formulaecalendar.formulaerest.pojo.race
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-class SesFP2 {
+data class SesFP2(
 
     @SerializedName("Pos")
-    @Expose
-    var pos: String? = null
+    var pos: String?,
 
     @SerializedName("Number")
-    @Expose
-    var number: String? = null
+    var number: String?,
 
     @SerializedName("TeamName")
-    @Expose
-    var teamName: String? = null
+    var teamName: String?,
 
     @SerializedName("TeamId")
-    @Expose
-    var teamId: String? = null
+    var teamId: String?,
 
     @SerializedName("DriverName")
-    @Expose
-    var driverName: String? = null
+    var driverName: String?,
 
     @SerializedName("DriverId")
-    @Expose
-    var driverId: String? = null
+    var driverId: String?,
 
     @SerializedName("FirstName")
-    @Expose
-    var firstName: String? = null
+    var firstName: String?,
 
     @SerializedName("LastName")
-    @Expose
-    var lastName: String? = null
+    var lastName: String?,
 
     @SerializedName("Country")
-    @Expose
-    var country: String? = null
+    var country: String?,
 
     @SerializedName("CarMake")
-    @Expose
-    var carMake: String? = null
+    var carMake: String?,
 
     @SerializedName("CarModel")
-    @Expose
-    var carModel: String? = null
+    var carModel: String?,
 
     @SerializedName("Laps")
-    @Expose
-    var laps: String? = null
+    var laps: String?,
 
     @SerializedName("Time")
-    @Expose
-    var time: String? = null
+    var time: String?,
 
     @SerializedName("Delay")
-    @Expose
-    var delay: String? = null
+    var delay: String?,
 
     @SerializedName("AvgSpeed")
-    @Expose
-    var avgSpeed: String? = null
-
-    override fun toString(): String {
-        return "SesFP2{" +
-                "pos='" + pos + '\'' +
-                ", number='" + number + '\'' +
-                ", teamName='" + teamName + '\'' +
-                ", teamId='" + teamId + '\'' +
-                ", driverName='" + driverName + '\'' +
-                ", driverId='" + driverId + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", country='" + country + '\'' +
-                ", carMake='" + carMake + '\'' +
-                ", carModel='" + carModel + '\'' +
-                ", laps='" + laps + '\'' +
-                ", time='" + time + '\'' +
-                ", delay='" + delay + '\'' +
-                ", avgSpeed='" + avgSpeed + '\'' +
-                '}'
-    }
-}
+    var avgSpeed: String?
+)

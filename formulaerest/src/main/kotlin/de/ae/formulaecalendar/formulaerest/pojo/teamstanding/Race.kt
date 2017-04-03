@@ -1,47 +1,27 @@
 package de.ae.formulaecalendar.formulaerest.pojo.teamstanding
 
-import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-class Race {
+data class Race(
 
-    @SerializedName("RaceName")
-    @Expose
-    var raceName: String? = null
+        @SerializedName("RaceName")
+        var raceName: String?,
 
-    @SerializedName("RaceId")
-    @Expose
-    var raceId: String? = null
+        @SerializedName("RaceId")
+        var raceId: String?,
 
-    @SerializedName("RacePoints")
-    @Expose
-    var racePoints: String? = null
+        @SerializedName("RacePoints")
+        var racePoints: String?,
 
-    @SerializedName("PolePosition")
-    @Expose
-    var polePosition: Boolean? = null
+        @SerializedName("PolePosition")
+        var polePosition: Boolean?,
 
-    @SerializedName("FastestLap")
-    @Expose
-    var fastestLap: Boolean? = null
+        @SerializedName("FastestLap")
+        var fastestLap: Boolean?,
 
-    @SerializedName("DNF")
-    @Expose
-    var dnf: Boolean? = null
+        @SerializedName("DNF")
+        var dnf: Boolean?,
 
-    @SerializedName("Round")
-    @Expose
-    var round: String? = null
-
-    override fun toString(): String {
-        return "Race{" +
-                "raceName='" + raceName + '\'' +
-                ", raceId='" + raceId + '\'' +
-                ", racePoints='" + racePoints + '\'' +
-                ", polePosition=" + polePosition +
-                ", fastestLap=" + fastestLap +
-                ", dNF=" + dnf +
-                ", round='" + round + '\'' +
-                '}'
-    }
-}
+        @SerializedName("Round")
+        var round: String?
+)
