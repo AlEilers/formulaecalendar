@@ -40,7 +40,7 @@ class DetailsPresenter {
 
     private var race: CalendarDatum? = null
 
-    constructor(view: DetailsView, model: DataStore, observer: Scheduler, subscriber: Scheduler, resource: ResourceStore) {
+    constructor(view: DetailsView, model: DataStore = RemoteStore, observer: Scheduler = AndroidSchedulers.mainThread(), subscriber: Scheduler = Schedulers.newThread(), resource: ResourceStore = LocalResourceStore) {
         this.view = view
         this.model = model
         this.observer = observer
@@ -52,8 +52,6 @@ class DetailsPresenter {
             Log.w("DetailsPresenter", "Cannot instanciate FirebaseAnalytics, probably in test mode")
         }
     }
-
-    constructor(view: DetailsView) : this(view, RemoteStore, AndroidSchedulers.mainThread(), Schedulers.newThread(), LocalResourceStore)
 
     fun loadData(race: CalendarDatum?) {
         if (race != null) {

@@ -19,11 +19,9 @@ import org.threeten.bp.format.DateTimeFormatter
 /**
  * Created by aeilers on 18.02.2017.
  */
-class CountdownWidgetPresenter constructor(val view: CountdownWidgetView, val model: DataStore, val observer: Scheduler, val subscriber: Scheduler) {
+class CountdownWidgetPresenter constructor(val view: CountdownWidgetView, val model: DataStore = RemoteStore, val observer: Scheduler = AndroidSchedulers.mainThread(), val subscriber: Scheduler = Schedulers.newThread()) {
     private val HOUR_IN_MILLIS = (1000 * 60 * 60).toLong()
     private val DAY_IN_MILLIS = (1000 * 60 * 60 * 24).toLong()
-
-    constructor(view: CountdownWidgetView) : this(view, RemoteStore, AndroidSchedulers.mainThread(), Schedulers.newThread())
 
     fun loadWidget(previous: Long?) {
         val currentTime = System.currentTimeMillis()

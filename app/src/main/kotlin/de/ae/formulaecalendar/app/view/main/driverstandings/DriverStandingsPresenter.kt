@@ -14,7 +14,7 @@ import io.reactivex.schedulers.Schedulers
 /**
  * Created by aeilers on 17.02.2017.
  */
-class DriverStandingsPresenter(val view: DriverStandingsView, val model: DataStore, val observer: Scheduler, val subscriber: Scheduler) {
+class DriverStandingsPresenter(val view: DriverStandingsView, val model: DataStore = RemoteStore, val observer: Scheduler = AndroidSchedulers.mainThread(), val subscriber: Scheduler = Schedulers.newThread()) {
 
     constructor(view: DriverStandingsView) : this(view, RemoteStore, AndroidSchedulers.mainThread(), Schedulers.newThread())
 

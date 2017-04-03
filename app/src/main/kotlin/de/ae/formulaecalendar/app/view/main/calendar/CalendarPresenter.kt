@@ -14,7 +14,7 @@ import io.reactivex.schedulers.Schedulers
 /**
  * Created by aeilers on 17.02.2017.
  */
-class CalendarPresenter(val view: CalendarView, val model: DataStore, val observer: Scheduler, val subscriber: Scheduler) {
+class CalendarPresenter(val view: CalendarView, val model: DataStore = RemoteStore, val observer: Scheduler = AndroidSchedulers.mainThread(), val subscriber: Scheduler = Schedulers.newThread()) {
 
     constructor(view: CalendarView) : this(view, RemoteStore, AndroidSchedulers.mainThread(), Schedulers.newThread())
 

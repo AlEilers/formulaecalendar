@@ -21,9 +21,7 @@ import io.reactivex.schedulers.Schedulers
 /**
  * Created by aeilers on 17.02.2017.
  */
-class MainPresenter constructor(val view: MainView, val model: DataStore, val observer: Scheduler, val subscriber: Scheduler) {
-
-    constructor(view: MainView) : this(view, RemoteStore, AndroidSchedulers.mainThread(), Schedulers.newThread())
+class MainPresenter constructor(val view: MainView, val model: DataStore = RemoteStore, val observer: Scheduler = AndroidSchedulers.mainThread(), val subscriber: Scheduler = Schedulers.newThread()) {
 
     fun loadContent() {
         model.getCurrentChampionShip()
