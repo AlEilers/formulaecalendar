@@ -53,9 +53,12 @@ class RaceAdapter : RecyclerView.Adapter<RaceHolder> {
         val zdt = race?.raceStart?.withZoneSameInstant(zone)
         holder.date.text = zdt?.format(DateTimeFormatter.ofPattern(format))
 
-        val resourceView = LocalResourceStore.getResourceId(race?.city ?: "-")
-        if (resourceView != null && resourceView >= 0) {
-            holder.image.setImageResource(resourceView)
+        race?.city?.let {
+            LocalResourceStore.getResourceId(it)?.let {
+                if (it >= 0) {
+                    holder.image.setImageResource(it)
+                }
+            }
         }
 
         holder.image.setOnClickListener { startDetails(it, position) }
