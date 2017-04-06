@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".app.view.main.calendar.CalendarFragment" >
+    tools:context=".view.main.calendar.CalendarFragment" >
 
     <ProgressBar
         android:id="@+id/calendar_progress_bar"
