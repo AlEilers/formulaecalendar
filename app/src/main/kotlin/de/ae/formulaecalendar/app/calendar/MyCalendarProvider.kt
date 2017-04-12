@@ -12,6 +12,7 @@ import android.provider.CalendarContract
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.util.Log
+import co.metalab.asyncawait.async
 import de.ae.formulaecalendar.app.R
 import de.ae.formulaecalendar.formulaerest.pojo.calendar.*
 import io.reactivex.Observable
@@ -34,8 +35,8 @@ class MyCalendarProvider {
     private val raceTitle: String
     private val qualiTitle: String
     private val roundTitle: String
-    private val enableRace: Boolean
-    private val enableQuali: Boolean
+    private var enableRace: Boolean = false
+    private var enableQuali: Boolean = false
 
     constructor(context: Context) {
         this.cr = context.contentResolver
@@ -47,9 +48,11 @@ class MyCalendarProvider {
         this.qualiTitle = context.getString(R.string.cal_event_quali)
         this.roundTitle = context.getString(R.string.cal_event_round)
 
-        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
-        enableRace = prefs.getBoolean(prefCalendar, false)
-        enableQuali = prefs.getBoolean(prefQuali, false)
+        async {
+            val prefs = PreferenceManager.getDefaultSharedPreferences(context)
+            await { enableRace = prefs.getBoolean(prefCalendar, false) }
+            await { enableQuali = prefs.getBoolean(prefQuali, false) }
+        }
     }
 
     fun manageCalendar(context: Context, obs: Observable<RaceCalendarData?>) {
@@ -115,6 +118,7 @@ class MyCalendarProvider {
         val projection = arrayOf(CalendarContract.Calendars._ID, CalendarContract.Calendars.CALENDAR_DISPLAY_NAME, CalendarContract.Calendars.ACCOUNT_NAME)
         val where = projection[1] + "='" + this.calendarName + "' AND " + projection[2] + "='" + this.accountName + "'"
         val cursor = cr.query(CalendarContract.Calendars.CONTENT_URI, projection, where, null, null)
+
         val idCol = cursor.getColumnIndex(projection[0])
 
         if (cursor.moveToFirst()) {
