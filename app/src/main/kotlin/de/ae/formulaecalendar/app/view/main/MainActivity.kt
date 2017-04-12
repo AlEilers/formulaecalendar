@@ -6,6 +6,7 @@ import android.support.design.widget.TabLayout
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import co.metalab.asyncawait.async
 import com.jakewharton.threetenabp.AndroidThreeTen
 import de.ae.formulaecalendar.app.R
 import de.ae.formulaecalendar.app.view.settings.MyPreferenceActivity
@@ -20,38 +21,43 @@ class MainActivity constructor() : AppCompatActivity(), MainView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //initialize ThreeTen
-        AndroidThreeTen.init(this)
+        val application = this
 
-        //set Toolbar
-        setSupportActionBar(toolbar_view)
+        async {
 
-        tab_layout.addTab(tab_layout.newTab().setText(R.string.tab_calendar))
-        tab_layout.addTab(tab_layout.newTab().setText(R.string.tab_driver))
-        tab_layout.addTab(tab_layout.newTab().setText(R.string.tab_team))
-        tab_layout.tabGravity = TabLayout.GRAVITY_FILL
+            //initialize ThreeTen
+            await { AndroidThreeTen.init(application) }
 
-        pager.adapter = PageAdapter(supportFragmentManager, tab_layout.tabCount)
-        pager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tab_layout))
-        tab_layout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabReselected(tab: TabLayout.Tab?) {
-                //do nothing
-            }
+            //set Toolbar
+            setSupportActionBar(toolbar_view)
 
-            override fun onTabUnselected(tab: TabLayout.Tab?) {
-                //do nothing
-            }
+            tab_layout.addTab(tab_layout.newTab().setText(R.string.tab_calendar))
+            tab_layout.addTab(tab_layout.newTab().setText(R.string.tab_driver))
+            tab_layout.addTab(tab_layout.newTab().setText(R.string.tab_team))
+            tab_layout.tabGravity = TabLayout.GRAVITY_FILL
 
-            override fun onTabSelected(tab: TabLayout.Tab?) {
-                pager.setCurrentItem(tab?.position ?: 0)
-            }
-        })
+            pager.adapter = PageAdapter(supportFragmentManager, tab_layout.tabCount)
+            pager.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tab_layout))
+            tab_layout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+                override fun onTabReselected(tab: TabLayout.Tab?) {
+                    //do nothing
+                }
 
-        //load Content
-        presenter = MainPresenter(this)
-        presenter?.loadContent()
-        presenter?.manageCalendar(this)
-        presenter?.scheduleNotifications(this)
+                override fun onTabUnselected(tab: TabLayout.Tab?) {
+                    //do nothing
+                }
+
+                override fun onTabSelected(tab: TabLayout.Tab?) {
+                    pager.setCurrentItem(tab?.position ?: 0)
+                }
+            })
+
+            //load Content
+            presenter = MainPresenter(application)
+            presenter?.loadContent()
+            presenter?.manageCalendar(application)
+            presenter?.scheduleNotifications(application)
+        }
 
     }
 
