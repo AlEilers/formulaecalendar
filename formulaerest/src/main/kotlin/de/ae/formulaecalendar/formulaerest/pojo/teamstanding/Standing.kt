@@ -5,20 +5,20 @@ import com.google.gson.annotations.SerializedName
 data class Standing(
 
         @SerializedName("Pos")
-        var pos: String?,
+        var pos: String? = null,
 
         @SerializedName("TotalPoints")
-        var totalPoints: String?,
+        var totalPoints: String? = null,
 
         @SerializedName("TeamName")
-        var teamName: String?,
+        var teamName: String? = null,
 
         @SerializedName("TeamId")
-        var teamId: String?,
+        var teamId: String? = null,
 
         @SerializedName("Country")
-        var country: String?,
+        var country: String? = null,
 
         @SerializedName("Races")
-        var races: Races?
+        var races: Races? = null
 )

@@ -5,26 +5,26 @@ import com.google.gson.annotations.SerializedName
 data class SerieData(
 
         @SerializedName("Series")
-        var series: String?,
+        var series: String? = null,
 
         @SerializedName("Championship")
-        var championship: String?,
+        var championship: String? = null,
 
         @SerializedName("ChampionshipId")
-        var championshipId: String?,
+        var championshipId: String? = null,
 
         @SerializedName("RaceName")
-        var raceName: String?,
+        var raceName: String? = null,
 
         @SerializedName("RaceId")
-        var raceId: String?,
+        var raceId: String? = null,
 
         @SerializedName("Package")
-        var `package`: String?,
+        var `package`: String? = null,
 
         @SerializedName("Session")
-        var session: Session?,
+        var session: Session? = null,
 
         @SerializedName("Generated")
-        var generated: String?
+        var generated: String? = null
 )

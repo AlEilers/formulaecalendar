@@ -5,8 +5,8 @@ import com.google.gson.annotations.SerializedName
 data class ChampionshipStanding(
 
         @SerializedName("ChampionshipType")
-        var championshipType: String?,
+        var championshipType: String? = null,
 
         @SerializedName("ChampionshipData")
-        var championshipData: ChampionshipData?
+        var championshipData: ChampionshipData? = null
 )

@@ -7,46 +7,46 @@ import java.util.*
 
 data class CalendarDatum(
         @SerializedName("Sequence")
-        var sequence: String?,
+        var sequence: String? = null,
 
         @SerializedName("RaceDate")
-        var raceDate: Date?,
+        var raceDate: Date? = null,
 
         @SerializedName("RaceName")
-        var raceName: String?,
+        var raceName: String? = null,
 
         @SerializedName("RaceId")
-        var raceId: String?,
+        var raceId: String? = null,
 
         @SerializedName("City")
-        var city: String?,
+        var city: String? = null,
 
         @SerializedName("Country")
-        var country: String?,
+        var country: String? = null,
 
         @SerializedName("hasRaceResults")
-        var hasRaceResults: Boolean?,
+        var hasRaceResults: Boolean? = null,
 
         @SerializedName("hasSessionResults")
-        var hasSessionResults: Boolean?,
+        var hasSessionResults: Boolean? = null,
 
         @SerializedName("CircuitName")
-        var circuitName: String?,
+        var circuitName: String? = null,
 
         @SerializedName("CircuitId")
-        var circuitId: String?,
+        var circuitId: String? = null,
 
         @SerializedName("CircuitPerimeter")
-        var circuitPerimeter: String?,
+        var circuitPerimeter: String? = null,
 
         @SerializedName("Laps")
-        var laps: String?,
+        var laps: String? = null,
 
         @SerializedName("ScheduledLaps")
-        var scheduledLaps: String?,
+        var scheduledLaps: String? = null,
 
         @SerializedName("RaceDistance")
-        var raceDistance: String?
+        var raceDistance: String? = null
 ) : Serializable {
 
     var zoneId: ZoneId? = null

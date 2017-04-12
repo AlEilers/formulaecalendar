@@ -5,47 +5,47 @@ import com.google.gson.annotations.SerializedName
 data class SesQP(
 
         @SerializedName("Pos")
-        var pos: String?,
+        var pos: String? = null,
 
         @SerializedName("Number")
-        var number: String?,
+        var number: String? = null,
 
         @SerializedName("TeamName")
-        var teamName: String?,
+        var teamName: String? = null,
 
         @SerializedName("TeamId")
-        var teamId: String?,
+        var teamId: String? = null,
 
         @SerializedName("DriverName")
-        var driverName: String?,
+        var driverName: String? = null,
 
         @SerializedName("DriverId")
-        var driverId: String?,
+        var driverId: String? = null,
 
         @SerializedName("FirstName")
-        var firstName: String?,
+        var firstName: String? = null,
 
         @SerializedName("LastName")
-        var lastName: String?,
+        var lastName: String? = null,
 
         @SerializedName("Country")
-        var country: String?,
+        var country: String? = null,
 
         @SerializedName("CarMake")
-        var carMake: String?,
+        var carMake: String? = null,
 
         @SerializedName("CarModel")
-        var carModel: String?,
+        var carModel: String? = null,
 
         @SerializedName("Laps")
-        var laps: String?,
+        var laps: String? = null,
 
         @SerializedName("Time")
-        var time: String?,
+        var time: String? = null,
 
         @SerializedName("Delay")
-        var delay: String?,
+        var delay: String? = null,
 
         @SerializedName("AvgSpeed")
-        var avgSpeed: String?
+        var avgSpeed: String? = null
 )

@@ -5,11 +5,11 @@ import com.google.gson.annotations.SerializedName
 data class ChampsDatum(
 
         @SerializedName("Championship")
-        var championship: String?,
+        var championship: String? = null,
 
         @SerializedName("ChampionshipId")
-        var championshipId: String?,
+        var championshipId: String? = null,
 
         @SerializedName("Status")
-        var status: String?
+        var status: String? = null
 )

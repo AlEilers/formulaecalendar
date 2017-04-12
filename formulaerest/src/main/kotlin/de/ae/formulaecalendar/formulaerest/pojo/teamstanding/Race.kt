@@ -5,23 +5,23 @@ import com.google.gson.annotations.SerializedName
 data class Race(
 
         @SerializedName("RaceName")
-        var raceName: String?,
+        var raceName: String? = null,
 
         @SerializedName("RaceId")
-        var raceId: String?,
+        var raceId: String? = null,
 
         @SerializedName("RacePoints")
-        var racePoints: String?,
+        var racePoints: String? = null,
 
         @SerializedName("PolePosition")
-        var polePosition: Boolean?,
+        var polePosition: Boolean? = null,
 
         @SerializedName("FastestLap")
-        var fastestLap: Boolean?,
+        var fastestLap: Boolean? = null,
 
         @SerializedName("DNF")
-        var dnf: Boolean?,
+        var dnf: Boolean? = null,
 
         @SerializedName("Round")
-        var round: String?
+        var round: String? = null
 )
