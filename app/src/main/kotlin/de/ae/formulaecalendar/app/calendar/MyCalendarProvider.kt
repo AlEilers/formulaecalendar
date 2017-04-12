@@ -48,7 +48,7 @@ class MyCalendarProvider {
         this.roundTitle = context.getString(R.string.cal_event_round)
 
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
-        enableRace = prefs.getBoolean(prefCalendar, true)
+        enableRace = prefs.getBoolean(prefCalendar, false)
         enableQuali = prefs.getBoolean(prefQuali, false)
     }
 
