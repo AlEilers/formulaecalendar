@@ -23,11 +23,11 @@ class CountdownWidgetPresenter constructor(val view: CountdownWidgetView, val mo
     private val HOUR_IN_MILLIS = (1000 * 60 * 60).toLong()
     private val DAY_IN_MILLIS = (1000 * 60 * 60 * 24).toLong()
 
-    fun loadWidget(previous: Long?) {
+    fun loadWidget(name: String, previous: Long, date: String) {
         val currentTime = System.currentTimeMillis()
-        if (previous != null && previous > currentTime) {
+        if (previous > currentTime) {
             val countdown = millisToCountdown(previous)
-            view.setContent(null, countdown, null, true)
+            view.setContent(name, countdown, date, true)
         } else {
             model.getCurrentRaceCalendar()
                     .subscribeOn(subscriber)
@@ -51,18 +51,18 @@ class CountdownWidgetPresenter constructor(val view: CountdownWidgetView, val mo
 
                         override fun onNext(raceCalendarData: RaceCalendarData?) {
                             val next = raceCalendarData?.nextRace()
-                            if (next == null) {
+                            if (next != null) {
+                                val title = next.raceName ?: ""
+                                val countdown = millisToCountdown(next.raceStart.toEpochSecond() * 1000)
+                                val date = dateToString(next.raceStart)
+                                view.setContent(title, countdown, date, true)
+                                view.saveNext(title, next.raceStart.toEpochSecond() * 1000, date)
+                            } else {
                                 val title = ""
                                 val countdown = view.getContext()?.getString(R.string.widget_no_next)
                                 val date = ""
                                 view.setContent(title, countdown, date, false)
-                                view.saveNext(-1)
-                            } else {
-                                val title = next.raceName
-                                val countdown = millisToCountdown(next.raceStart.toEpochSecond() * 1000)
-                                val date = dateToString(next.raceStart)
-                                view.setContent(title, countdown, date, true)
-                                view.saveNext(next.raceStart.toEpochSecond() * 1000)
+                                view.saveNext("", -1, "")
                             }
                         }
                     })
