@@ -83,6 +83,7 @@ class DetailsPresenter {
                         }
 
                         override fun onNext(data: RaceCalendarData?) {
+                            setContent(data?.nextRace())
                             data?.nextRace()?.let { setContent(it) }
                                     ?: Log.w("DetailsPresenter", "Cannot load view: next race from Server is null")
                         }
@@ -90,8 +91,8 @@ class DetailsPresenter {
         }
     }
 
-    private fun setContent(race: CalendarDatum) {
-        logToFirebase(race)
+    private fun setContent(race: CalendarDatum?) {
+        race?.let { logToFirebase(it) }
 
         this.race = race
         val context = view.getContext()

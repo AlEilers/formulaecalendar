@@ -44,8 +44,8 @@ class CountdownWidgetPresenter constructor(val view: CountdownWidgetView, val mo
                         override fun onError(t: Throwable) {
                             val title = ""
                             val countdown = view.getContext()?.getString(R.string.widget_loading)
-                            val date = ""
-                            view.setContent(title, countdown, date, false)
+                            val dateStr = ""
+                            view.setContent(title, countdown, dateStr, false)
                             Log.w("CountdownWidgetPresente", "Cannot load view: ${t.message}")
                         }
 
@@ -54,14 +54,14 @@ class CountdownWidgetPresenter constructor(val view: CountdownWidgetView, val mo
                             if (next != null) {
                                 val title = next.raceName ?: ""
                                 val countdown = millisToCountdown(next.raceStart.toEpochSecond() * 1000)
-                                val date = dateToString(next.raceStart)
-                                view.setContent(title, countdown, date, true)
+                                val dateStr = dateToString(next.raceStart)
+                                view.setContent(title, countdown, dateStr, true)
                                 view.saveNext(title, next.raceStart.toEpochSecond() * 1000, date)
                             } else {
                                 val title = ""
                                 val countdown = view.getContext()?.getString(R.string.widget_no_next)
-                                val date = ""
-                                view.setContent(title, countdown, date, false)
+                                val dateStr = ""
+                                view.setContent(title, countdown, dateStr, false)
                                 view.saveNext("", -1, "")
                             }
                         }

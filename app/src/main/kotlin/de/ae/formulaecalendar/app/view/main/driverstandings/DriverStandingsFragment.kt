@@ -52,7 +52,7 @@ class DriverStandingsFragment : Fragment(), DriverStandingsView {
         cardList?.setAdapter(adapter)
 
         //load content by presenter
-        presenter?.loadContent()
+        presenter.loadContent()
 
         return view
     }
