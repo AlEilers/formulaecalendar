@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import de.ae.formulaecalendar.app.R
 import de.ae.formulaecalendar.formulaerest.pojo.calendar.RaceCalendarData
+import de.ae.formulaecalendar.formulaerest.pojo.calendar.posNextRace
 import kotlinx.android.synthetic.main.fragment_calendar.view.*
 
 
@@ -61,7 +62,7 @@ class CalendarFragment : Fragment(), CalendarView {
     override fun setContent(data: RaceCalendarData) {
         adapter?.setRaceCalendar(data)
         adapter?.notifyDataSetChanged()
-        cardList?.scrollToPosition(data.posNextRace)
+        cardList?.scrollToPosition(data.posNextRace())
     }
 
     override fun setLoadingViewVisibility(visible: Boolean) {
@@ -81,9 +82,8 @@ class CalendarFragment : Fragment(), CalendarView {
     }
 
     override fun setSnackbarVisibility(visible: Boolean) {
-        val view = cardList
-        if (visible && view!=null) {
-            snackbar = Snackbar.make(view, R.string.connection_fault, Snackbar.LENGTH_INDEFINITE)
+        if (visible) {
+            cardList?.let { snackbar = Snackbar.make(it, R.string.connection_fault, Snackbar.LENGTH_INDEFINITE) }
             snackbar?.setAction(R.string.snackbar_retry, { presenter.loadContent() })
             if (fragmentVisible) {
                 snackbar?.show()

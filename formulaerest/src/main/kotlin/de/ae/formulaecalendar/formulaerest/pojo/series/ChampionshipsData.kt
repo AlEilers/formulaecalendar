@@ -1,15 +1,5 @@
 package de.ae.formulaecalendar.formulaerest.pojo.series
 
-import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-class ChampionshipsData {
-
-    @SerializedName("ChampsData")
-    @Expose
-    var champsData: List<ChampsDatum>? = null
-
-    override fun toString(): String {
-        return "ChampionshipsData{" + "champsData=" + champsData + '}'
-    }
-}
+data class ChampionshipsData(@SerializedName("ChampsData") var champsData: List<ChampsDatum>? = null)

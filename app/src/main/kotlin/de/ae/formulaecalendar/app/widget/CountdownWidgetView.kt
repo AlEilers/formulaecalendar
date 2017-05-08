@@ -9,7 +9,7 @@ interface CountdownWidgetView {
 
     fun setContent(title: String?, countdown: String?, date: String?, openDetails: Boolean)
 
-    fun saveNext(millis: Long)
+    fun saveNext(raceName: String, time: Long, date: String)
 
     fun getContext(): Context?
 }

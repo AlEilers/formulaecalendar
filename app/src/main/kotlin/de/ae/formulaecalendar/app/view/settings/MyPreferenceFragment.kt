@@ -46,19 +46,19 @@ class MyPreferenceFragment : PreferenceFragment(), ActivityCompat.OnRequestPermi
 
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(activity)
 
-        findPreference(notification).onPreferenceChangeListener = Preference.OnPreferenceChangeListener { preference, newValue ->
+        findPreference(notification).onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, newValue ->
             notificationChanged = true
             notificationBundle.putInt(notificationValueParam, (newValue as String).toInt())
             true
         }
 
-        findPreference(calendar).onPreferenceChangeListener = Preference.OnPreferenceChangeListener { preference, newValue ->
+        findPreference(calendar).onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, newValue ->
             requestPermission()
             calendarBundle.putBoolean(calendarChangeParam, newValue as Boolean)
             true
         }
 
-        findPreference(quali).onPreferenceChangeListener = Preference.OnPreferenceChangeListener { preference, newValue ->
+        findPreference(quali).onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, _ ->
             requestPermission()
             true
         }

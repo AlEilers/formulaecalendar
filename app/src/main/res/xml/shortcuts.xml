@@ -8,7 +8,7 @@
         <intent
             android:action="android.intent.action.VIEW"
             android:targetPackage="de.ae.formulaecalendar"
-            android:targetClass="de.ae.formulaecalendar.view.details.DetailsActivity" />
+            android:targetClass="de.ae.formulaecalendar.app.view.details.DetailsActivity" />
         <!-- If your shortcut is associated with multiple intents, include them
              here. The last intent in the list is what the user sees when they
              launch this shortcut. -->

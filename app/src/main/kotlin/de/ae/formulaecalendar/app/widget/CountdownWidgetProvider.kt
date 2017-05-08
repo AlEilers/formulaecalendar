@@ -16,7 +16,9 @@ import de.ae.formulaecalendar.app.view.details.DetailsActivity
  * Created by aeilers on 18.02.2017.
  */
 abstract class CountdownWidgetProvider constructor(val layout: Int) : AppWidgetProvider(), CountdownWidgetView {
-    private val PREF = "widget_next_race"
+    private val PREF_TIME = "widget_next_race_time"
+    private val PREF_NAME = "widget_next_race_name"
+    private val PREF_DATE = "widget_next_race_date"
 
     private val presenter = CountdownWidgetPresenter(this)
 
@@ -34,28 +36,23 @@ abstract class CountdownWidgetProvider constructor(val layout: Int) : AppWidgetP
         AndroidThreeTen.init(context)
 
         prefs = PreferenceManager.getDefaultSharedPreferences(context)
-        val time = prefs?.getLong(PREF, 0)
+        val name = prefs?.getString(PREF_NAME, "") ?: ""
+        val time = prefs?.getLong(PREF_TIME, 0) ?: 0
+        val date = prefs?.getString(PREF_DATE, "") ?: ""
 
-        presenter.loadWidget(time)
+        presenter.loadWidget(name, time, date)
     }
 
     override fun setContent(title: String?, countdown: String?, date: String?, openDetails: Boolean) {
-        val ids = appWidgetIds
-        if (ids != null) {
-            for (widgetId in ids) {
+        appWidgetIds?.let {
+            for (widgetId in it) {
 
                 val remoteViews = RemoteViews(context?.packageName, layout)
 
                 // Set the text
-                if (title != null) {
-                    remoteViews.setTextViewText(R.id.widget_text_city, title)
-                }
-                if (countdown != null) {
-                    remoteViews.setTextViewText(R.id.widget_text_time, countdown)
-                }
-                if (date != null) {
-                    remoteViews.setTextViewText(R.id.widget_text_date, date)
-                }
+                title?.let { remoteViews.setTextViewText(R.id.widget_text_city, it) }
+                countdown?.let { remoteViews.setTextViewText(R.id.widget_text_time, it) }
+                date?.let { remoteViews.setTextViewText(R.id.widget_text_date, date) }
 
                 //set on click
                 if (openDetails) {
@@ -70,8 +67,17 @@ abstract class CountdownWidgetProvider constructor(val layout: Int) : AppWidgetP
     }
 
 
-    override fun saveNext(millis: Long) {
-        prefs?.edit()?.putLong(PREF, millis)
+    override fun saveNext(raceName: String, time: Long, date: String) {
+        prefs?.edit()?.let {
+            it.putString(PREF_NAME, raceName)
+            it.putLong(PREF_TIME, time)
+            it.putString(PREF_DATE, date)
+            it.apply()
+        }
+
+        //prefs?.edit()?.putString(PREF_NAME, raceName)?.apply()
+        //prefs?.edit()?.putLong(PREF_TIME, time)?.apply()
+        //prefs?.edit()?.putString(PREF_DATE, date)?.apply()
     }
 
     override fun getContext(): Context? {

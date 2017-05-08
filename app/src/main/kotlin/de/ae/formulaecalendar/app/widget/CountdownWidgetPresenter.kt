@@ -5,6 +5,8 @@ import de.ae.formulaecalendar.app.R
 import de.ae.formulaecalendar.formulaerest.DataStore
 import de.ae.formulaecalendar.formulaerest.RemoteStore
 import de.ae.formulaecalendar.formulaerest.pojo.calendar.RaceCalendarData
+import de.ae.formulaecalendar.formulaerest.pojo.calendar.nextRace
+import de.ae.formulaecalendar.formulaerest.pojo.calendar.raceStart
 import io.reactivex.Observer
 import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -17,17 +19,15 @@ import org.threeten.bp.format.DateTimeFormatter
 /**
  * Created by aeilers on 18.02.2017.
  */
-class CountdownWidgetPresenter constructor(val view: CountdownWidgetView, val model: DataStore, val observer: Scheduler, val subscriber: Scheduler) {
+class CountdownWidgetPresenter constructor(val view: CountdownWidgetView, val model: DataStore = RemoteStore, val observer: Scheduler = AndroidSchedulers.mainThread(), val subscriber: Scheduler = Schedulers.newThread()) {
     private val HOUR_IN_MILLIS = (1000 * 60 * 60).toLong()
     private val DAY_IN_MILLIS = (1000 * 60 * 60 * 24).toLong()
 
-    constructor(view: CountdownWidgetView) : this(view, RemoteStore, AndroidSchedulers.mainThread(), Schedulers.newThread())
-
-    fun loadWidget(previous: Long?) {
+    fun loadWidget(name: String, previous: Long, date: String) {
         val currentTime = System.currentTimeMillis()
-        if (previous != null && previous > currentTime) {
+        if (previous > currentTime) {
             val countdown = millisToCountdown(previous)
-            view.setContent(null, countdown, null, true)
+            view.setContent(name, countdown, date, true)
         } else {
             model.getCurrentRaceCalendar()
                     .subscribeOn(subscriber)
@@ -44,25 +44,25 @@ class CountdownWidgetPresenter constructor(val view: CountdownWidgetView, val mo
                         override fun onError(t: Throwable) {
                             val title = ""
                             val countdown = view.getContext()?.getString(R.string.widget_loading)
-                            val date = ""
-                            view.setContent(title, countdown, date, false)
+                            val dateStr = ""
+                            view.setContent(title, countdown, dateStr, false)
                             Log.w("CountdownWidgetPresente", "Cannot load view: ${t.message}")
                         }
 
                         override fun onNext(raceCalendarData: RaceCalendarData?) {
-                            val next = raceCalendarData?.nextRace
-                            if (next == null) {
+                            val next = raceCalendarData?.nextRace()
+                            if (next != null) {
+                                val title = next.raceName ?: ""
+                                val countdown = millisToCountdown(next.raceStart.toEpochSecond() * 1000)
+                                val dateStr = dateToString(next.raceStart)
+                                view.setContent(title, countdown, dateStr, true)
+                                view.saveNext(title, next.raceStart.toEpochSecond() * 1000, date)
+                            } else {
                                 val title = ""
                                 val countdown = view.getContext()?.getString(R.string.widget_no_next)
-                                val date = ""
-                                view.setContent(title, countdown, date, false)
-                                view.saveNext(-1)
-                            } else {
-                                val title = next.raceName
-                                val countdown = millisToCountdown(next.raceStart.toEpochSecond() * 1000)
-                                val date = dateToString(next.raceStart)
-                                view.setContent(title, countdown, date, true)
-                                view.saveNext(next.raceStart.toEpochSecond() * 1000)
+                                val dateStr = ""
+                                view.setContent(title, countdown, dateStr, false)
+                                view.saveNext("", -1, "")
                             }
                         }
                     })

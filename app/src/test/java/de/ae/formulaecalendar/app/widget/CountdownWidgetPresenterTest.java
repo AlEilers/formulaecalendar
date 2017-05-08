@@ -2,6 +2,7 @@ package de.ae.formulaecalendar.app.widget;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import junit.framework.Assert;
 
@@ -11,6 +12,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
+import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -28,7 +32,8 @@ import static org.mockito.Mockito.when;
  * Created by aeilers on 14.01.2017.
  */
 
-@RunWith(MockitoJUnitRunner.class)
+@RunWith(PowerMockRunner.class)
+@PrepareForTest(Log.class)
 public class CountdownWidgetPresenterTest {
     private static final long HOUR_IN_MILLIS = (1000 * 60 * 60);
     private static final long DAY_IN_MILLIS = (1000 * 60 * 60 * 24);
@@ -50,7 +55,9 @@ public class CountdownWidgetPresenterTest {
     private String viewCountdown = null;
     private String viewDate = null;
     private boolean viewOpenDetails = false;
-    private long viewNext = -1;
+    private String viewNextTitle = "";
+    private long viewNextMilli = -1;
+    private String viewNextDate = "";
 
     private RaceCalendarData raceCalendarData;
     private CalendarDatum calendarDatum;
@@ -60,14 +67,6 @@ public class CountdownWidgetPresenterTest {
 
     @Mock
     Context context;
-
-    @BeforeClass
-    public static void setUp() {
-        long diffTime = TEST_MILLIS + MILLIS_OF_16H - System.currentTimeMillis();
-        int diffDays = (int) (diffTime / DAY_IN_MILLIS);
-        int diffHours = (int) ((diffTime % DAY_IN_MILLIS) / HOUR_IN_MILLIS);
-        RESULT_CURRENT_COUNTDOWN = diffDays + "d " + diffHours + 'h';
-    }
 
     CountdownWidgetView view = new CountdownWidgetView() {
 
@@ -86,8 +85,10 @@ public class CountdownWidgetPresenterTest {
         }
 
         @Override
-        public void saveNext(long millis) {
-            viewNext = millis;
+        public void saveNext(String nextRace, long millis, String date) {
+            viewNextTitle = nextRace;
+            viewNextMilli = millis;
+            viewNextDate = date;
         }
 
         @Override
@@ -102,6 +103,13 @@ public class CountdownWidgetPresenterTest {
 
     @Before
     public void initialize() {
+        PowerMockito.mockStatic(Log.class);
+
+        long diffTime = TEST_MILLIS + MILLIS_OF_16H - System.currentTimeMillis();
+        int diffDays = (int) (diffTime / DAY_IN_MILLIS);
+        int diffHours = (int) ((diffTime % DAY_IN_MILLIS) / HOUR_IN_MILLIS);
+        RESULT_CURRENT_COUNTDOWN = diffDays + "d " + diffHours + 'h';
+
         //create race
         calendarDatum = new CalendarDatum();
         calendarDatum.setCity(TEST_CITY);
@@ -118,18 +126,20 @@ public class CountdownWidgetPresenterTest {
         viewTitle = null;
         viewCountdown = null;
         viewDate = null;
-        viewNext = -1;
+        viewNextTitle = "";
+        viewNextMilli = -1;
+        viewNextDate = "";
 
         when(model.getCurrentRaceCalendar()).thenReturn(Observable.just(raceCalendarData));
 
         CountdownWidgetPresenter p = new CountdownWidgetPresenter(view, model, Schedulers.trampoline(), Schedulers.trampoline());
-        p.loadWidget(viewNext);
+        p.loadWidget(viewNextTitle, viewNextMilli, viewNextDate);
 
         Assert.assertEquals(TEST_RACE_NAME, viewTitle);
         Assert.assertEquals(RESULT_CURRENT_COUNTDOWN, viewCountdown);
         Assert.assertEquals(TEST_DATE_RESULT, viewDate);
         Assert.assertTrue(viewOpenDetails);
-        Assert.assertEquals(TEST_MILLIS + MILLIS_OF_16H, viewNext); // Date + 16 hours
+        Assert.assertEquals(TEST_MILLIS + MILLIS_OF_16H, viewNextMilli); // Date + 16 hours
     }
 
     @Test
@@ -137,18 +147,22 @@ public class CountdownWidgetPresenterTest {
         viewTitle = null;
         viewCountdown = null;
         viewDate = null;
-        viewNext = -1;
+        viewNextTitle = "";
+        viewNextMilli = -1;
+        viewNextDate = "";
 
         when(model.getCurrentRaceCalendar()).thenReturn((Observable) Observable.error(new Exception("TEST", null)));
 
         CountdownWidgetPresenter p = new CountdownWidgetPresenter(view, model, Schedulers.trampoline(), Schedulers.trampoline());
-        p.loadWidget(viewNext);
+        p.loadWidget(viewNextTitle, viewNextMilli, viewNextDate);
 
         Assert.assertEquals("", viewTitle);
         Assert.assertEquals(RESOURCE_LOADING, viewCountdown);
         Assert.assertEquals("", viewDate);
         Assert.assertFalse(viewOpenDetails);
-        Assert.assertEquals(-1, viewNext); // Date + 16 hours
+        Assert.assertEquals("", viewNextTitle);
+        Assert.assertEquals(-1, viewNextMilli); // Date + 16 hours
+        Assert.assertEquals("", viewNextDate);
     }
 
     @Test
@@ -156,18 +170,22 @@ public class CountdownWidgetPresenterTest {
         viewTitle = "TEST_CITY";
         viewCountdown = null;
         viewDate = "TEST_DATE";
-        viewNext = TEST_MILLIS + MILLIS_OF_16H; // Date + 16 hours
+        viewNextTitle = "NEXT_TITLE";
+        viewNextMilli = TEST_MILLIS + MILLIS_OF_16H; // Date + 16 hours
+        viewNextDate = "NEXT_DATE";
 
         when(model.getCurrentRaceCalendar()).thenReturn(Observable.just(raceCalendarData));
 
         CountdownWidgetPresenter p = new CountdownWidgetPresenter(view, model, Schedulers.trampoline(), Schedulers.trampoline());
-        p.loadWidget(viewNext);
+        p.loadWidget(viewNextTitle, viewNextMilli, viewNextDate);
 
-        Assert.assertEquals("TEST_CITY", viewTitle);
+        Assert.assertEquals(viewNextTitle, viewTitle);
         Assert.assertEquals(RESULT_CURRENT_COUNTDOWN, viewCountdown);
-        Assert.assertEquals("TEST_DATE", viewDate);
+        Assert.assertEquals(viewNextDate, viewDate);
         Assert.assertTrue(viewOpenDetails);
-        Assert.assertEquals(TEST_MILLIS + MILLIS_OF_16H, viewNext); // Date + 16 hours
+        Assert.assertEquals(viewNextTitle, viewNextTitle);
+        Assert.assertEquals(TEST_MILLIS + MILLIS_OF_16H, viewNextMilli); // Date + 16 hours
+        Assert.assertEquals(viewNextDate, viewNextDate);
     }
 
     @Test
@@ -175,18 +193,22 @@ public class CountdownWidgetPresenterTest {
         viewTitle = null;
         viewCountdown = null;
         viewDate = null;
-        viewNext = -1;
+        viewNextTitle = "";
+        viewNextMilli = -1;
+        viewNextDate = "";
 
         raceCalendarData.setCalendarData(new ArrayList<CalendarDatum>());
         when(model.getCurrentRaceCalendar()).thenReturn(Observable.just(raceCalendarData));
 
         CountdownWidgetPresenter p = new CountdownWidgetPresenter(view, model, Schedulers.trampoline(), Schedulers.trampoline());
-        p.loadWidget(viewNext);
+        p.loadWidget(viewNextTitle, viewNextMilli, viewNextDate);
 
         Assert.assertEquals("", viewTitle);
         Assert.assertEquals(RESOURCE_NO_RACE, viewCountdown);
         Assert.assertEquals("", viewDate);
         Assert.assertFalse(viewOpenDetails);
-        Assert.assertEquals(-1, viewNext);
+        Assert.assertEquals("", viewNextTitle);
+        Assert.assertEquals(-1, viewNextMilli);
+        Assert.assertEquals("", viewNextDate);
     }
 }

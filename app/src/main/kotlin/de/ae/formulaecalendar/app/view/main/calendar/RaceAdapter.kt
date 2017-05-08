@@ -13,6 +13,8 @@ import de.ae.formulaecalendar.app.resource.LocalResourceStore
 import de.ae.formulaecalendar.app.view.details.DetailsActivity
 import de.ae.formulaecalendar.formulaerest.pojo.calendar.CalendarDatum
 import de.ae.formulaecalendar.formulaerest.pojo.calendar.RaceCalendarData
+import de.ae.formulaecalendar.formulaerest.pojo.calendar.nextRace
+import de.ae.formulaecalendar.formulaerest.pojo.calendar.raceStart
 import org.threeten.bp.ZoneId
 import org.threeten.bp.format.DateTimeFormatter
 
@@ -35,7 +37,7 @@ class RaceAdapter : RecyclerView.Adapter<RaceHolder> {
 
     fun setRaceCalendar(calendar: RaceCalendarData) {
         this.calendar = calendar
-        this.nextRace = calendar.nextRace
+        this.nextRace = calendar.nextRace()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RaceHolder {
@@ -51,9 +53,12 @@ class RaceAdapter : RecyclerView.Adapter<RaceHolder> {
         val zdt = race?.raceStart?.withZoneSameInstant(zone)
         holder.date.text = zdt?.format(DateTimeFormatter.ofPattern(format))
 
-        val resourceView = LocalResourceStore.getResourceId(race?.city ?: "-")
-        if (resourceView != null && resourceView >= 0) {
-            holder.image.setImageResource(resourceView)
+        race?.city?.let {
+            LocalResourceStore.getResourceId(it)?.let {
+                if (it >= 0) {
+                    holder.image.setImageResource(it)
+                }
+            }
         }
 
         holder.image.setOnClickListener { startDetails(it, position) }

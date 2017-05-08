@@ -21,9 +21,7 @@ import io.reactivex.schedulers.Schedulers
 /**
  * Created by aeilers on 17.02.2017.
  */
-class MainPresenter constructor(val view: MainView, val model: DataStore, val observer: Scheduler, val subscriber: Scheduler) {
-
-    constructor(view: MainView) : this(view, RemoteStore, AndroidSchedulers.mainThread(), Schedulers.newThread())
+class MainPresenter constructor(val view: MainView, val model: DataStore = RemoteStore, val observer: Scheduler = AndroidSchedulers.mainThread(), val subscriber: Scheduler = Schedulers.newThread()) {
 
     fun loadContent() {
         model.getCurrentChampionShip()
@@ -43,13 +41,9 @@ class MainPresenter constructor(val view: MainView, val model: DataStore, val ob
                     }
 
                     override fun onSuccess(champsDatum: ChampsDatum?) {
-                        var title: String? = champsDatum?.championship
-                        if (title != null) {
-                            title = title.substring(0, 1).toUpperCase() + title.substring(1).toLowerCase()
-                            view.setTitle(title)
-                        } else {
-                            Log.w("MainPresenter", "Cannot load view: title is null")
-                        }
+                        champsDatum?.championship?.let {
+                            view.setTitle(it.substring(0, 1).toUpperCase() + it.substring(1).toLowerCase())
+                        } ?: Log.w("MainPresenter", "Cannot load view: title is null")
                     }
                 })
     }

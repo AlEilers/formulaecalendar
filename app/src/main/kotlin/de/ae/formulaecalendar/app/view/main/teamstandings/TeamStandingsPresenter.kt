@@ -14,9 +14,7 @@ import io.reactivex.schedulers.Schedulers
 /**
  * Created by aeilers on 17.02.2017.
  */
-class TeamStandingsPresenter(val view: TeamStandingsView, val model: DataStore, val observer: Scheduler, val subscriber: Scheduler) {
-
-    constructor(view: TeamStandingsView) : this(view, RemoteStore, AndroidSchedulers.mainThread(), Schedulers.newThread())
+class TeamStandingsPresenter(val view: TeamStandingsView, val model: DataStore = RemoteStore, val observer: Scheduler = AndroidSchedulers.mainThread(), val subscriber: Scheduler = Schedulers.newThread()) {
 
     fun loadContent() {
         view.setLoadingViewVisibility(true)
@@ -44,9 +42,7 @@ class TeamStandingsPresenter(val view: TeamStandingsView, val model: DataStore, 
                     }
 
                     override fun onNext(championshipData: ChampionshipData?) {
-                        if (championshipData != null) {
-                            view.setContent(championshipData)
-                        }
+                        championshipData?.let { view.setContent(it) }
                     }
                 })
     }

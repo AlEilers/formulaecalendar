@@ -12,8 +12,7 @@ import de.ae.formulaecalendar.app.resource.LocalResourceStore
 import de.ae.formulaecalendar.app.resource.ResourceStore
 import de.ae.formulaecalendar.formulaerest.DataStore
 import de.ae.formulaecalendar.formulaerest.RemoteStore
-import de.ae.formulaecalendar.formulaerest.pojo.calendar.CalendarDatum
-import de.ae.formulaecalendar.formulaerest.pojo.calendar.RaceCalendarData
+import de.ae.formulaecalendar.formulaerest.pojo.calendar.*
 import de.ae.formulaecalendar.formulaerest.pojo.race.Session
 import io.reactivex.Observer
 import io.reactivex.Scheduler
@@ -41,7 +40,7 @@ class DetailsPresenter {
 
     private var race: CalendarDatum? = null
 
-    constructor(view: DetailsView, model: DataStore, observer: Scheduler, subscriber: Scheduler, resource: ResourceStore) {
+    constructor(view: DetailsView, model: DataStore = RemoteStore, observer: Scheduler = AndroidSchedulers.mainThread(), subscriber: Scheduler = Schedulers.newThread(), resource: ResourceStore = LocalResourceStore) {
         this.view = view
         this.model = model
         this.observer = observer
@@ -53,8 +52,6 @@ class DetailsPresenter {
             Log.w("DetailsPresenter", "Cannot instanciate FirebaseAnalytics, probably in test mode")
         }
     }
-
-    constructor(view: DetailsView) : this(view, RemoteStore, AndroidSchedulers.mainThread(), Schedulers.newThread(), LocalResourceStore)
 
     fun loadData(race: CalendarDatum?) {
         if (race != null) {
@@ -86,19 +83,16 @@ class DetailsPresenter {
                         }
 
                         override fun onNext(data: RaceCalendarData?) {
-                            val nextRace = data?.nextRace
-                            if (nextRace != null) {
-                                setContent(nextRace)
-                            } else {
-                                Log.w("DetailsPresenter", "Cannot load view: next race from Server is null")
-                            }
+                            setContent(data?.nextRace())
+                            data?.nextRace()?.let { setContent(it) }
+                                    ?: Log.w("DetailsPresenter", "Cannot load view: next race from Server is null")
                         }
                     })
         }
     }
 
-    private fun setContent(race: CalendarDatum) {
-        logToFirebase(race)
+    private fun setContent(race: CalendarDatum?) {
+        race?.let { logToFirebase(it) }
 
         this.race = race
         val context = view.getContext()
@@ -199,12 +193,8 @@ class DetailsPresenter {
                     }
 
                     override fun onNext(session: Session?) {
-                        val results = session?.sesRace
-                        if (results != null) {
-                            view.setResults(results)
-                        } else {
-                            Log.w("DetailsPresenter", "Cannot load view: results from Server are null")
-                        }
+                        session?.sesRace?.let { view.setResults(it) }
+                                ?: Log.w("DetailsPresenter", "Cannot load view: results from Server are null")
                     }
                 })
     }
@@ -216,8 +206,8 @@ class DetailsPresenter {
                 val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
                 mapIntent.`package` = "com.google.android.apps.maps"
                 view.getContext().startActivity(mapIntent)
-            }catch (e: ActivityNotFoundException){
-                Toast.makeText(view.getContext(),R.string.details_no_mps,Toast.LENGTH_LONG).show();
+            } catch (e: ActivityNotFoundException) {
+                Toast.makeText(view.getContext(), R.string.details_no_mps, Toast.LENGTH_LONG).show();
             }
         }
     }

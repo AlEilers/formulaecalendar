@@ -9,6 +9,7 @@ import de.ae.formulaecalendar.app.view.main.MainPresenterTest;
 import de.ae.formulaecalendar.app.view.main.calendar.CalendarPresenterTest;
 import de.ae.formulaecalendar.app.view.main.driverstandings.DriverStandingsPresenterTest;
 import de.ae.formulaecalendar.app.view.main.teamstandings.TeamStandingsPresenterTest;
+import de.ae.formulaecalendar.app.widget.CountdownWidgetPresenterTest;
 
 
 /**
@@ -25,7 +26,8 @@ import de.ae.formulaecalendar.app.view.main.teamstandings.TeamStandingsPresenter
         CalendarPresenterTest.class,
         DriverStandingsPresenterTest.class,
         TeamStandingsPresenterTest.class,
-        AboutPresenterTest.class
+        AboutPresenterTest.class,
+        CountdownWidgetPresenterTest.class
 })
 
 public class JunitTestSuite {

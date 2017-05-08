@@ -1,42 +1,24 @@
 package de.ae.formulaecalendar.formulaerest.pojo.teamstanding
 
-import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-class Standing {
+data class Standing(
 
-    @SerializedName("Pos")
-    @Expose
-    var pos: String? = null
+        @SerializedName("Pos")
+        var pos: String? = null,
 
-    @SerializedName("TotalPoints")
-    @Expose
-    var totalPoints: String? = null
+        @SerializedName("TotalPoints")
+        var totalPoints: String? = null,
 
-    @SerializedName("TeamName")
-    @Expose
-    var teamName: String? = null
+        @SerializedName("TeamName")
+        var teamName: String? = null,
 
-    @SerializedName("TeamId")
-    @Expose
-    var teamId: String? = null
+        @SerializedName("TeamId")
+        var teamId: String? = null,
 
-    @SerializedName("Country")
-    @Expose
-    var country: String? = null
+        @SerializedName("Country")
+        var country: String? = null,
 
-    @SerializedName("Races")
-    @Expose
-    var races: Races? = null
-
-    override fun toString(): String {
-        return "Standing{" +
-                "pos='" + pos + '\'' +
-                ", totalPoints='" + totalPoints + '\'' +
-                ", teamName='" + teamName + '\'' +
-                ", teamId='" + teamId + '\'' +
-                ", country='" + country + '\'' +
-                ", races=" + races +
-                '}'
-    }
-}
+        @SerializedName("Races")
+        var races: Races? = null
+)
