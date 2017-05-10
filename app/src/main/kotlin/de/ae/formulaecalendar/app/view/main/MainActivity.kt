@@ -48,7 +48,7 @@ class MainActivity constructor() : AppCompatActivity(), MainView {
                 }
 
                 override fun onTabSelected(tab: TabLayout.Tab?) {
-                    pager.setCurrentItem(tab?.position ?: 0)
+                    pager.currentItem = tab?.position ?: 0
                 }
             })
 
@@ -62,30 +62,24 @@ class MainActivity constructor() : AppCompatActivity(), MainView {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        val inflater = menuInflater
-        inflater.inflate(R.menu.menu_calendar, menu)
+        menuInflater.inflate(R.menu.menu_calendar, menu)
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item?.getItemId()) {
-            R.id.action_settings -> {
-                startActivity(Intent(this, MyPreferenceActivity::class.java))
-                return true
-            }
-            R.id.action_rate -> {
-                presenter?.openPlayStore(this)
-                return true
-            }
-            R.id.action_feedback -> {
-                presenter?.giveFeedback(this)
-                return true
-            }
-            else ->
-                // If we got here, the user's action was not recognized.
-                // Invoke the superclass to handle it.
-                return super.onOptionsItemSelected(item)
+    override fun onOptionsItemSelected(item: MenuItem?) = when (item?.itemId) {
+        R.id.action_settings -> {
+            startActivity(Intent(this, MyPreferenceActivity::class.java))
+            true
         }
+        R.id.action_rate -> {
+            presenter?.openPlayStore(this)
+            true
+        }
+        R.id.action_feedback -> {
+            presenter?.giveFeedback(this)
+            true
+        }
+        else -> super.onOptionsItemSelected(item)
     }
 
     override fun setTitle(title: String) {

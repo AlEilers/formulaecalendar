@@ -22,18 +22,11 @@ import org.threeten.bp.format.DateTimeFormatter
 /**
  * Created by aeilers on 17.02.2017.
  */
-class RaceAdapter : RecyclerView.Adapter<RaceHolder> {
-    private val context: Context
-    private val format: String
-    private val zone: ZoneId
+class RaceAdapter(val context: Context) : RecyclerView.Adapter<RaceHolder>() {
+    private val format: String = context.getString(R.string.format_date) + " " + context.getString(R.string.format_time)
+    private val zone: ZoneId = ZoneId.systemDefault()
     private var calendar: RaceCalendarData? = null
     private var nextRace: CalendarDatum? = null
-
-    constructor(context: Context) {
-        this.context = context
-        this.format = context.getString(R.string.format_date) + " " + context.getString(R.string.format_time)
-        this.zone = ZoneId.systemDefault()
-    }
 
     fun setRaceCalendar(calendar: RaceCalendarData) {
         this.calendar = calendar
@@ -55,19 +48,14 @@ class RaceAdapter : RecyclerView.Adapter<RaceHolder> {
 
         race?.city?.let {
             LocalResourceStore.getResourceId(it)?.let {
-                if (it >= 0) {
-                    holder.image.setImageResource(it)
-                }
+                if (it >= 0) holder.image.setImageResource(it)
             }
         }
 
         holder.image.setOnClickListener { startDetails(it, position) }
 
-        if (race == nextRace) {
-            holder.next.visibility = View.VISIBLE
-        } else {
-            holder.next.visibility = View.GONE
-        }
+        if (race == nextRace) holder.next.visibility = View.VISIBLE
+        else holder.next.visibility = View.GONE
     }
 
     private fun startDetails(view: View, pos: Int) {
@@ -77,7 +65,5 @@ class RaceAdapter : RecyclerView.Adapter<RaceHolder> {
         context.startActivity(intent, options.toBundle())
     }
 
-    override fun getItemCount(): Int {
-        return calendar?.calendarData?.size ?: 0
-    }
+    override fun getItemCount() = calendar?.calendarData?.size ?: 0
 }

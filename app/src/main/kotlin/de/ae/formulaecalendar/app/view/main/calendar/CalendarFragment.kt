@@ -34,11 +34,7 @@ class CalendarFragment : Fragment(), CalendarView {
         this.fragmentVisible = visible
 
         //show snackbar if fragment is visible again and snackbar is available ( != null )
-        if (visible) {
-            snackbar?.show()
-        } else {
-            snackbar?.dismiss()
-        }
+        if (visible) snackbar?.show() else snackbar?.dismiss()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -50,8 +46,8 @@ class CalendarFragment : Fragment(), CalendarView {
         adapter = RaceAdapter(this.context)
         val llm = LinearLayoutManager(this.context)
         llm.orientation = LinearLayoutManager.VERTICAL
-        cardList?.setLayoutManager(llm)
-        cardList?.setAdapter(adapter)
+        cardList?.layoutManager = llm
+        cardList?.adapter = adapter
 
         //load content by presenter
         presenter.loadContent()
@@ -65,20 +61,14 @@ class CalendarFragment : Fragment(), CalendarView {
         cardList?.scrollToPosition(data.posNextRace())
     }
 
-    override fun setLoadingViewVisibility(visible: Boolean) {
-        if (visible) {
-            loadingView?.setVisibility(View.VISIBLE)
-        } else {
-            loadingView?.setVisibility(View.INVISIBLE)
-        }
+    override fun setLoadingViewVisibility(visible: Boolean) = when (visible) {
+        true -> loadingView?.visibility = View.VISIBLE
+        false -> loadingView?.visibility = View.INVISIBLE
     }
 
-    override fun setRecyclerViewVisibility(visible: Boolean) {
-        if (visible) {
-            cardList?.setVisibility(View.VISIBLE)
-        } else {
-            cardList?.setVisibility(View.INVISIBLE)
-        }
+    override fun setRecyclerViewVisibility(visible: Boolean) = when (visible) {
+        true -> cardList?.visibility = View.VISIBLE
+        false -> cardList?.visibility = View.INVISIBLE
     }
 
     override fun setSnackbarVisibility(visible: Boolean) {

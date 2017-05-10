@@ -58,9 +58,9 @@ class DetailsActivity constructor() : AppCompatActivity(), DetailsView {
             adapter = ResultsAdapter()
             val llm = LinearLayoutManager(application.getContext())
             llm.orientation = LinearLayoutManager.VERTICAL
-            details_recycler_results.setLayoutManager(llm)
-            details_recycler_results.setAdapter(adapter)
-            details_recycler_results.setNestedScrollingEnabled(false)
+            details_recycler_results.layoutManager = llm
+            details_recycler_results.adapter = adapter
+            details_recycler_results.isNestedScrollingEnabled = false
 
             //Transparent Action Bar for >API21
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
