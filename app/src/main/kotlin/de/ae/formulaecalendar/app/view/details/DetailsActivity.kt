@@ -9,7 +9,6 @@ import android.support.v7.widget.LinearLayoutManager
 import android.transition.Fade
 import android.view.View
 import android.view.WindowManager
-import co.metalab.asyncawait.async
 import com.jakewharton.threetenabp.AndroidThreeTen
 import de.ae.formulaecalendar.app.R
 import de.ae.formulaecalendar.formulaerest.pojo.calendar.CalendarDatum
@@ -34,45 +33,42 @@ class DetailsActivity constructor() : AppCompatActivity(), DetailsView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_details)
 
-        val application = this
+        //initialize ThreeTen
+        AndroidThreeTen.init(this)
 
-        async {
-            //initialize ThreeTen
-            await { AndroidThreeTen.init(application) }
+        //set toolbar
+        setSupportActionBar(toolbar_view)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-            //set toolbar
-            setSupportActionBar(toolbar_view)
-            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            val fade = Fade()
+            fade.excludeTarget(toolbar_view, true)
+            fade.excludeTarget(android.R.id.statusBarBackground, true)
+            fade.excludeTarget(android.R.id.navigationBarBackground, true)
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                val fade = Fade()
-                fade.excludeTarget(toolbar_view, true)
-                fade.excludeTarget(android.R.id.statusBarBackground, true)
-                fade.excludeTarget(android.R.id.navigationBarBackground, true)
-
-                window.enterTransition = fade
-                window.exitTransition = fade
-            }
-
-            //set results adapter
-            adapter = ResultsAdapter()
-            val llm = LinearLayoutManager(application.getContext())
-            llm.orientation = LinearLayoutManager.VERTICAL
-            details_recycler_results.layoutManager = llm
-            details_recycler_results.adapter = adapter
-            details_recycler_results.isNestedScrollingEnabled = false
-
-            //Transparent Action Bar for >API21
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
-            }
-
-            //get Extra
-            val race = intent.getSerializableExtra("race") as CalendarDatum?
-
-            presenter = DetailsPresenter(application)
-            presenter?.loadData(race)
+            window.enterTransition = fade
+            window.exitTransition = fade
         }
+
+        //set results adapter
+        adapter = ResultsAdapter()
+        val llm = LinearLayoutManager(this.getContext())
+        llm.orientation = LinearLayoutManager.VERTICAL
+        details_recycler_results.layoutManager = llm
+        details_recycler_results.adapter = adapter
+        details_recycler_results.isNestedScrollingEnabled = false
+
+        //Transparent Action Bar for >API21
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS)
+        }
+
+        //get Extra
+        val race = intent.getSerializableExtra("race") as CalendarDatum?
+
+        presenter = DetailsPresenter(this)
+        presenter?.loadData(race)
+
     }
 
     fun openMap(view: View) {
