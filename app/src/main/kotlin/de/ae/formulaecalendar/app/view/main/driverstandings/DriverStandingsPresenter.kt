@@ -14,9 +14,10 @@ import io.reactivex.schedulers.Schedulers
 /**
  * Created by aeilers on 17.02.2017.
  */
-class DriverStandingsPresenter(val view: DriverStandingsView, val model: DataStore = RemoteStore, val observer: Scheduler = AndroidSchedulers.mainThread(), val subscriber: Scheduler = Schedulers.newThread()) {
-
-    constructor(view: DriverStandingsView) : this(view, RemoteStore, AndroidSchedulers.mainThread(), Schedulers.newThread())
+class DriverStandingsPresenter(val view: DriverStandingsView,
+                               val model: DataStore = RemoteStore,
+                               val observer: Scheduler = AndroidSchedulers.mainThread(),
+                               val subscriber: Scheduler = Schedulers.newThread()) {
 
     fun loadContent() {
         view.setLoadingViewVisibility(true)

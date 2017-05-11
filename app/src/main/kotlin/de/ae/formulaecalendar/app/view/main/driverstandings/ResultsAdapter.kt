@@ -29,7 +29,5 @@ class ResultsAdapter : RecyclerView.Adapter<ResultsHolder>() {
         holder.points.text = standing?.totalPoints + " P."
     }
 
-    override fun getItemCount(): Int {
-        return data?.standings?.size ?: 0
-    }
+    override fun getItemCount() = data?.standings?.size ?: 0
 }

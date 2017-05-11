@@ -25,27 +25,16 @@ import org.threeten.bp.format.DateTimeFormatter
 /**
  * Created by aeilers on 18.02.2017.
  */
-class DetailsPresenter {
+class DetailsPresenter(private val view: DetailsView, private val model: DataStore = RemoteStore, private val observer: Scheduler = AndroidSchedulers.mainThread(), private val subscriber: Scheduler = Schedulers.newThread(), private val resource: ResourceStore = LocalResourceStore) {
     var mFirebaseAnalytics: FirebaseAnalytics? = null
     private val showRaceEvent = "show_race"
     private val showRaceIDParam = FirebaseAnalytics.Param.ITEM_ID
     private val showRaceNameParam = FirebaseAnalytics.Param.ITEM_NAME
     private val showraceBundle = Bundle()
 
-    private val view: DetailsView
-    private val model: DataStore
-    private val observer: Scheduler
-    private val subscriber: Scheduler
-    private val resource: ResourceStore
-
     private var race: CalendarDatum? = null
 
-    constructor(view: DetailsView, model: DataStore = RemoteStore, observer: Scheduler = AndroidSchedulers.mainThread(), subscriber: Scheduler = Schedulers.newThread(), resource: ResourceStore = LocalResourceStore) {
-        this.view = view
-        this.model = model
-        this.observer = observer
-        this.subscriber = subscriber
-        this.resource = resource
+    init {
         try {
             mFirebaseAnalytics = FirebaseAnalytics.getInstance(view.getContext())
         } catch (e: NullPointerException) {

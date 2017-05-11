@@ -23,18 +23,17 @@ class ResultsAdapter : RecyclerView.Adapter<ResultsHolder>() {
     }
 
     override fun onBindViewHolder(holder: ResultsHolder, position: Int) {
-        val sesRace = results?.get(position)
-        if (sesRace?.dnf ?: false) {
-            holder.pos.text = DNF
-            holder.pos.textSize = 20f
-        } else {
-            holder.pos.text = sesRace?.pos
+        results?.get(position)?.let {
+            if (it.dnf ?: false) {
+                holder.pos.text = DNF
+                holder.pos.textSize = 20f
+            } else {
+                holder.pos.text = it.pos
+            }
+            holder.name.text = it.driverName
+            holder.description.text = it.teamName
         }
-        holder.name.text = sesRace?.driverName
-        holder.description.text = sesRace?.teamName
     }
 
-    override fun getItemCount(): Int {
-        return results?.size ?: 0
-    }
+    override fun getItemCount()= results?.size ?: 0
 }
