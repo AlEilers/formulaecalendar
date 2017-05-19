@@ -18,23 +18,18 @@ import kotlinx.android.synthetic.main.fragment_calendar.view.*
  * Created by aeilers on 17.02.2017.
  */
 class CalendarFragment : Fragment(), CalendarView {
-    private val presenter = CalendarPresenter(this)
+    private var presenter: CalendarPresenter? = null
 
     private var adapter: RaceAdapter? = null
     private var snackbar: Snackbar? = null
-    private var fragmentVisible = false
+    private var snackbarVisible = false
 
     private var cardList: RecyclerView? = null
     private var loadingView: View? = null
 
-
-    override fun setUserVisibleHint(visible: Boolean) {
-        super.setUserVisibleHint(visible)
-
-        this.fragmentVisible = visible
-
-        //show snackbar if fragment is visible again and snackbar is available ( != null )
-        if (visible) snackbar?.show() else snackbar?.dismiss()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        presenter = CalendarPresenter(this)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -50,9 +45,27 @@ class CalendarFragment : Fragment(), CalendarView {
         cardList?.adapter = adapter
 
         //load content by presenter
-        presenter.loadContent()
+        presenter?.loadContent()
 
         return view
+    }
+
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
+        showSnackbar(snackbarVisible && isVisibleToUser)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        adapter = null
+        snackbar = null
+        cardList = null
+        loadingView = null
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter = null
     }
 
     override fun setContent(data: RaceCalendarData) {
@@ -72,15 +85,16 @@ class CalendarFragment : Fragment(), CalendarView {
     }
 
     override fun setSnackbarVisibility(visible: Boolean) {
-        if (visible) {
-            cardList?.let { snackbar = Snackbar.make(it, R.string.connection_fault, Snackbar.LENGTH_INDEFINITE) }
-            snackbar?.setAction(R.string.snackbar_retry, { presenter.loadContent() })
-            if (fragmentVisible) {
-                snackbar?.show()
-            }
-        } else {
-            snackbar?.dismiss()
-            snackbar = null
+        snackbarVisible = visible
+        showSnackbar(snackbarVisible && userVisibleHint)
+    }
+
+    private fun showSnackbar(visible: Boolean) = when (visible) {
+        true -> cardList?.let {
+            snackbar = Snackbar.make(it, R.string.connection_fault, Snackbar.LENGTH_INDEFINITE)
+            snackbar?.setAction(R.string.snackbar_retry, { presenter?.loadContent() })
+            snackbar?.show()
         }
+        false -> snackbar?.dismiss()
     }
 }
