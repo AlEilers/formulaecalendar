@@ -7,7 +7,7 @@ import android.net.Uri
 import android.util.Log
 import de.ae.formulaecalendar.app.R
 import de.ae.formulaecalendar.app.calendar.MyCalendarProvider
-import de.ae.formulaecalendar.app.notification.NotificationReceiver
+import de.ae.formulaecalendar.app.notification.NotificationScheduler
 import de.ae.formulaecalendar.formulaerest.DataStore
 import de.ae.formulaecalendar.formulaerest.RemoteStore
 import de.ae.formulaecalendar.formulaerest.pojo.series.ChampsDatum
@@ -79,6 +79,6 @@ class MainPresenter constructor(val view: MainView,
     }
 
     fun scheduleNotifications(activity: Activity) {
-        NotificationReceiver().scheduleNotifications(activity, model.getCurrentRaceCalendar())
+        NotificationScheduler().scheduleNotifications(activity, model.getCurrentRaceCalendar())
     }
 }

@@ -25,7 +25,7 @@ import org.threeten.bp.format.DateTimeFormatter
 /**
  * Created by aeilers on 18.02.2017.
  */
-class NotificationReceiver : BroadcastReceiver() {
+class NotificationScheduler : BroadcastReceiver() {
     val pref_notification = "pref_notification"
 
     override fun onReceive(context: Context, intent: Intent) {
