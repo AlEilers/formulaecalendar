@@ -23,6 +23,7 @@
     <string name="menu_rate">Bewerte diese App</string>
     <string name="menu_feedback">Gib Feedback</string>
     <string name="noti_content">am %s</string>
+    <string name="noti_no_title">Bevorstehendes Forme E Rennen</string>
     <string name="pref_about_title">Info</string>
     <string name="pref_calendar_add">Kalender hinzufügen</string>
     <string name="pref_calendar_description">Füge einen Kalender mit allen Rennen in deine Kalender-App hinzu</string>
