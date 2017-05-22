@@ -33,7 +33,7 @@ class NotificationService : IntentService("NotificationService") {
                 .setContentTitle(title)
                 .setContentText(content)
                 .setContentIntent(pendingIntent)
-                .setSmallIcon(R.mipmap.icon_bw)
+                .setSmallIcon(R.mipmap.ic_notification)
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
             builder.setCategory(CATEGORY_ALARM)
