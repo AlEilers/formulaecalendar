@@ -49,12 +49,12 @@ class NotificationScheduler : BroadcastReceiver() {
                     }
 
                     override fun onError(t: Throwable) {
-                        Log.w("NotificationReceiver", "Cannot schedule notification: ${t.message}")
+                        Log.w("NotificationScheduler", "Cannot schedule notification: ${t.message}")
                     }
 
                     override fun onNext(raceCalendarData: RaceCalendarData?) {
                         raceCalendarData?.calendarData?.let { schedule(context, it) } ?:
-                                Log.w("NotificationReceiver", "Cannot schedule notification: RaceCalendarData is null")
+                                Log.w("NotificationScheduler", "Cannot schedule notification: RaceCalendarData is null")
                     }
                 })
     }
@@ -81,18 +81,16 @@ class NotificationScheduler : BroadcastReceiver() {
 
     private fun calculateOffset(context: Context): Int {
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
-        val value = prefs.getString(pref_notification, "-1")
+        val value = prefs.getString(pref_notification, context.getString(R.string.pref_notification_default))
         val offset = value.toInt()
         return offset * 60 * 100
     }
 
-    private fun createIntent(context: Context, race: CalendarDatum): Intent {
-        val intent = Intent(context, NotificationService::class.java)
-        intent.putExtra("NOTIFICATION_TITLE", race.raceName)
-        intent.putExtra("NOTIFICATION_CONTENT", createContent(context, race))
-        intent.putExtra("NOTIFICATION_ID", race.hashCode())
-        return intent
-    }
+    private fun createIntent(context: Context, race: CalendarDatum) =
+            Intent(context, NotificationService::class.java)
+                    .putExtra("NOTIFICATION_TITLE", race.raceName)
+                    .putExtra("NOTIFICATION_CONTENT", createContent(context, race))
+                    .putExtra("NOTIFICATION_ID", race.hashCode())
 
     private fun createContent(context: Context, race: CalendarDatum): String {
         val format = context.getString(R.string.format_date) + ' ' + context.getString(R.string.format_time)
