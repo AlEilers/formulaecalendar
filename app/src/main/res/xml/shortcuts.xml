@@ -3,7 +3,8 @@
     <shortcut
         android:shortcutId="compose"
         android:enabled="true"
-        android:icon="@mipmap/icon_next"
+        android:icon="@mipmap/ic_next"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:shortcutShortLabel="@string/shortcut_details_label">
         <intent
             android:action="android.intent.action.VIEW"
