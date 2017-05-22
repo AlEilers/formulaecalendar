@@ -3,6 +3,8 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
+    compileSdkVersion 'android-O'
+    buildToolsVersion "26-rc2"
     signingConfigs {
         config {
             // configure variables in ~/.gradle/gradle.properties
@@ -12,12 +14,10 @@ android {
             storePassword STORE_PASSWORD
         }
     }
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
     defaultConfig {
         applicationId "de.ae.formulaecalendar"
         minSdkVersion 16
-        targetSdkVersion 25
+        targetSdkVersion 26
         versionCode 25
         versionName "3.0.10"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
