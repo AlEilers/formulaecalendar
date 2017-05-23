@@ -11,7 +11,7 @@ import android.util.Log
 import com.google.firebase.analytics.FirebaseAnalytics
 import de.ae.formulaecalendar.app.R
 import de.ae.formulaecalendar.app.calendar.MyCalendarProvider
-import de.ae.formulaecalendar.app.notification.NotificationReceiver
+import de.ae.formulaecalendar.app.notification.NotificationScheduler
 import de.ae.formulaecalendar.formulaerest.RemoteStore
 
 /**
@@ -104,7 +104,7 @@ class MyPreferenceFragment : PreferenceFragment(), ActivityCompat.OnRequestPermi
             mFirebaseAnalytics?.logEvent(calendarChangeEvent, calendarBundle);
         }
         if (notificationChanged) {
-            NotificationReceiver().scheduleNotifications(activity, RemoteStore.getCurrentRaceCalendar())
+            NotificationScheduler().scheduleNotifications(activity, RemoteStore.getCurrentRaceCalendar())
             notificationChanged = false
 
             //Firebase

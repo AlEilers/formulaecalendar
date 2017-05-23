@@ -71,6 +71,10 @@ class DetailsActivity constructor() : AppCompatActivity(), DetailsView {
 
     }
 
+    /**
+     * Parameter needs to be set
+     */
+    @Suppress("UNUSED_PARAMETER")
     fun openMap(view: View) {
         presenter?.openMap()
     }

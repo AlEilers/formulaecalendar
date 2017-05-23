@@ -1,17 +1,17 @@
 <resources>
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:colorPrimary">@color/colorPrimary</item>
-        <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="android:colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowContentTransitions">true</item>
     </style>
 
     <!-- Transparent Style - Not used at the moment
          from https://stackoverflow.com/questions/29907615/android-transparent-status-bar-and-actionbar
-    <style name="AppTheme.Transparent" parent="AppTheme">
-        <item name="colorPrimary">@android:color/transparent</item>
-    </style>
+        <style name="AppTheme.Transparent" parent="AppTheme">
+            <item name="colorPrimary">@android:color/transparent</item>
+        </style>
     -->
 
 </resources>
