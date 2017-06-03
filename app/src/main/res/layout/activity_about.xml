@@ -22,18 +22,11 @@ tools:context=".view.about.AboutActivity">
 
 </android.support.design.widget.AppBarLayout>
 
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_below="@+id/toolbar"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/about_cardList"
         android:layout_width="@dimen/card_max_width"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@+id/toolbar"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
-</RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>
