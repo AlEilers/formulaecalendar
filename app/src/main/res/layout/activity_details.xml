@@ -96,8 +96,8 @@
 
                     <ImageView
                         android:id="@+id/details_image_date"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="@dimen/details_icon_size"
+                        android:layout_height="@dimen/details_icon_size"
                         android:layout_marginLeft="8dp"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
@@ -121,8 +121,8 @@
 
                     <ImageView
                         android:id="@+id/details_image_quali"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="@dimen/details_icon_size"
+                        android:layout_height="@dimen/details_icon_size"
                         android:layout_marginLeft="8dp"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
@@ -146,8 +146,8 @@
 
                     <ImageView
                         android:id="@+id/details_image_race"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="@dimen/details_icon_size"
+                        android:layout_height="@dimen/details_icon_size"
                         android:layout_marginBottom="8dp"
                         android:layout_marginLeft="8dp"
                         android:layout_marginStart="8dp"
@@ -211,8 +211,8 @@
 
                     <ImageView
                         android:id="@+id/details_image_laps"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
+                        android:layout_width="@dimen/details_icon_size"
+                        android:layout_height="@dimen/details_icon_size"
                         android:layout_marginLeft="8dp"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
@@ -235,8 +235,8 @@
 
                     <ImageView
                         android:id="@+id/details_image_distance"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
+                        android:layout_width="@dimen/details_icon_size"
+                        android:layout_height="@dimen/details_icon_size"
                         android:layout_marginLeft="8dp"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="8dp"
@@ -258,8 +258,8 @@
 
                     <ImageView
                         android:id="@+id/details_image_map"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
+                        android:layout_width="@dimen/details_icon_size"
+                        android:layout_height="@dimen/details_icon_size"
                         android:layout_marginBottom="8dp"
                         android:layout_marginLeft="8dp"
                         android:layout_marginStart="8dp"

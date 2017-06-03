@@ -11,7 +11,6 @@
     <!-- details -->
     <dimen name="details_image_height">200dp</dimen>
     <dimen name="details_text_padding_left">15dp</dimen>
-    <dimen name="details_text_padding_top">15dp</dimen>
     <dimen name="details_icon_size">25dp</dimen>
     <dimen name="details_results_pos_size">25sp</dimen>
     <dimen name="details_results_pos_width">150dp</dimen>
