@@ -56,7 +56,7 @@ class CountdownWidgetPresenter constructor(val view: CountdownWidgetView, val mo
                                 val countdown = millisToCountdown(next.raceStart.toEpochSecond() * 1000)
                                 val dateStr = dateToString(next.raceStart)
                                 view.setContent(title, countdown, dateStr, true)
-                                view.saveNext(title, next.raceStart.toEpochSecond() * 1000, date)
+                                view.saveNext(title, next.raceStart.toEpochSecond() * 1000, dateStr)
                             } else {
                                 val title = ""
                                 val countdown = view.getContext()?.getString(R.string.widget_no_next)
