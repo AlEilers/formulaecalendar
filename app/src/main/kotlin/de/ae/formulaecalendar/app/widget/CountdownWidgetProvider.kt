@@ -16,9 +16,9 @@ import de.ae.formulaecalendar.app.view.details.DetailsActivity
  * Created by aeilers on 18.02.2017.
  */
 abstract class CountdownWidgetProvider constructor(val layout: Int) : AppWidgetProvider(), CountdownWidgetView {
-    private val PREF_TIME = "widget_next_race_time"
-    private val PREF_NAME = "widget_next_race_name"
-    private val PREF_DATE = "widget_next_race_date"
+    private val PREF_TIME = "widget_next_race_time2"    // '2' because needed new pref key to avoid bugs
+    private val PREF_NAME = "widget_next_race_name2"
+    private val PREF_DATE = "widget_next_race_date2"
 
     private val presenter = CountdownWidgetPresenter(this)
 
@@ -52,7 +52,7 @@ abstract class CountdownWidgetProvider constructor(val layout: Int) : AppWidgetP
                 // Set the text
                 title?.let { remoteViews.setTextViewText(R.id.widget_text_city, it) }
                 countdown?.let { remoteViews.setTextViewText(R.id.widget_text_time, it) }
-                date?.let { remoteViews.setTextViewText(R.id.widget_text_date, date) }
+                date?.let { remoteViews.setTextViewText(R.id.widget_text_date, it) }
 
                 //set on click
                 if (openDetails) {
@@ -74,10 +74,6 @@ abstract class CountdownWidgetProvider constructor(val layout: Int) : AppWidgetP
             it.putString(PREF_DATE, date)
             it.apply()
         }
-
-        //prefs?.edit()?.putString(PREF_NAME, raceName)?.apply()
-        //prefs?.edit()?.putLong(PREF_TIME, time)?.apply()
-        //prefs?.edit()?.putString(PREF_DATE, date)?.apply()
     }
 
     override fun getContext(): Context? {

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView android:id="@+id/card_view_about"
-    android:layout_width="@dimen/card_max_width"
+<android.support.v7.widget.CardView xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card_view_about"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_alignParentTop="true"
     android:layout_alignParentStart="true"
@@ -11,62 +12,97 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto">
 
 
-    <LinearLayout
-        android:orientation="vertical"
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="match_parent">
 
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/card_about_image"
-            card_view:srcCompat="@drawable/berlin"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:scaleType="centerCrop"
-            android:visibility="gone" />
+            android:visibility="visible"
+            card_view:srcCompat="@drawable/berlin"
+            card_view:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="0dp"
+            android:layout_marginRight="0dp"
+            card_view:layout_constraintRight_toRightOf="parent"
+            android:layout_marginLeft="0dp"
+            card_view:layout_constraintLeft_toLeftOf="parent"
+            card_view:layout_constraintHorizontal_bias="0.0" />
 
         <TextView
-            android:text="Resource Title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/card_about_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:paddingLeft="@dimen/card_padding_left"
-            android:visibility="gone"
-            android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
+            android:text="Resource Title"
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large"
+            android:visibility="visible"
+            android:layout_marginTop="0dp"
+            card_view:layout_constraintTop_toBottomOf="@+id/card_about_image"
+            android:layout_marginRight="0dp"
+            card_view:layout_constraintRight_toRightOf="parent"
+            android:layout_marginLeft="0dp"
+            card_view:layout_constraintLeft_toLeftOf="parent"
+            card_view:layout_constraintHorizontal_bias="0.0" />
 
         <TextView
-            android:text="Author: Firstname Lastname"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/card_about_author"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:paddingLeft="@dimen/card_padding_left"
-            android:visibility="gone"
-            android:textAppearance="@android:style/TextAppearance.DeviceDefault" />
+            android:text="Author: Firstname Lastname"
+            android:textAppearance="@android:style/TextAppearance.DeviceDefault"
+            android:visibility="visible"
+            android:layout_marginTop="0dp"
+            card_view:layout_constraintTop_toBottomOf="@+id/card_about_title"
+            android:layout_marginLeft="0dp"
+            card_view:layout_constraintLeft_toLeftOf="parent" />
 
         <TextView
-            android:text="Resource Dexcription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/card_about_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:paddingLeft="@dimen/card_padding_left"
-            android:visibility="gone" />
+            android:text="Resource Dexcription"
+            android:visibility="visible"
+            android:layout_marginTop="0dp"
+            card_view:layout_constraintTop_toBottomOf="@+id/card_about_author"
+            android:layout_marginRight="0dp"
+            card_view:layout_constraintRight_toRightOf="parent"
+            android:layout_marginLeft="0dp"
+            card_view:layout_constraintLeft_toLeftOf="parent" />
 
         <TextView
-            android:text="Resource License"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/card_about_license"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:paddingLeft="@dimen/card_padding_left"
-            android:visibility="gone" />
-
+            android:text="Resource License"
+            android:visibility="visible"
+            android:layout_marginTop="-1dp"
+            card_view:layout_constraintTop_toBottomOf="@+id/card_about_description"
+            android:layout_marginLeft="0dp"
+            card_view:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginRight="0dp"
+            card_view:layout_constraintRight_toRightOf="parent" />
 
         <TextView
-            android:text="Resource URI"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:id="@+id/card_about_uri"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:paddingLeft="@dimen/card_padding_left"
-            android:visibility="gone" />
-
-    </LinearLayout>
+            android:text="Resource URI"
+            android:visibility="visible"
+            android:layout_marginTop="0dp"
+            card_view:layout_constraintTop_toBottomOf="@+id/card_about_license"
+            android:layout_marginLeft="0dp"
+            card_view:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginRight="0dp"
+            card_view:layout_constraintRight_toRightOf="parent"
+            card_view:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="0dp" />
+    </android.support.constraint.ConstraintLayout>
 
 </android.support.v7.widget.CardView>

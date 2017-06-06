@@ -15,7 +15,7 @@ object LocalResourceStore : ResourceStore {
             name = "app"
             title = "Formula E Calendar"
             author = "Alexander Eilers"
-            description = "Verison: " + BuildConfig.VERSION_NAME
+            description = "Version: " + BuildConfig.VERSION_NAME
         })
 
         resources.add(Resource().apply {
