@@ -169,7 +169,8 @@ class DetailsActivity constructor() : AppCompatActivity(), DetailsView {
         if (visible) {
             details_recycler_results.visibility = View.VISIBLE
         } else {
-            details_recycler_results.visibility = View.GONE
+            // GONE doesn't become visible again in some cases (?)
+            details_recycler_results.visibility = View.INVISIBLE
         }
     }
 
