@@ -2,6 +2,7 @@ package de.ae.formulaecalendar.app.view.main
 
 import android.app.Activity
 import android.content.ActivityNotFoundException
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.util.Log
@@ -74,11 +75,11 @@ class MainPresenter constructor(val view: MainView,
         }
     }
 
-    fun manageCalendar(activity: Activity) {
-        MyCalendarProvider(activity).manageCalendar(activity, model.getCurrentRaceCalendar())
+    fun manageCalendar(context: Context) {
+        MyCalendarProvider(context).manageCalendar(context, model.getCurrentRaceCalendar())
     }
 
-    fun scheduleNotifications(activity: Activity) {
-        NotificationScheduler().scheduleNotifications(activity, model.getCurrentRaceCalendar())
+    fun scheduleNotifications(context: Context) {
+        NotificationScheduler().scheduleNotifications(context, model.getCurrentRaceCalendar())
     }
 }

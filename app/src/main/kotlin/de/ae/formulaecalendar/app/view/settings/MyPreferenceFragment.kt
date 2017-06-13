@@ -97,7 +97,7 @@ class MyPreferenceFragment : PreferenceFragment(), ActivityCompat.OnRequestPermi
 
     override fun onStop() {
         if (calendarChanged) {
-            MyCalendarProvider(this.activity).manageCalendar(this.activity, RemoteStore.getCurrentRaceCalendar())
+            MyCalendarProvider(this.activity.applicationContext).manageCalendar(this.activity.applicationContext, RemoteStore.getCurrentRaceCalendar())
             calendarChanged = false
 
             //Firebase

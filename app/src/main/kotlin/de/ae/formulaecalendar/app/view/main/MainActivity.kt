@@ -50,8 +50,8 @@ class MainActivity constructor() : AppCompatActivity(), MainView {
         //load Content
         presenter = MainPresenter(this)
         presenter?.loadContent()
-        presenter?.manageCalendar(this)
-        presenter?.scheduleNotifications(this)
+        presenter?.manageCalendar(this.applicationContext)
+        presenter?.scheduleNotifications(this.applicationContext)
 
 
     }
