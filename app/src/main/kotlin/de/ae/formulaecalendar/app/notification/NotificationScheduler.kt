@@ -83,7 +83,7 @@ class NotificationScheduler : BroadcastReceiver() {
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
         val value = prefs.getString(pref_notification, context.getString(R.string.pref_notification_default))
         val offset = value.toInt()
-        return offset * 60 * 100
+        return offset * 60 * 1000
     }
 
     private fun createIntent(context: Context, race: CalendarDatum) =
