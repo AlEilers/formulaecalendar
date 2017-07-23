@@ -1,6 +1,6 @@
 <resources>
     <!-- CardView -->
-    <dimen name="card_max_width">-2px</dimen> <!-- match parent -->
+    <dimen name="card_max_width">-1px</dimen> <!-- match parent -->
     <dimen name="card_height_image">120dp</dimen>
     <dimen name="card_height_image_textview">30dp</dimen>
     <dimen name="card_padding_left">5dp</dimen>
