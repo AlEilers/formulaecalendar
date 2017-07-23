@@ -70,6 +70,9 @@
     <string name="pref_about_title">About</string>
 
     <!-- Notification -->
+    <string name="noti_channel_id" translatable="false">channel_reminder</string>
+    <string name="noti_channel_name">Reminder</string>
+    <string name="noti_channel_description">Reminds you of upcoming races.</string>
     <string name="noti_no_title">Upcoming Formula E Race</string>
     <string name="noti_content">at %s</string>
 
