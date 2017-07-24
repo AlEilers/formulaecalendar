@@ -13,3 +13,7 @@
 
 -dontwarn co.metalab.asyncawait.RxExtensionsKt*
 -dontwarn retrofit2.Platform*
+-dontwarn javax.annotation.Nullable
+-dontwarn javax.annotation.ParametersAreNonnullByDefault
+-dontwarn java.nio.file.**
+-dontwarn org.codehaus.**

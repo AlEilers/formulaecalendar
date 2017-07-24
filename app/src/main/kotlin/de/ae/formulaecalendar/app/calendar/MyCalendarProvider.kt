@@ -6,6 +6,7 @@ import android.content.ContentUris
 import android.content.ContentValues
 import android.content.Context
 import android.content.pm.PackageManager
+import android.database.Cursor
 import android.net.Uri
 import android.preference.PreferenceManager
 import android.provider.CalendarContract
@@ -112,21 +113,23 @@ class MyCalendarProvider {
      * @return id of calendar, 0 if calendar not found or permission not granted
      */
     private fun getCalId(): Int {
-        var calId = 0
 
         //find calendar
         val projection = arrayOf(CalendarContract.Calendars._ID, CalendarContract.Calendars.CALENDAR_DISPLAY_NAME, CalendarContract.Calendars.ACCOUNT_NAME)
         val where = projection[1] + "='" + this.calendarName + "' AND " + projection[2] + "='" + this.accountName + "'"
-        val cursor = cr.query(CalendarContract.Calendars.CONTENT_URI, projection, where, null, null)
+        val cursor: Cursor? = cr.query(CalendarContract.Calendars.CONTENT_URI, projection, where, null, null)
 
-        val idCol = cursor.getColumnIndex(projection[0])
+        var calId = 0
+        return cursor?.let {
 
-        if (cursor.moveToFirst()) {
-            calId = Integer.parseInt(cursor.getString(idCol))
-        }
-        cursor.close()
+            val idCol = cursor.getColumnIndex(projection[0])
+            if (cursor.moveToFirst()) {
+                calId = Integer.parseInt(cursor.getString(idCol))
+            }
+            cursor.close()
 
-        return calId
+            calId
+        } ?: calId
     }
 
 
@@ -187,15 +190,18 @@ class MyCalendarProvider {
         val projection = arrayOf(CalendarContract.Events._ID, CalendarContract.Events.CALENDAR_ID)
         val where = projection[1] + "=" + calId
 
-        val cursor = cr.query(CalendarContract.Events.CONTENT_URI, projection, where, null, null)
-        val idCol = cursor.getColumnIndex(projection[0])
-        if (cursor.moveToFirst()) {
-            do {
-                val eventId = Integer.parseInt(cursor.getString(idCol))
-                val eventUri = ContentUris.withAppendedId(CalendarContract.Events.CONTENT_URI, eventId.toLong())
-                cr.delete(eventUri, null, null)
-            } while (cursor.moveToNext())
+        val cursor: Cursor? = cr.query(CalendarContract.Events.CONTENT_URI, projection, where, null, null)
+
+        cursor?.let {
+            val idCol = cursor.getColumnIndex(projection[0])
+            if (cursor.moveToFirst()) {
+                do {
+                    val eventId = Integer.parseInt(cursor.getString(idCol))
+                    val eventUri = ContentUris.withAppendedId(CalendarContract.Events.CONTENT_URI, eventId.toLong())
+                    cr.delete(eventUri, null, null)
+                } while (cursor.moveToNext())
+            }
+            cursor.close()
         }
-        cursor.close()
     }
 }

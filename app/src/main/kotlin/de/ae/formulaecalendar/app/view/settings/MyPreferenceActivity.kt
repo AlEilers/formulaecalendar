@@ -3,6 +3,7 @@ package de.ae.formulaecalendar.app.view.settings
 import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v7.app.AppCompatActivity
+import com.jakewharton.threetenabp.AndroidThreeTen
 import de.ae.formulaecalendar.app.R
 import kotlinx.android.synthetic.main.toolbar.*
 
@@ -11,6 +12,10 @@ class MyPreferenceActivity : AppCompatActivity(), ActivityCompat.OnRequestPermis
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        
+        //initialize ThreeTen
+        AndroidThreeTen.init(this)
+
         setContentView(R.layout.activity_preferences)
 
         //set Toolbar
