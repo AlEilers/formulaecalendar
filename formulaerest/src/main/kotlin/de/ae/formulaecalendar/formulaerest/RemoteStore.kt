@@ -5,9 +5,11 @@ import de.ae.formulaecalendar.formulaerest.pojo.calendar.RaceCalendarData
 import de.ae.formulaecalendar.formulaerest.pojo.race.Session
 import de.ae.formulaecalendar.formulaerest.pojo.series.ChampionshipsData
 import de.ae.formulaecalendar.formulaerest.pojo.series.ChampsDatum
+import de.ae.formulaecalendar.formulaerest.rest.EncodingInterceptor
 import de.ae.formulaecalendar.formulaerest.rest.RestService
 import io.reactivex.Maybe
 import io.reactivex.Observable
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -31,8 +33,13 @@ object RemoteStore : DataStore {
                 .setDateFormat("d.M.yyyy")
                 .create()
 
+        val client = OkHttpClient.Builder()
+                .addInterceptor(EncodingInterceptor())
+                .build()
+
         val retrofit = Retrofit.Builder()
                 .baseUrl(RestService.BASE_URL)
+                .client(client)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build()
