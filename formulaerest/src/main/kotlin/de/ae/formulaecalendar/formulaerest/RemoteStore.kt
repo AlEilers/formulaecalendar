@@ -5,6 +5,7 @@ import de.ae.formulaecalendar.formulaerest.pojo.calendar.RaceCalendarData
 import de.ae.formulaecalendar.formulaerest.pojo.race.Session
 import de.ae.formulaecalendar.formulaerest.pojo.series.ChampionshipsData
 import de.ae.formulaecalendar.formulaerest.pojo.series.ChampsDatum
+import de.ae.formulaecalendar.formulaerest.rest.EncodingInterceptor
 import de.ae.formulaecalendar.formulaerest.rest.RestService
 import io.reactivex.Maybe
 import io.reactivex.Observable
@@ -33,6 +34,7 @@ object RemoteStore : DataStore {
                 .create()
 
         val client = OkHttpClient.Builder()
+                .addInterceptor(EncodingInterceptor())
                 .build()
 
         val retrofit = Retrofit.Builder()
