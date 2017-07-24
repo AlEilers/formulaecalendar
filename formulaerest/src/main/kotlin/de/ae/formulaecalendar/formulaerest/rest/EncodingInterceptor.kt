@@ -16,7 +16,7 @@ class EncodingInterceptor : Interceptor {
 
         //set correct mediatype and create a new body
         val mediaType = MediaType.parse("application/json; charset=iso-8859-1")
-        val modifiedBody = ResponseBody.create(mediaType, response.body().bytes())
+        val modifiedBody = ResponseBody.create(mediaType, response.body()?.bytes())
 
         //create response with new body
         val modifiedResponse = response.newBuilder()
