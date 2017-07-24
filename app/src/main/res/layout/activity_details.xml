@@ -8,7 +8,7 @@
     <android.support.design.widget.AppBarLayout
         android:id="@+id/details_app_bar_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/details_image_height"
         android:fitsSystemWindows="true"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
@@ -24,7 +24,7 @@
             <ImageView
                 android:id="@+id/details_image_head"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/details_image_height"
+                android:layout_height="match_parent"
                 android:background="@color/background_no_image"
                 android:fitsSystemWindows="true"
                 android:scaleType="centerCrop"
