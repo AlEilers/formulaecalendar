@@ -93,6 +93,6 @@
 
     <!-- widget -->
     <string name="widget_next_up">Next Race</string>
-    <string name="widget_no_next">No Next Race</string>
+    <string name="widget_no_next">No Race</string>
     <string name="widget_loading">Loading...</string>
 </resources>

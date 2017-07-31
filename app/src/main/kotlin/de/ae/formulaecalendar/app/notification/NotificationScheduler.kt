@@ -90,7 +90,7 @@ class NotificationScheduler : BroadcastReceiver() {
             Intent(context, NotificationService::class.java)
                     .putExtra("NOTIFICATION_TITLE", race.raceName)
                     .putExtra("NOTIFICATION_CONTENT", createContent(context, race))
-                    .putExtra("NOTIFICATION_ID", race.hashCode())
+                    .putExtra("NOTIFICATION_ID", race.raceId)
 
     private fun createContent(context: Context, race: CalendarDatum): String {
         val format = context.getString(R.string.format_date) + ' ' + context.getString(R.string.format_time)

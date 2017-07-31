@@ -18,7 +18,8 @@ class EncodingInterceptor : Interceptor {
 
         // This one special request uses an iso-8859-1 encoding while the other requests use utf-8
         // However it is never specified which encoding is used.
-        if(response.request().url().toString().equals("http://forix-proxy-prod.formulae.corebine.com/fe_server.php/?championship=2022016")) {
+        if (response.request().url().toString().contains("championship", true) &&   //if the url contains championship
+                !response.request().url().toString().contains("page", true)) {      //but doesn't link to a subpage
             //set correct mediatype and create a new body
             val mediaType = MediaType.parse("application/json; charset=iso-8859-1")
             val modifiedBody = ResponseBody.create(mediaType, response.body()?.bytes())
@@ -29,7 +30,7 @@ class EncodingInterceptor : Interceptor {
                     .build()
 
             return modifiedResponse
-        }else{
+        } else {
             return response
         }
     }

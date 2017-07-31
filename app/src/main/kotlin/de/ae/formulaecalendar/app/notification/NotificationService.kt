@@ -6,7 +6,8 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.support.annotation.RequiresApi
-import android.support.v7.app.NotificationCompat
+import android.support.v4.app.NotificationCompat
+import android.support.v4.content.ContextCompat
 import de.ae.formulaecalendar.app.R
 import de.ae.formulaecalendar.app.view.details.DetailsActivity
 
@@ -29,29 +30,22 @@ class NotificationService : IntentService("NotificationService") {
     private fun showNotification(title: String, content: String, id: Int) {
         //get Notification Manager
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val channelId = getString(R.string.noti_channel_id)
 
-        var notification: Notification
-
-        // For >Android O use notification channel
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            //create and set notification channel
-            val notificationChannel = this.createNotificationChannel()
+        //create and set notification channel (For Android >O
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val notificationChannel = this.createNotificationChannel(channelId)
             notificationManager.createNotificationChannel(notificationChannel)
-            //create notification
-            notification = this.createNotification(title, content, notificationChannel.id)
-        } else {
-            //create notification
-            notification = this.createNotification(title, content)
         }
 
-        //show Notification
+        //create and show notification
+        val notification = this.createNotification(title, content, channelId)
         notificationManager.notify(id, notification)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun createNotificationChannel(): NotificationChannel {
+    private fun createNotificationChannel(id: String): NotificationChannel {
         // Create the notification channel
-        val id = getString(R.string.noti_channel_id)
         val name = getString(R.string.noti_channel_name)
         val description = getString(R.string.noti_channel_description)
         val importance = NotificationManager.IMPORTANCE_DEFAULT
@@ -59,38 +53,17 @@ class NotificationService : IntentService("NotificationService") {
         // Configure the notification channel.
         mChannel.description = description
         mChannel.enableLights(true)
-        mChannel.lightColor = getColor(R.color.colorPrimaryDark)
+        mChannel.lightColor = ContextCompat.getColor(this, R.color.colorPrimaryDark)
         mChannel.enableVibration(true)
         //mChannel.vibrationPattern = longArrayOf(100, 200, 300, 400, 500, 400, 300, 200, 400)
         return mChannel
     }
 
-    // Use Notification Compat for SDK Version < Android O
-    private fun createNotification(title: String, content: String): Notification {
-        val newIntent = Intent(this, DetailsActivity::class.java)
-        val pendingIntent = PendingIntent.getActivity(this, 0, newIntent, PendingIntent.FLAG_UPDATE_CURRENT)
-        val builder = NotificationCompat.Builder(this)
-                .setContentTitle(title)
-                .setContentText(content)
-                .setContentIntent(pendingIntent)
-                .setSmallIcon(R.mipmap.ic_notification)
-
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            builder.setCategory(CATEGORY_ALARM)
-        }
-
-        val notification = builder.build()
-        notification.flags = notification.flags or Notification.FLAG_AUTO_CANCEL
-
-        return notification
-    }
-
-    @RequiresApi(Build.VERSION_CODES.O)
     private fun createNotification(title: String, content: String, channelId: String): Notification {
         val newIntent = Intent(this, DetailsActivity::class.java)
         val pendingIntent = PendingIntent.getActivity(this, 0, newIntent, PendingIntent.FLAG_UPDATE_CURRENT)
 
-        val notification = Notification.Builder(this, channelId)
+        val notification = NotificationCompat.Builder(this, channelId)
                 .setContentTitle(title)
                 .setContentText(content)
                 .setContentIntent(pendingIntent)

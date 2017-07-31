@@ -68,8 +68,9 @@ object RemoteStore : DataStore {
         return allChampionShips
                 .map { it?.champsData }
                 .flatMapIterable { it }
-                .filter { it.status.equals("Active") }
-                .firstElement()
+                .sorted { datum1, datum2 -> datum1.championshipId?.compareTo(datum2.championshipId ?: "") ?: Int.MIN_VALUE }
+                .filter { it.status == "Active" || it.status == "Past" }
+                .lastElement()
                 .doOnError { currentChampionShip = createCurrentChampionShip() }
                 .cache()
     }

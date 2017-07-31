@@ -7,5 +7,5 @@ interface ResourceStore {
 
     fun getResources(): List<Resource>
 
-    fun getResourceId(name: String): Int?
+    fun getResourceId(id: String): Int?
 }

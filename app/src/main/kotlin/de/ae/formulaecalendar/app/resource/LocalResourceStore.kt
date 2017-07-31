@@ -133,7 +133,7 @@ object LocalResourceStore : ResourceStore {
         })
 
         resources.add(Resource().apply {
-            name = "Hong Kong"
+            name = "2016020100" //Hong Kong
             title = "Overlook Hong Kong Island north coast, Victoria Harbour and Kowloon from " +
                     "middle section of Lugard Road at daytime (enlarged version and better " +
                     "contrast, revised)"
@@ -145,7 +145,7 @@ object LocalResourceStore : ResourceStore {
         })
 
         resources.add(Resource().apply {
-            name = "Marrakesh"
+            name = "2016700700" //Marrakesh
             title = "Djemaa el Fna"
             author = "Boris Macek"
             license = "Creative Commons Attribution 3.0 Unported (https://goo.gl/MUaj05)"
@@ -154,7 +154,7 @@ object LocalResourceStore : ResourceStore {
         })
 
         resources.add(Resource().apply {
-            name = "Buenos Aires"
+            name = "2014020501" //Buenos Aires
             title = "Buenos Aires Cityline at Night - Irargerich"
             author = "Luis Argerich from Buenos Aires, Argentina"
             license = "Creative Commons Attribution 2.0 Generic (https://goo.gl/oWqhth)"
@@ -163,7 +163,7 @@ object LocalResourceStore : ResourceStore {
         })
 
         resources.add(Resource().apply {
-            name = "Mexico City"
+            name = "2016020400" //Mexico City
             title = "Ciudad.de.Mexico.City.Distrito.Federal.DF.Paseo.Reforma.Skyline"
             author = "Alejandro Islas Photograph AC"
             license = "Creative Commons Attribution 2.0 Generic (https://goo.gl/oWqhth)"
@@ -172,7 +172,7 @@ object LocalResourceStore : ResourceStore {
         })
 
         resources.add(Resource().apply {
-            name = "Monaco"
+            name = "2014020300" //Monaco
             title = "Monaco City 001"
             author = "Mайкл Гиммельфарб"
             license = "public domain (https://goo.gl/jCNNg4)"
@@ -181,7 +181,7 @@ object LocalResourceStore : ResourceStore {
         })
 
         resources.add(Resource().apply {
-            name = "Paris"
+            name = "2015020700" //Paris
             title = "Paris vue d'ensemble tour Eiffel"
             author = "Taxiarchos228, cropped and modified by Poke2001"
             license = "Creative Commons Attribution 3.0 Unported (https://goo.gl/MUaj05)"
@@ -190,7 +190,7 @@ object LocalResourceStore : ResourceStore {
         })
 
         resources.add(Resource().apply {
-            name = "Berlin"
+            name = "2016020700,2014020900" //Berlin
             title = "Cityscape Berlin"
             author = "Thomas Wolf, www.foto-tw.de"
             license = "Creative Commons Attribution 3.0 Unported (https://goo.gl/MUaj05)"
@@ -199,7 +199,7 @@ object LocalResourceStore : ResourceStore {
         })
 
         resources.add(Resource().apply {
-            name = "Brussels"
+            name = "2016020700" //Brussels
             title = "Brussels floral carpet B"
             author = "Wouter Hagens"
             license = "Creative Commons Attribution-Share Alike 3.0 Unported " +
@@ -210,7 +210,7 @@ object LocalResourceStore : ResourceStore {
         })
 
         resources.add(Resource().apply {
-            name = "New York"
+            name = "2016020900" //New York
             title = "Great view of the New York City (NYC) skyline with a few high buildings and " +
                     "sun in the background."
             license = "CC0 License (https://goo.gl/r5bRDY)"
@@ -219,7 +219,7 @@ object LocalResourceStore : ResourceStore {
         })
 
         resources.add(Resource().apply {
-            name = "Montreal"
+            name = "2016021101" //Montreal
             title = "Marché Bonsecours and Foliage"
             author = "AnnaKucsma"
             license = "Creative Commons Attribution-Share Alike 2.5 Generic (https://goo.gl/0Y8BTA)"
@@ -233,7 +233,7 @@ object LocalResourceStore : ResourceStore {
         return resources
     }
 
-    override fun getResourceId(name: String): Int? {
-        return resources.find { it.name.equals(name) }?.id
+    override fun getResourceId(id: String): Int {
+        return resources.find { it.name?.contains(id) ?: false }?.id ?: -1
     }
 }
