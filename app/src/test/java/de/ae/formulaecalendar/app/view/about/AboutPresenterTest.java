@@ -45,7 +45,7 @@ public class AboutPresenterTest {
             }
 
             @Override
-            public Integer getResourceId(String name) {
+            public Integer getResourceId(String id) {
                 Assert.fail();
                 return 0;
             }

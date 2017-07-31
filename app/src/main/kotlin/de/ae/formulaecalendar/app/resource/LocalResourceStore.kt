@@ -163,7 +163,7 @@ object LocalResourceStore : ResourceStore {
         })
 
         resources.add(Resource().apply {
-            name = "20160204" //Mexico City
+            name = "2016020400" //Mexico City
             title = "Ciudad.de.Mexico.City.Distrito.Federal.DF.Paseo.Reforma.Skyline"
             author = "Alejandro Islas Photograph AC"
             license = "Creative Commons Attribution 2.0 Generic (https://goo.gl/oWqhth)"
@@ -190,7 +190,7 @@ object LocalResourceStore : ResourceStore {
         })
 
         resources.add(Resource().apply {
-            name = "2016020700" //Berlin
+            name = "2016020700,2014020900" //Berlin
             title = "Cityscape Berlin"
             author = "Thomas Wolf, www.foto-tw.de"
             license = "Creative Commons Attribution 3.0 Unported (https://goo.gl/MUaj05)"
@@ -233,7 +233,7 @@ object LocalResourceStore : ResourceStore {
         return resources
     }
 
-    override fun getResourceId(name: String): Int {
-        return resources.find { it.name.equals(name) }?.id ?: -1
+    override fun getResourceId(id: String): Int {
+        return resources.find { it.name?.contains(id) ?: false }?.id ?: -1
     }
 }
