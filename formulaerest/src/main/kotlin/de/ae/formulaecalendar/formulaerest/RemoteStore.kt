@@ -5,7 +5,6 @@ import de.ae.formulaecalendar.formulaerest.pojo.calendar.RaceCalendarData
 import de.ae.formulaecalendar.formulaerest.pojo.race.Session
 import de.ae.formulaecalendar.formulaerest.pojo.series.ChampionshipsData
 import de.ae.formulaecalendar.formulaerest.pojo.series.ChampsDatum
-import de.ae.formulaecalendar.formulaerest.pojo.series.compare
 import de.ae.formulaecalendar.formulaerest.rest.EncodingInterceptor
 import de.ae.formulaecalendar.formulaerest.rest.RestService
 import io.reactivex.Maybe
@@ -69,8 +68,9 @@ object RemoteStore : DataStore {
         return allChampionShips
                 .map { it?.champsData }
                 .flatMapIterable { it }
-                .sorted { datum1, datum2 -> datum1.compare(datum2) }
-                .firstElement()
+                .sorted { datum1, datum2 -> datum1.championshipId?.compareTo(datum2.championshipId ?: "") ?: Int.MIN_VALUE }
+                .filter { it.status == "Active" || it.status == "Past" }
+                .lastElement()
                 .doOnError { currentChampionShip = createCurrentChampionShip() }
                 .cache()
     }
