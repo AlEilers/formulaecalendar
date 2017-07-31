@@ -43,7 +43,7 @@
         <item>1 Tag vorher</item>
     </string-array>
     <string name="widget_next_up">Nächstes Rennen</string>
-    <string name="widget_no_next">Kein Nächstes Rennen</string>
+    <string name="widget_no_next">Kein Rennen</string>
     <string name="widget_loading">Lädt...</string>
     <string name="cal_account_name">Formel E Kalender</string>
     <string name="cal_calendar_name">Formel E</string>
