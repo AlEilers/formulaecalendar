@@ -4,9 +4,7 @@ import android.app.*
 import android.app.Notification.CATEGORY_ALARM
 import android.content.Context
 import android.content.Intent
-import android.os.Build
-import android.support.annotation.RequiresApi
-import android.support.v7.app.NotificationCompat
+import android.support.v4.app.NotificationCompat
 import de.ae.formulaecalendar.app.R
 import de.ae.formulaecalendar.app.view.details.DetailsActivity
 
@@ -30,25 +28,15 @@ class NotificationService : IntentService("NotificationService") {
         //get Notification Manager
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-        var notification: Notification
+        //create and set notification channel
+        val notificationChannel = this.createNotificationChannel()
+        notificationManager.createNotificationChannel(notificationChannel)
 
-        // For >Android O use notification channel
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            //create and set notification channel
-            val notificationChannel = this.createNotificationChannel()
-            notificationManager.createNotificationChannel(notificationChannel)
-            //create notification
-            notification = this.createNotification(title, content, notificationChannel.id)
-        } else {
-            //create notification
-            notification = this.createNotification(title, content)
-        }
-
-        //show Notification
+        //create and show notification
+        val notification = this.createNotification(title, content, notificationChannel.id)
         notificationManager.notify(id, notification)
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     private fun createNotificationChannel(): NotificationChannel {
         // Create the notification channel
         val id = getString(R.string.noti_channel_id)
@@ -65,32 +53,11 @@ class NotificationService : IntentService("NotificationService") {
         return mChannel
     }
 
-    // Use Notification Compat for SDK Version < Android O
-    private fun createNotification(title: String, content: String): Notification {
-        val newIntent = Intent(this, DetailsActivity::class.java)
-        val pendingIntent = PendingIntent.getActivity(this, 0, newIntent, PendingIntent.FLAG_UPDATE_CURRENT)
-        val builder = NotificationCompat.Builder(this)
-                .setContentTitle(title)
-                .setContentText(content)
-                .setContentIntent(pendingIntent)
-                .setSmallIcon(R.mipmap.ic_notification)
-
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            builder.setCategory(CATEGORY_ALARM)
-        }
-
-        val notification = builder.build()
-        notification.flags = notification.flags or Notification.FLAG_AUTO_CANCEL
-
-        return notification
-    }
-
-    @RequiresApi(Build.VERSION_CODES.O)
     private fun createNotification(title: String, content: String, channelId: String): Notification {
         val newIntent = Intent(this, DetailsActivity::class.java)
         val pendingIntent = PendingIntent.getActivity(this, 0, newIntent, PendingIntent.FLAG_UPDATE_CURRENT)
 
-        val notification = Notification.Builder(this, channelId)
+        val notification = NotificationCompat.Builder(this, channelId)
                 .setContentTitle(title)
                 .setContentText(content)
                 .setContentIntent(pendingIntent)
