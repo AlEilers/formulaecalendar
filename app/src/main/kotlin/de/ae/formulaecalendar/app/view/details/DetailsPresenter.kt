@@ -96,11 +96,10 @@ class DetailsPresenter(private val view: DetailsView, private val model: DataSto
                 view.setTitle(title)
             }
 
-            val city = race.city
-            if (city != null) {
-                val resourceID = resource.getResourceId(city)
-                if (resourceID != null) {
-                    view.setImage(resourceID)
+            race.circuitId?.let {
+                val resourceId = LocalResourceStore.getResourceId(it)
+                if (resourceId >= 0) {
+                    view.setImage(resourceId)
                 }
             }
 
