@@ -4,7 +4,10 @@ import android.app.*
 import android.app.Notification.CATEGORY_ALARM
 import android.content.Context
 import android.content.Intent
+import android.os.Build
+import android.support.annotation.RequiresApi
 import android.support.v4.app.NotificationCompat
+import android.support.v4.content.ContextCompat
 import de.ae.formulaecalendar.app.R
 import de.ae.formulaecalendar.app.view.details.DetailsActivity
 
@@ -27,19 +30,22 @@ class NotificationService : IntentService("NotificationService") {
     private fun showNotification(title: String, content: String, id: Int) {
         //get Notification Manager
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val channelId = getString(R.string.noti_channel_id)
 
-        //create and set notification channel
-        val notificationChannel = this.createNotificationChannel()
-        notificationManager.createNotificationChannel(notificationChannel)
+        //create and set notification channel (For Android >O
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val notificationChannel = this.createNotificationChannel(channelId)
+            notificationManager.createNotificationChannel(notificationChannel)
+        }
 
         //create and show notification
-        val notification = this.createNotification(title, content, notificationChannel.id)
+        val notification = this.createNotification(title, content, channelId)
         notificationManager.notify(id, notification)
     }
 
-    private fun createNotificationChannel(): NotificationChannel {
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun createNotificationChannel(id: String): NotificationChannel {
         // Create the notification channel
-        val id = getString(R.string.noti_channel_id)
         val name = getString(R.string.noti_channel_name)
         val description = getString(R.string.noti_channel_description)
         val importance = NotificationManager.IMPORTANCE_DEFAULT
@@ -47,7 +53,7 @@ class NotificationService : IntentService("NotificationService") {
         // Configure the notification channel.
         mChannel.description = description
         mChannel.enableLights(true)
-        mChannel.lightColor = getColor(R.color.colorPrimaryDark)
+        mChannel.lightColor = ContextCompat.getColor(this, R.color.colorPrimaryDark)
         mChannel.enableVibration(true)
         //mChannel.vibrationPattern = longArrayOf(100, 200, 300, 400, 500, 400, 300, 200, 400)
         return mChannel
