@@ -19,12 +19,17 @@ class TeamStandingsPresenter(val view: TeamStandingsView,
                              val observer: Scheduler = AndroidSchedulers.mainThread(),
                              val subscriber: Scheduler = Schedulers.newThread()) {
 
-    fun loadContent() {
+    fun loadContent(season: String? = null) {
         view.setLoadingViewVisibility(true)
         view.setRecyclerViewVisibility(false)
 
-        model.getTeamStanding()
-                .subscribeOn(subscriber) // Create a new Thread
+        val data = if (season == null || season.isEmpty()) {
+            model.getCurrentTeamStanding()
+        } else {
+            model.getTeamStanding(season)
+        }
+
+        data.subscribeOn(subscriber) // Create a new Thread
                 .observeOn(observer) // Use the UI thread
                 .subscribe(object : Observer<ChampionshipData?> {
                     override fun onSubscribe(d: Disposable?) {

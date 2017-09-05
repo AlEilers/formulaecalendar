@@ -19,12 +19,17 @@ class CalendarPresenter(val view: CalendarView,
                         val observer: Scheduler = AndroidSchedulers.mainThread(),
                         val subscriber: Scheduler = Schedulers.newThread()) {
 
-    fun loadContent() {
+    fun loadContent(season: String? = null) {
         view.setLoadingViewVisibility(true)
         view.setRecyclerViewVisibility(false)
 
-        model.getCurrentRaceCalendar()
-                .subscribeOn(subscriber) // Create a new Thread
+        val data = if (season == null || season.isEmpty()) {
+            model.getCurrentRaceCalendar()
+        } else {
+            model.getRaceCalendar(season)
+        }
+
+        data.subscribeOn(subscriber) // Create a new Thread
                 .observeOn(observer) // Use the UI thread
                 .subscribe(object : Observer<RaceCalendarData?> {
                     override fun onSubscribe(d: Disposable?) {
