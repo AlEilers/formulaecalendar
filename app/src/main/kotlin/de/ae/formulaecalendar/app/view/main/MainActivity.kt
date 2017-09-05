@@ -8,6 +8,7 @@ import android.view.Menu
 import android.view.MenuItem
 import com.jakewharton.threetenabp.AndroidThreeTen
 import de.ae.formulaecalendar.app.R
+import de.ae.formulaecalendar.app.view.main.championshipchooser.ChampionshipChooserFragment
 import de.ae.formulaecalendar.app.view.observer.Observable
 import de.ae.formulaecalendar.app.view.observer.Observer
 import de.ae.formulaecalendar.app.view.settings.MyPreferenceActivity
@@ -84,7 +85,10 @@ class MainActivity constructor() : AppCompatActivity(), MainView, Observable<Str
             true
         }
         R.id.action_filter -> {
-            season = "2022014" // TODO open season chooser
+            //season = "2022014" // TODO open season chooser
+            ChampionshipChooserFragment()
+                    .init(this, { selected -> season = selected })
+                    .show(supportFragmentManager, "championshipId")
             true
         }
         else -> super.onOptionsItemSelected(item)

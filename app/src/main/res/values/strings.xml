@@ -28,6 +28,11 @@
     <string name="menu_feedback">Give feedback</string>
     <string name="menu_reload">Reload</string>
 
+    <!-- Season chooser -->
+    <string name="chooser_select_season">Select a season</string>
+    <string name="chooser_negative">Abort</string>
+
+
     <!-- Feedback -->
     <string name="feedback_email" translatable="false">a.eilers.dev@gmail.com</string>
     <string name="feedback_subject">Feedback to Formula E Calendar</string>

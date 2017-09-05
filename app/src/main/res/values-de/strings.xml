@@ -59,4 +59,6 @@
     <string name="tab_calendar">Rennen</string>
     <string name="tab_driver">Fahrer</string>
     <string name="tab_team">Teams</string>
+    <string name="chooser_select_season">Saison auswählen</string>
+    <string name="chooser_negative">Abbrechen</string>
 </resources>
