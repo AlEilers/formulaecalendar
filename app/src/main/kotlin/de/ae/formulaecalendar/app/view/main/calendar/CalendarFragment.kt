@@ -1,5 +1,6 @@
 package de.ae.formulaecalendar.app.view.main.calendar
 
+import android.content.Context
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
@@ -9,6 +10,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import de.ae.formulaecalendar.app.R
+import de.ae.formulaecalendar.app.view.observer.Observable
+import de.ae.formulaecalendar.app.view.observer.Observer
 import de.ae.formulaecalendar.formulaerest.pojo.calendar.RaceCalendarData
 import de.ae.formulaecalendar.formulaerest.pojo.calendar.posNextRace
 import kotlinx.android.synthetic.main.fragment_calendar.view.*
@@ -17,7 +20,8 @@ import kotlinx.android.synthetic.main.fragment_calendar.view.*
 /**
  * Created by aeilers on 17.02.2017.
  */
-class CalendarFragment : Fragment(), CalendarView {
+class CalendarFragment : Fragment(), CalendarView, Observer {
+    var observable: Observable? = null
     private var presenter: CalendarPresenter? = null
 
     private var adapter: RaceAdapter? = null
@@ -30,6 +34,20 @@ class CalendarFragment : Fragment(), CalendarView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         presenter = CalendarPresenter(this)
+    }
+
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        if (context is Observable) {
+            context.register(this)
+            observable = context
+        }
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        observable?.deregister(this)
+        observable = null
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -96,5 +114,9 @@ class CalendarFragment : Fragment(), CalendarView {
             snackbar?.show()
         }
         false -> snackbar?.dismiss()
+    }
+
+    override fun update(newValue: Any) {
+        
     }
 }
