@@ -15,13 +15,21 @@ interface DataStore {
 
     fun getAllChampionShips(): Observable<ChampionshipsData?>
 
+    fun getChampionShip(championshipId: String): Maybe<ChampsDatum?>
+
     fun getCurrentChampionShip(): Maybe<ChampsDatum?>
+
+    fun getRaceCalendar(championshipId: String): Observable<RaceCalendarData?>
 
     fun getCurrentRaceCalendar(): Observable<RaceCalendarData?>
 
-    fun getDriverStanding(): Observable<de.ae.formulaecalendar.formulaerest.pojo.driverstanding.ChampionshipData?>
+    fun getDriverStanding(championshipId: String): Observable<de.ae.formulaecalendar.formulaerest.pojo.driverstanding.ChampionshipData?>
 
-    fun getTeamStanding(): Observable<de.ae.formulaecalendar.formulaerest.pojo.teamstanding.ChampionshipData?>
+    fun getCurrentDriverStanding(): Observable<de.ae.formulaecalendar.formulaerest.pojo.driverstanding.ChampionshipData?>
+
+    fun getTeamStanding(championshipId: String): Observable<de.ae.formulaecalendar.formulaerest.pojo.teamstanding.ChampionshipData?>
+
+    fun getCurrentTeamStanding(): Observable<de.ae.formulaecalendar.formulaerest.pojo.teamstanding.ChampionshipData?>
 
     fun getRaceResult(raceId: String): Observable<Session?>
 
