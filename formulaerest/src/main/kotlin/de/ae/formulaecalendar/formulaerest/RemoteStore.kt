@@ -34,7 +34,7 @@ object RemoteStore : DataStore {
                 .create()
 
         val client = OkHttpClient.Builder()
-                .addInterceptor(EncodingInterceptor())
+                //.addInterceptor(EncodingInterceptor()) // reenable if another encoding than utf8 is used
                 .build()
 
         val retrofit = Retrofit.Builder()
