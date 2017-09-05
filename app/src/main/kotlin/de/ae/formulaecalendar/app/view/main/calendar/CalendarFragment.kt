@@ -20,9 +20,9 @@ import kotlinx.android.synthetic.main.fragment_calendar.view.*
 /**
  * Created by aeilers on 17.02.2017.
  */
-class CalendarFragment : Fragment(), CalendarView, Observer {
-    var observable: Observable? = null
+class CalendarFragment : Fragment(), CalendarView, Observer<String?> {
     private var presenter: CalendarPresenter? = null
+    private var observable: Observable<String?>? = null
 
     private var adapter: RaceAdapter? = null
     private var snackbar: Snackbar? = null
@@ -38,15 +38,13 @@ class CalendarFragment : Fragment(), CalendarView, Observer {
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
-        if (context is Observable) {
-            context.register(this)
-            observable = context
-        }
+        observable = context as? Observable<String?>
+        observable?.register(this)
     }
 
     override fun onDetach() {
         super.onDetach()
-        observable?.deregister(this)
+        observable?.unregister(this)
         observable = null
     }
 
@@ -63,7 +61,7 @@ class CalendarFragment : Fragment(), CalendarView, Observer {
         cardList?.adapter = adapter
 
         //load content by presenter
-        presenter?.loadContent()
+        presenter?.loadContent(observable?.getCurrentValue())
 
         return view
     }
@@ -116,7 +114,7 @@ class CalendarFragment : Fragment(), CalendarView, Observer {
         false -> snackbar?.dismiss()
     }
 
-    override fun update(newValue: Any) {
-        
+    override fun update(newValue: String?) {
+        presenter?.loadContent(newValue)
     }
 }

@@ -16,11 +16,14 @@ import kotlinx.android.synthetic.main.toolbar.*
 import kotlin.properties.Delegates
 
 
-class MainActivity constructor() : AppCompatActivity(), MainView, Observable {
+class MainActivity constructor() : AppCompatActivity(), MainView, Observable<String?> {
     var presenter: MainPresenter? = null
 
-    override val observer: MutableList<Observer> = mutableListOf()
-    var season: String by Delegates.observable("") { property, oldValue, newValue -> notifyObservers(newValue) }
+    override val observer: MutableList<Observer<String?>> = mutableListOf()
+    var season: String by Delegates.observable("") { property, oldValue, newValue ->
+        notifyObservers(newValue)
+        presenter?.loadContent(newValue)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,10 +83,18 @@ class MainActivity constructor() : AppCompatActivity(), MainView, Observable {
             presenter?.giveFeedback(this)
             true
         }
+        R.id.action_filter -> {
+            season = "2022014" // TODO open season chooser
+            true
+        }
         else -> super.onOptionsItemSelected(item)
     }
 
     override fun setTitle(title: String) {
         supportActionBar?.title = title
+    }
+
+    override fun getCurrentValue(): String? {
+        return season
     }
 }

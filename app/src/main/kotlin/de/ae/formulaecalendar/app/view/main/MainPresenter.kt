@@ -27,9 +27,14 @@ class MainPresenter constructor(val view: MainView,
                                 val observer: Scheduler = AndroidSchedulers.mainThread(),
                                 val subscriber: Scheduler = Schedulers.newThread()) {
 
-    fun loadContent() {
-        model.getCurrentChampionShip()
-                .subscribeOn(subscriber) // Create a new Thread
+    fun loadContent(season: String? = null) {
+        val data = if (season == null) {
+            model.getCurrentChampionShip()
+        } else {
+            model.getChampionShip(season)
+        }
+
+        data.subscribeOn(subscriber) // Create a new Thread
                 .observeOn(observer) // Use the UI thread
                 .subscribe(object : MaybeObserver<ChampsDatum?> {
                     override fun onSubscribe(d: Disposable?) {
