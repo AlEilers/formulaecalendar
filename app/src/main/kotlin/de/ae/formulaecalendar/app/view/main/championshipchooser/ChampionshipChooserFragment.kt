@@ -1,8 +1,6 @@
 package de.ae.formulaecalendar.app.view.main.championshipchooser
 
-import android.app.Dialog
 import android.content.Context
-import android.content.DialogInterface
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.support.v7.app.AlertDialog
@@ -31,8 +29,8 @@ class ChampionshipChooserFragment() : DialogFragment() {
     var championships: ChampionshipsData? = null
     var notify: ((String) -> Unit)? = null
 
-    fun init(context: Context, notify: (value: String) -> Unit): DialogFragment {
-        this.notify = notify
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
 
         adapter = ArrayAdapter(context, android.R.layout.select_dialog_item)
 
@@ -40,9 +38,7 @@ class ChampionshipChooserFragment() : DialogFragment() {
                 .subscribeOn(subscriber)
                 .observeOn(observer)
                 .subscribe(object : Observer<ChampionshipsData?> {
-                    override fun onSubscribe(d: Disposable?) {
-
-                    }
+                    override fun onSubscribe(d: Disposable?) {}
 
                     override fun onComplete() {
                         adapter?.notifyDataSetChanged()
@@ -55,29 +51,32 @@ class ChampionshipChooserFragment() : DialogFragment() {
                     override fun onNext(data: ChampionshipsData?) {
                         championships = data
                         data?.champsData
-                                ?.map { it.championship }
+                                ?.map { it.championship?.toLowerCase()?.capitalize() }
                                 ?.forEach { adapter?.add(it) }
                     }
 
                 })
+    }
 
+    fun register(notify: (value: String) -> Unit): DialogFragment {
+        this.notify = notify
         return this
     }
 
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        // Use the Builder class for convenient dialog construction
-        val builder = AlertDialog.Builder(activity)
-        builder.setTitle(R.string.chooser_select_season)
-                .setNegativeButton(R.string.chooser_negative, DialogInterface.OnClickListener { dialog, id ->
+    override fun onCreateDialog(savedInstanceState: Bundle?) =
+            AlertDialog.Builder(activity)
+                    .setTitle(R.string.chooser_select_season)
+                    .setNegativeButton(R.string.chooser_negative, null)
+                    .setAdapter(adapter, { dialog, value ->
 
-                })
-                .setAdapter(adapter, { dialog, value ->
-                    val championshipId = championships?.champsData
-                            ?.map { it.championshipId }
-                            ?.get(value) ?: ""
-                    notify?.invoke(championshipId)
-                })
-        // Create the AlertDialog object and return it
-        return builder.create()
-    }
+                        // prepare values
+                        val championshipId = championships?.champsData
+                                ?.map { it.championshipId }
+                                ?.get(value) ?: ""
+
+                        // call registered method
+                        notify?.invoke(championshipId)
+                    })
+                    .create()
+
 }

@@ -51,7 +51,7 @@ class MainPresenter constructor(val view: MainView,
 
                     override fun onSuccess(champsDatum: ChampsDatum?) {
                         champsDatum?.championship?.let {
-                            view.setTitle(it.substring(0, 1).toUpperCase() + it.substring(1).toLowerCase())
+                            view.setTitle(it.toLowerCase().capitalize())
                         } ?: Log.w("MainPresenter", "Cannot load view: title is null")
                     }
                 })

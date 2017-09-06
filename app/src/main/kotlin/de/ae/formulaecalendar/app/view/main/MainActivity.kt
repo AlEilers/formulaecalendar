@@ -85,9 +85,8 @@ class MainActivity constructor() : AppCompatActivity(), MainView, Observable<Str
             true
         }
         R.id.action_filter -> {
-            //season = "2022014" // TODO open season chooser
             ChampionshipChooserFragment()
-                    .init(this, { selected -> season = selected })
+                    .register { season = it }
                     .show(supportFragmentManager, "championshipId")
             true
         }
