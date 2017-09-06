@@ -16,6 +16,7 @@ object LocalResourceStore : ResourceStore {
             title = "Formula E Calendar"
             author = "Alexander Eilers"
             description = "Version: " + BuildConfig.VERSION_NAME
+            uri = "https://github.com/AlEilers/formulaecalendar"
         })
 
         resources.add(Resource().apply {
