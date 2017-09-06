@@ -60,6 +60,12 @@ class CalendarFragment : Fragment(), CalendarView, Observer<String?> {
         cardList?.layoutManager = llm
         cardList?.adapter = adapter
 
+        // drastically increase performance of scrolling in recycler view
+        cardList?.setHasFixedSize(true)
+        cardList?.setItemViewCacheSize(20)
+        cardList?.isDrawingCacheEnabled = true
+        cardList?.drawingCacheQuality = View.DRAWING_CACHE_QUALITY_HIGH
+
         //load content by presenter
         presenter?.loadContent(observable?.getCurrentValue())
 
