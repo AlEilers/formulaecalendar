@@ -1,5 +1,6 @@
 package de.ae.formulaecalendar.app.view.main
 
+import android.content.ContentResolver
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.TabLayout
@@ -8,6 +9,7 @@ import android.view.Menu
 import android.view.MenuItem
 import com.jakewharton.threetenabp.AndroidThreeTen
 import de.ae.formulaecalendar.app.R
+import de.ae.formulaecalendar.app.calendar.SyncService
 import de.ae.formulaecalendar.app.view.main.championshipchooser.ChampionshipChooserFragment
 import de.ae.formulaecalendar.app.view.observer.Observable
 import de.ae.formulaecalendar.app.view.observer.Observer
@@ -57,12 +59,15 @@ class MainActivity constructor() : AppCompatActivity(), MainView, Observable<Str
             }
         })
 
-        //load Content
+        // load Content
         presenter = MainPresenter(this)
         presenter?.loadContent()
         presenter?.manageCalendar(this.applicationContext)
         presenter?.scheduleNotifications(this.applicationContext)
 
+        // calendar sync
+        SyncService.addPeriodicSync(this)
+        //SyncService.syncNow(this)
 
     }
 
