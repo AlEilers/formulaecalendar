@@ -228,6 +228,95 @@ object LocalResourceStore : ResourceStore {
             id = R.drawable.montreal
         })
 
+        resources.add(Resource().apply {
+            name = "20140202" //Putrajaya
+            title = "Putrajaya 4064188579 ec6a5c7efc"
+            author = "FlickreviewR"
+            license = "Creative Commons Attribution 2.0 Generic (https://goo.gl/oWqhth)"
+            uri = "https://goo.gl/qmdbMG"
+            id = R.drawable.putrajaya
+        })
+
+        resources.add(Resource().apply {
+            name = "20140203" //Punta del Este
+            title = "Punta del Este Skyline Aerial Photography-3"
+            author = "Santga"
+            license = "Creative Commons Attribution 2.0 Generic (https://goo.gl/oWqhth)"
+            uri = "https://goo.gl/vTrsrj"
+            id = R.drawable.punta
+        })
+
+        resources.add(Resource().apply {
+            name = "20140205" //Miami
+            title = "Miami from above"
+            author = "Magnus Manske"
+            license = "Creative Commons Attribution 2.0 Generic (https://goo.gl/oWqhth)"
+            uri = "https://goo.gl/4rCcfb"
+            id = R.drawable.miami
+        })
+
+        resources.add(Resource().apply {
+            name = "20140206" //Long Beach
+            title = "Long Beach CA Photo D Ramey Logan"
+            author = "WPPilot"
+            license = "Creative Commons Attribution-Share Alike 3.0 Unported (https://goo.gl/MUaj05)"
+            uri = "https://goo.gl/tCG9pM"
+            id = R.drawable.longbeach
+        })
+
+        resources.add(Resource().apply {
+            name = "20140209" //Moscow
+            title = "Moscow July 2011-16"
+            author = "Alvesgaspar"
+            license = "Creative Commons Attribution-Share Alike 3.0 Unported (https://goo.gl/MUaj05)"
+            uri = "https://goo.gl/NfEGtt"
+            id = R.drawable.moscow
+        })
+
+        resources.add(Resource().apply {
+            name = "20140211" //London
+            title = "London Thames Sunset panorama - Feb 2008"
+            author = "Diliff"
+            license = "Creative Commons Attribution 3.0 Unported (https://goo.gl/MUaj05)"
+            uri = "https://goo.gl/NqRA2M"
+            id = R.drawable.london
+        })
+
+        resources.add(Resource().apply {
+            name = "20150201" //Beijing
+            title = "Beijing national stadium"
+            author = "Peter23"
+            license = "Creative Commons Attribution-Share Alike 3.0 Unported (https://goo.gl/MUaj05)"
+            uri = "https://goo.gl/ccVxV2"
+            id = R.drawable.beijing
+        })
+
+        resources.add(Resource().apply {
+            name = "20170204" //Santiago de chile
+            title = "Santiago de Chile de noche"
+            author = "Javmoraga"
+            license = "Creative Commons Attribution-Share Alike 3.0 Unported (https://goo.gl/MUaj05)"
+            uri = "https://goo.gl/7SzFyg"
+            id = R.drawable.chile
+        })
+
+        resources.add(Resource().apply {
+            name = "20170206" //Sao Paulo
+            title = "Sao Paulo city (Bela Vista)"
+            author = "Chronus "
+            license = "Creative Commons Attribution 2.0 Generic (https://goo.gl/oWqhth)"
+            uri = "https://goo.gl/3Ljjo7"
+            id = R.drawable.saopaulo
+        })
+
+        resources.add(Resource().apply {
+            name = "20170207" //Rome
+            title = "Rome Skyline (8012016319)"
+            author = "Xosema"
+            license = " Creative Commons Attribution-Share Alike 2.0 Generic (https://goo.gl/Y3cRtp)"
+            uri = "https://goo.gl/JJNhcR"
+            id = R.drawable.rome
+        })
     }
 
     override fun getResources(): List<Resource> {
