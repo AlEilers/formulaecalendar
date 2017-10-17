@@ -155,7 +155,7 @@ object LocalResourceStore : ResourceStore {
         })
 
         resources.add(Resource().apply {
-            name = "2014020501" //Buenos Aires
+            name = "2014020500,2014020501" //Buenos Aires
             title = "Buenos Aires Cityline at Night - Irargerich"
             author = "Luis Argerich from Buenos Aires, Argentina"
             license = "Creative Commons Attribution 2.0 Generic (https://goo.gl/oWqhth)"
@@ -164,7 +164,7 @@ object LocalResourceStore : ResourceStore {
         })
 
         resources.add(Resource().apply {
-            name = "2016020400" //Mexico City
+            name = "2015020500,2016020400" //Mexico City
             title = "Ciudad.de.Mexico.City.Distrito.Federal.DF.Paseo.Reforma.Skyline"
             author = "Alejandro Islas Photograph AC"
             license = "Creative Commons Attribution 2.0 Generic (https://goo.gl/oWqhth)"
@@ -173,7 +173,7 @@ object LocalResourceStore : ResourceStore {
         })
 
         resources.add(Resource().apply {
-            name = "2014020300" //Monaco
+            name = "2014020300," //Monaco
             title = "Monaco City 001"
             author = "Mайкл Гиммельфарб"
             license = "public domain (https://goo.gl/jCNNg4)"
@@ -191,7 +191,7 @@ object LocalResourceStore : ResourceStore {
         })
 
         resources.add(Resource().apply {
-            name = "2016020700,2014020900" //Berlin
+            name = "2014020900,2015020800" //Berlin
             title = "Cityscape Berlin"
             author = "Thomas Wolf, www.foto-tw.de"
             license = "Creative Commons Attribution 3.0 Unported (https://goo.gl/MUaj05)"
@@ -229,7 +229,7 @@ object LocalResourceStore : ResourceStore {
         })
 
         resources.add(Resource().apply {
-            name = "20140202" //Putrajaya
+            name = "2014020200" //Putrajaya
             title = "Putrajaya 4064188579 ec6a5c7efc"
             author = "FlickreviewR"
             license = "Creative Commons Attribution 2.0 Generic (https://goo.gl/oWqhth)"
@@ -238,7 +238,7 @@ object LocalResourceStore : ResourceStore {
         })
 
         resources.add(Resource().apply {
-            name = "20140203" //Punta del Este
+            name = "2014020400,2014020401" //Punta del Este
             title = "Punta del Este Skyline Aerial Photography-3"
             author = "Santga"
             license = "Creative Commons Attribution 2.0 Generic (https://goo.gl/oWqhth)"
@@ -247,7 +247,7 @@ object LocalResourceStore : ResourceStore {
         })
 
         resources.add(Resource().apply {
-            name = "20140205" //Miami
+            name = "2014020700" //Miami
             title = "Miami from above"
             author = "Magnus Manske"
             license = "Creative Commons Attribution 2.0 Generic (https://goo.gl/oWqhth)"
@@ -256,7 +256,7 @@ object LocalResourceStore : ResourceStore {
         })
 
         resources.add(Resource().apply {
-            name = "20140206" //Long Beach
+            name = "2014020600" //Long Beach
             title = "Long Beach CA Photo D Ramey Logan"
             author = "WPPilot"
             license = "Creative Commons Attribution-Share Alike 3.0 Unported (https://goo.gl/MUaj05)"
@@ -265,7 +265,7 @@ object LocalResourceStore : ResourceStore {
         })
 
         resources.add(Resource().apply {
-            name = "20140209" //Moscow
+            name = "2014020800" //Moscow
             title = "Moscow July 2011-16"
             author = "Alvesgaspar"
             license = "Creative Commons Attribution-Share Alike 3.0 Unported (https://goo.gl/MUaj05)"
@@ -274,7 +274,7 @@ object LocalResourceStore : ResourceStore {
         })
 
         resources.add(Resource().apply {
-            name = "20140211" //London
+            name = "2014021000" //London
             title = "London Thames Sunset panorama - Feb 2008"
             author = "Diliff"
             license = "Creative Commons Attribution 3.0 Unported (https://goo.gl/MUaj05)"
@@ -283,7 +283,7 @@ object LocalResourceStore : ResourceStore {
         })
 
         resources.add(Resource().apply {
-            name = "20150201" //Beijing
+            name = "2014020100,2015020100" //Beijing
             title = "Beijing national stadium"
             author = "Peter23"
             license = "Creative Commons Attribution-Share Alike 3.0 Unported (https://goo.gl/MUaj05)"
@@ -292,7 +292,7 @@ object LocalResourceStore : ResourceStore {
         })
 
         resources.add(Resource().apply {
-            name = "20170204" //Santiago de chile
+            name = "2017020400" //Santiago de chile
             title = "Santiago de Chile de noche"
             author = "Javmoraga"
             license = "Creative Commons Attribution-Share Alike 3.0 Unported (https://goo.gl/MUaj05)"
@@ -301,7 +301,7 @@ object LocalResourceStore : ResourceStore {
         })
 
         resources.add(Resource().apply {
-            name = "20170206" //Sao Paulo
+            name = "2017020600" //Sao Paulo
             title = "Sao Paulo city (Bela Vista)"
             author = "Chronus "
             license = "Creative Commons Attribution 2.0 Generic (https://goo.gl/oWqhth)"
@@ -310,12 +310,21 @@ object LocalResourceStore : ResourceStore {
         })
 
         resources.add(Resource().apply {
-            name = "20170207" //Rome
+            name = "2017020700" //Rome
             title = "Rome Skyline (8012016319)"
             author = "Xosema"
-            license = " Creative Commons Attribution-Share Alike 2.0 Generic (https://goo.gl/Y3cRtp)"
+            license = "Creative Commons Attribution-Share Alike 2.0 Generic (https://goo.gl/Y3cRtp)"
             uri = "https://goo.gl/JJNhcR"
             id = R.drawable.rome
+        })
+
+        resources.add(Resource().apply {
+            name = "2017021000" //Zurich
+            title = "Utliberg Zurich"
+            author = "Man Ho Lam"
+            license = "Creative Commons Attribution-Share Alike 3.0 Unported (https://goo.gl/MUaj05)"
+            uri = "https://goo.gl/pJnW9J"
+            id = R.drawable.zurich
         })
     }
 
@@ -323,6 +332,9 @@ object LocalResourceStore : ResourceStore {
         return resources
     }
 
+    /**
+     * @param id: when looking for city image use the circuit id
+     */
     override fun getResourceId(id: String): Int {
         return resources.find { it.name?.contains(id) ?: false }?.id ?: -1
     }
