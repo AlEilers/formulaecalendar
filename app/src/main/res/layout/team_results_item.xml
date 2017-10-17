@@ -11,9 +11,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
-        android:layout_marginBottom="0dp"
-        android:layout_marginLeft="0dp"
         android:layout_marginRight="-1dp"
+        android:layout_marginEnd="-1dp"
         android:layout_marginTop="0dp"
         android:gravity="end"
         android:text="12"
@@ -25,8 +24,7 @@
         app:layout_constraintHorizontal_bias="0.66"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/guideline5"
-        app:layout_constraintTop_toTopOf="@+id/team_name"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toTopOf="@+id/team_name" />
 
     <TextView
         android:id="@+id/team_name"
@@ -37,7 +35,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
         android:paddingTop="@dimen/details_results_padding_top"
-        android:text="Driver Name"
+        android:text="Team Name"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="#FF000000"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -58,6 +56,7 @@
         android:layout_marginTop="0dp"
         android:gravity="end"
         android:paddingRight="@dimen/details_results_pos_size"
+        android:paddingEnd="@dimen/details_results_pos_size"
         android:paddingTop="@dimen/details_results_padding_top"
         android:text="123 P."
         android:textAlignment="viewEnd"

@@ -22,10 +22,16 @@
     <string name="cal_event_round">Round</string>
 
     <!-- Menu -->
+    <string name="menu_filter">Season</string>
     <string name="menu_settings">Settings</string>
     <string name="menu_rate">Rate this app</string>
     <string name="menu_feedback">Give feedback</string>
     <string name="menu_reload">Reload</string>
+
+    <!-- Season chooser -->
+    <string name="chooser_select_season">Select a season</string>
+    <string name="chooser_negative">Abort</string>
+
 
     <!-- Feedback -->
     <string name="feedback_email" translatable="false">a.eilers.dev@gmail.com</string>

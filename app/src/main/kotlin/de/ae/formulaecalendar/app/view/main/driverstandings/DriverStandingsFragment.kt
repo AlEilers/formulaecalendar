@@ -1,5 +1,6 @@
 package de.ae.formulaecalendar.app.view.main.driverstandings
 
+import android.content.Context
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
@@ -9,6 +10,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import de.ae.formulaecalendar.app.R
+import de.ae.formulaecalendar.app.view.observer.Observable
+import de.ae.formulaecalendar.app.view.observer.Observer
 import de.ae.formulaecalendar.formulaerest.pojo.driverstanding.ChampionshipData
 import kotlinx.android.synthetic.main.fragment_driver_standings.view.*
 
@@ -16,8 +19,9 @@ import kotlinx.android.synthetic.main.fragment_driver_standings.view.*
 /**
  * Created by aeilers on 17.02.2017.
  */
-class DriverStandingsFragment : Fragment(), DriverStandingsView {
+class DriverStandingsFragment : Fragment(), DriverStandingsView, Observer<String?> {
     private var presenter: DriverStandingsPresenter? = null
+    private var observable: Observable<String?>? = null
 
     private var adapter: ResultsAdapter? = null
     private var snackbar: Snackbar? = null
@@ -29,6 +33,18 @@ class DriverStandingsFragment : Fragment(), DriverStandingsView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         presenter = DriverStandingsPresenter(this)
+    }
+
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        observable = context as? Observable<String?>
+        observable?.register(this)
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        observable?.unregister(this)
+        observable = null
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -44,7 +60,7 @@ class DriverStandingsFragment : Fragment(), DriverStandingsView {
         cardList?.adapter = adapter
 
         //load content by presenter
-        presenter?.loadContent()
+        presenter?.loadContent(observable?.getCurrentValue())
 
         return view
     }
@@ -94,5 +110,9 @@ class DriverStandingsFragment : Fragment(), DriverStandingsView {
             snackbar?.show()
         }
         false -> snackbar?.dismiss()
+    }
+
+    override fun update(newValue: String?) {
+        presenter?.loadContent(newValue)
     }
 }

@@ -1,5 +1,6 @@
 package de.ae.formulaecalendar.app.view.main
 
+import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentStatePagerAdapter
 import de.ae.formulaecalendar.app.view.main.calendar.CalendarFragment
@@ -11,7 +12,7 @@ import de.ae.formulaecalendar.app.view.main.teamstandings.TeamStandingsFragment
  */
 class PageAdapter(fm: FragmentManager?, val numOfTabs: Int) : FragmentStatePagerAdapter(fm) {
 
-    override fun getItem(position: Int) = when (position) {
+    override fun getItem(position: Int): Fragment? = when (position) {
         0 -> CalendarFragment()
         1 -> DriverStandingsFragment()
         2 -> TeamStandingsFragment()

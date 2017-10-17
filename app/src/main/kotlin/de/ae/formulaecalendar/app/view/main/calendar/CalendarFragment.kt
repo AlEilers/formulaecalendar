@@ -1,5 +1,6 @@
 package de.ae.formulaecalendar.app.view.main.calendar
 
+import android.content.Context
 import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
@@ -9,6 +10,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import de.ae.formulaecalendar.app.R
+import de.ae.formulaecalendar.app.view.observer.Observable
+import de.ae.formulaecalendar.app.view.observer.Observer
 import de.ae.formulaecalendar.formulaerest.pojo.calendar.RaceCalendarData
 import de.ae.formulaecalendar.formulaerest.pojo.calendar.posNextRace
 import kotlinx.android.synthetic.main.fragment_calendar.view.*
@@ -17,8 +20,9 @@ import kotlinx.android.synthetic.main.fragment_calendar.view.*
 /**
  * Created by aeilers on 17.02.2017.
  */
-class CalendarFragment : Fragment(), CalendarView {
+class CalendarFragment : Fragment(), CalendarView, Observer<String?> {
     private var presenter: CalendarPresenter? = null
+    private var observable: Observable<String?>? = null
 
     private var adapter: RaceAdapter? = null
     private var snackbar: Snackbar? = null
@@ -30,6 +34,18 @@ class CalendarFragment : Fragment(), CalendarView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         presenter = CalendarPresenter(this)
+    }
+
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        observable = context as? Observable<String?>
+        observable?.register(this)
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        observable?.unregister(this)
+        observable = null
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -44,8 +60,14 @@ class CalendarFragment : Fragment(), CalendarView {
         cardList?.layoutManager = llm
         cardList?.adapter = adapter
 
+        // drastically increase performance of scrolling in recycler view
+        cardList?.setHasFixedSize(true)
+        cardList?.setItemViewCacheSize(20)
+        cardList?.isDrawingCacheEnabled = true
+        cardList?.drawingCacheQuality = View.DRAWING_CACHE_QUALITY_HIGH
+
         //load content by presenter
-        presenter?.loadContent()
+        presenter?.loadContent(observable?.getCurrentValue())
 
         return view
     }
@@ -96,5 +118,9 @@ class CalendarFragment : Fragment(), CalendarView {
             snackbar?.show()
         }
         false -> snackbar?.dismiss()
+    }
+
+    override fun update(newValue: String?) {
+        presenter?.loadContent(newValue)
     }
 }

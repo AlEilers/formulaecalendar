@@ -2,10 +2,10 @@ package de.ae.formulaecalendar.formulaerest
 
 import com.google.gson.GsonBuilder
 import de.ae.formulaecalendar.formulaerest.pojo.calendar.RaceCalendarData
+import de.ae.formulaecalendar.formulaerest.pojo.driverstanding.ChampionshipData
 import de.ae.formulaecalendar.formulaerest.pojo.race.Session
 import de.ae.formulaecalendar.formulaerest.pojo.series.ChampionshipsData
 import de.ae.formulaecalendar.formulaerest.pojo.series.ChampsDatum
-import de.ae.formulaecalendar.formulaerest.rest.EncodingInterceptor
 import de.ae.formulaecalendar.formulaerest.rest.RestService
 import io.reactivex.Maybe
 import io.reactivex.Observable
@@ -20,7 +20,6 @@ import retrofit2.converter.gson.GsonConverterFactory
  */
 
 object RemoteStore : DataStore {
-
     private val rest: RestService
     private var allChampionShips: Observable<ChampionshipsData?>
     private var currentChampionShip: Maybe<ChampsDatum?>
@@ -34,7 +33,7 @@ object RemoteStore : DataStore {
                 .create()
 
         val client = OkHttpClient.Builder()
-                .addInterceptor(EncodingInterceptor())
+                //.addInterceptor(EncodingInterceptor()) // reenable if another encoding than utf8 is used
                 .build()
 
         val retrofit = Retrofit.Builder()
@@ -49,8 +48,8 @@ object RemoteStore : DataStore {
         allChampionShips = createAllChampionShips()
         currentChampionShip = createCurrentChampionShip()
         currentRaceCalendar = createCurrentRaceCalendar()
-        driverStanding = createDriverStanding()
-        teamStanding = createTeamStanding()
+        driverStanding = createCurrentDriverStanding()
+        teamStanding = createCurrentTeamStanding()
     }
 
     private fun createAllChampionShips(): Observable<ChampionshipsData?> {
@@ -79,6 +78,16 @@ object RemoteStore : DataStore {
         return currentChampionShip
     }
 
+    override fun getChampionShip(championshipId: String): Maybe<ChampsDatum?> {
+        return allChampionShips
+                .map { it?.champsData }
+                .flatMapIterable { it }
+                .filter { it.championshipId == championshipId }
+                .firstElement()
+                .doOnError { currentChampionShip = createCurrentChampionShip() }
+                .cache()
+    }
+
     private fun createCurrentRaceCalendar(): Observable<RaceCalendarData?> {
         return currentChampionShip
                 .flatMapObservable { rest.getCalendar(it?.championshipId ?: "") }
@@ -91,28 +100,46 @@ object RemoteStore : DataStore {
         return currentRaceCalendar
     }
 
-    private fun createDriverStanding(): Observable<de.ae.formulaecalendar.formulaerest.pojo.driverstanding.ChampionshipData?> {
+    override fun getRaceCalendar(championshipId: String): Observable<RaceCalendarData?> {
+        return rest.getCalendar(championshipId)
+                .map { it.serieData?.raceCalendar?.raceCalendarData }
+                .cache()
+    }
+
+    private fun createCurrentDriverStanding(): Observable<de.ae.formulaecalendar.formulaerest.pojo.driverstanding.ChampionshipData?> {
         return currentChampionShip
                 .flatMapObservable { rest.getDriverStanding(it?.championshipId ?: "") }
                 .map { it.serieData?.championshipStanding?.championshipData }
-                .doOnError { driverStanding = createDriverStanding() }
+                .doOnError { driverStanding = createCurrentDriverStanding() }
                 .cache()
     }
 
-    override fun getDriverStanding(): Observable<de.ae.formulaecalendar.formulaerest.pojo.driverstanding.ChampionshipData?> {
+    override fun getCurrentDriverStanding(): Observable<de.ae.formulaecalendar.formulaerest.pojo.driverstanding.ChampionshipData?> {
         return driverStanding
     }
 
-    private fun createTeamStanding(): Observable<de.ae.formulaecalendar.formulaerest.pojo.teamstanding.ChampionshipData?> {
-        return currentChampionShip
-                .flatMapObservable { rest.getTeamStanding(it?.championshipId ?: "") }
+    override fun getDriverStanding(championshipId: String): Observable<ChampionshipData?> {
+        return rest.getDriverStanding(championshipId)
                 .map { it.serieData?.championshipStanding?.championshipData }
-                .doOnError { teamStanding = createTeamStanding() }
                 .cache()
     }
 
-    override fun getTeamStanding(): Observable<de.ae.formulaecalendar.formulaerest.pojo.teamstanding.ChampionshipData?> {
+    private fun createCurrentTeamStanding(): Observable<de.ae.formulaecalendar.formulaerest.pojo.teamstanding.ChampionshipData?> {
+        return currentChampionShip
+                .flatMapObservable { rest.getTeamStanding(it?.championshipId ?: "") }
+                .map { it.serieData?.championshipStanding?.championshipData }
+                .doOnError { teamStanding = createCurrentTeamStanding() }
+                .cache()
+    }
+
+    override fun getCurrentTeamStanding(): Observable<de.ae.formulaecalendar.formulaerest.pojo.teamstanding.ChampionshipData?> {
         return teamStanding
+    }
+
+    override fun getTeamStanding(championshipId: String): Observable<de.ae.formulaecalendar.formulaerest.pojo.teamstanding.ChampionshipData?> {
+        return rest.getTeamStanding(championshipId)
+                .map { it.serieData?.championshipStanding?.championshipData }
+                .cache()
     }
 
     override fun getRaceResult(raceId: String): Observable<Session?> {
