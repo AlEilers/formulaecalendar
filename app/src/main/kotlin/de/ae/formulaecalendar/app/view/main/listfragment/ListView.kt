@@ -1,14 +1,14 @@
-package de.ae.formulaecalendar.app.view.main.teamstandings
+package de.ae.formulaecalendar.app.view.main.listfragment
 
 import de.ae.formulaecalendar.app.R
-import de.ae.formulaecalendar.formulaerest.pojo.teamstanding.ChampionshipData
+import de.ae.formulaecalendar.formulaerest.pojo.calendar.RaceCalendarData
 
 /**
  * Created by aeilers on 17.02.2017.
  */
-interface TeamStandingsView {
+interface ListView<T> {
 
-    fun setContent(data: ChampionshipData)
+    fun setContent(content: T)
 
     fun setLoadingViewVisibility(visible: Boolean)
 
