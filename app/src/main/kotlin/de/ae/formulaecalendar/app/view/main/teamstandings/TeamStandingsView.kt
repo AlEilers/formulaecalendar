@@ -1,5 +1,6 @@
 package de.ae.formulaecalendar.app.view.main.teamstandings
 
+import de.ae.formulaecalendar.app.R
 import de.ae.formulaecalendar.formulaerest.pojo.teamstanding.ChampionshipData
 
 /**
@@ -13,5 +14,7 @@ interface TeamStandingsView {
 
     fun setRecyclerViewVisibility(visible: Boolean)
 
-    fun setSnackbarVisibility(visible: Boolean)
+    fun showSnackbar(notification: Int = R.string.connection_fault)
+
+    fun hideSnackbar()
 }

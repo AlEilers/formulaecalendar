@@ -10,6 +10,7 @@
 
     <!-- All -->
     <string name="connection_fault">Connot fetch data.\nPlease check your internet connection.</string>
+    <string name="no_data_fault">Data not available (yet)</string>
     <string name="snackbar_retry">retry</string>
     <string name="no_event">No upcoming race</string>
 

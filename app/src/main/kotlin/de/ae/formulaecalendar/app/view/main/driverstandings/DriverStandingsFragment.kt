@@ -21,11 +21,13 @@ import kotlinx.android.synthetic.main.fragment_driver_standings.view.*
  */
 class DriverStandingsFragment : Fragment(), DriverStandingsView, Observer<String?> {
     private var presenter: DriverStandingsPresenter? = null
-    private var observable: Observable<String?>? = null
+    private var selectedSeason: Observable<String?>? = null
 
     private var adapter: ResultsAdapter? = null
     private var snackbar: Snackbar? = null
     private var snackbarVisible = false
+    private var snackbarNotification = R.string.connection_fault
+    private var fragmentIsVisible = false
 
     private var cardList: RecyclerView? = null
     private var loadingView: View? = null
@@ -37,14 +39,14 @@ class DriverStandingsFragment : Fragment(), DriverStandingsView, Observer<String
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
-        observable = context as? Observable<String?>
-        observable?.register(this)
+        selectedSeason = context as? Observable<String?>
+        selectedSeason?.register(this)
     }
 
     override fun onDetach() {
         super.onDetach()
-        observable?.unregister(this)
-        observable = null
+        selectedSeason?.unregister(this)
+        selectedSeason = null
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -60,14 +62,19 @@ class DriverStandingsFragment : Fragment(), DriverStandingsView, Observer<String
         cardList?.adapter = adapter
 
         //load content by presenter
-        presenter?.loadContent(observable?.getCurrentValue())
+        presenter?.loadContent(selectedSeason?.getCurrentValue())
 
         return view
     }
 
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
-        showSnackbar(snackbarVisible && isVisibleToUser)
+        fragmentIsVisible = isVisibleToUser
+        if (snackbarVisible && fragmentIsVisible) {
+            this.createSnackbar()
+        } else {
+            this.dismissSnackbar()
+        }
     }
 
     override fun onDestroyView() {
@@ -98,18 +105,29 @@ class DriverStandingsFragment : Fragment(), DriverStandingsView, Observer<String
         false -> cardList?.visibility = View.INVISIBLE
     }
 
-    override fun setSnackbarVisibility(visible: Boolean) {
-        snackbarVisible = visible
-        showSnackbar(snackbarVisible && userVisibleHint)
+    override fun showSnackbar(notification: Int) {
+        snackbarVisible = true
+        snackbarNotification = notification
+        if (snackbarVisible && fragmentIsVisible) {
+            createSnackbar()
+        }
     }
 
-    private fun showSnackbar(visible: Boolean) = when (visible) {
-        true -> cardList?.let {
-            snackbar = Snackbar.make(it, R.string.connection_fault, Snackbar.LENGTH_INDEFINITE)
-            snackbar?.setAction(R.string.snackbar_retry, { presenter?.loadContent() })
+    private fun createSnackbar() {
+        cardList?.let {
+            snackbar = Snackbar.make(it, snackbarNotification, Snackbar.LENGTH_INDEFINITE)
+            snackbar?.setAction(R.string.snackbar_retry, { presenter?.loadContent(selectedSeason?.getCurrentValue()) })
             snackbar?.show()
         }
-        false -> snackbar?.dismiss()
+    }
+
+    override fun hideSnackbar() {
+        snackbarVisible = false
+        this.dismissSnackbar()
+    }
+
+    private fun dismissSnackbar() {
+        snackbar?.dismiss()
     }
 
     override fun update(newValue: String?) {
