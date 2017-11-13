@@ -50,11 +50,13 @@ abstract class ListFragment<S, U : RecyclerView.ViewHolder, T : ListAdapter<S, U
         loadingView = view.findViewById(loadingViewId)
 
         //set adapter for recycler view
-        adapter = getRecyclerViewAdapter(this.context)
-        val llm = LinearLayoutManager(this.context)
-        llm.orientation = LinearLayoutManager.VERTICAL
-        contentList?.layoutManager = llm
-        contentList?.adapter = adapter
+        context?.let {
+            adapter = getRecyclerViewAdapter(it)
+            val llm = LinearLayoutManager(this.context)
+            llm.orientation = LinearLayoutManager.VERTICAL
+            contentList?.layoutManager = llm
+            contentList?.adapter = adapter
+        }
 
         // drastically increase performance of scrolling in recycler view
         contentList?.setHasFixedSize(true)

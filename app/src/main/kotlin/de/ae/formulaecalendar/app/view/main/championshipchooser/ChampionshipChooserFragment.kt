@@ -63,20 +63,24 @@ class ChampionshipChooserFragment() : DialogFragment() {
         return this
     }
 
+
+
     override fun onCreateDialog(savedInstanceState: Bundle?) =
-            AlertDialog.Builder(activity)
-                    .setTitle(R.string.chooser_select_season)
-                    .setNegativeButton(R.string.chooser_negative, null)
-                    .setAdapter(adapter, { dialog, value ->
+            activity?.let {
+                AlertDialog.Builder(it)
+                        .setTitle(R.string.chooser_select_season)
+                        .setNegativeButton(R.string.chooser_negative, null)
+                        .setAdapter(adapter, { dialog, value ->
 
-                        // prepare values
-                        val championshipId = championships?.champsData
-                                ?.map { it.championshipId }
-                                ?.get(value) ?: ""
+                            // prepare values
+                            val championshipId = championships?.champsData
+                                    ?.map { it.championshipId }
+                                    ?.get(value) ?: ""
 
-                        // call registered method
-                        notify?.invoke(championshipId)
-                    })
-                    .create()
+                            // call registered method
+                            notify?.invoke(championshipId)
+                        })
+                        .create()
+            } ?: super.onCreateDialog(savedInstanceState)
 
 }
