@@ -18,8 +18,8 @@ android {
         applicationId "de.ae.formulaecalendar"
         minSdkVersion 16
         targetSdkVersion 26
-        versionCode 30
-        versionName "3.2.0"
+        versionCode 0
+        versionName "alpha"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
