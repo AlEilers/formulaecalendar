@@ -14,11 +14,12 @@ import kotlinx.android.synthetic.main.fragment_team_standings.view.*
  * Created by aeilers on 17.02.2017.
  */
 class TeamStandingsFragment : ListFragment<ChampionshipData, ResultsHolder, ResultsAdapter>() {
+
     override val layout: Int = R.layout.fragment_team_standings
 
-    override fun getRecyclerView(view: View): RecyclerView = view.team_result_list
+    override val recyclerViewId: Int = R.id.team_result_list
 
-    override fun getLoadingView(view: View): View = view.team_progress_bar
+    override val loadingViewId: Int = R.id.team_progress_bar
 
     override fun getRecyclerViewAdapter(context: Context): ResultsAdapter = ResultsAdapter()
 

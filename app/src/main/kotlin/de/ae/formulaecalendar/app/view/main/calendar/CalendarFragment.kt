@@ -18,9 +18,9 @@ class CalendarFragment : ListFragment<RaceCalendarData, RaceHolder, RaceAdapter>
 
     override val layout: Int = R.layout.fragment_calendar
 
-    override fun getRecyclerView(view: View): RecyclerView = view.calendar_cardList
+    override val recyclerViewId: Int = R.id.calendar_cardList
 
-    override fun getLoadingView(view: View): View = view.calendar_progress_bar
+    override val loadingViewId: Int = R.id.calendar_progress_bar
 
     override fun getRecyclerViewAdapter(context: Context): RaceAdapter = RaceAdapter(context)
 

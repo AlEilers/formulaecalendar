@@ -28,8 +28,8 @@ abstract class ListFragment<S, U : RecyclerView.ViewHolder, T : ListAdapter<S, U
     protected var presenter: ListPresenter? = null
 
     abstract val layout: Int
-    abstract fun getRecyclerView(view: View): RecyclerView
-    abstract fun getLoadingView(view: View): View
+    abstract val recyclerViewId: Int
+    abstract val loadingViewId: Int
     abstract fun getRecyclerViewAdapter(context: Context): T
     abstract fun createPresenter(): ListPresenter
 
@@ -46,8 +46,8 @@ abstract class ListFragment<S, U : RecyclerView.ViewHolder, T : ListAdapter<S, U
      */
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(layout, container, false)
-        contentList = this.getRecyclerView(view)
-        loadingView = this.getLoadingView(view)
+        contentList = view.findViewById(recyclerViewId)
+        loadingView = view.findViewById(loadingViewId)
 
         //set adapter for recycler view
         adapter = getRecyclerViewAdapter(this.context)

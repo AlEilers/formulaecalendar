@@ -13,7 +13,7 @@ class ResultsAdapter : ListAdapter<ChampionshipData, ResultsHolder>() {
     private var data: ChampionshipData? = null
 
     override fun setContent(content: ChampionshipData) {
-        this.data = data
+        this.data = content
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ResultsHolder {

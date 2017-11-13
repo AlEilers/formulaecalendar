@@ -17,9 +17,9 @@ class DriverStandingsFragment : ListFragment<ChampionshipData, ResultsHolder, Re
 
     override val layout: Int = R.layout.fragment_driver_standings
 
-    override fun getRecyclerView(view: View): RecyclerView = view.driver_result_list
+    override val recyclerViewId: Int = R.id.driver_result_list
 
-    override fun getLoadingView(view: View): View = view.driver_progress_bar
+    override val loadingViewId: Int = R.id.driver_progress_bar
 
     override fun getRecyclerViewAdapter(context: Context): ResultsAdapter = ResultsAdapter()
 
