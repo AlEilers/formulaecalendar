@@ -17,7 +17,7 @@ android {
     defaultConfig {
         applicationId "de.ae.formulaecalendar"
         minSdkVersion 16
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode 0
         versionName "alpha"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
