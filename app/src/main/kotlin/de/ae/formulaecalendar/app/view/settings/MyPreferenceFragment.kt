@@ -66,7 +66,7 @@ class MyPreferenceFragment : PreferenceFragment(), ActivityCompat.OnRequestPermi
 
     private fun requestPermission() {
         ActivityCompat.requestPermissions(activity,
-                arrayOf(Manifest.permission.WRITE_CALENDAR),
+                arrayOf(Manifest.permission.READ_CALENDAR, Manifest.permission.WRITE_CALENDAR),
                 MY_PERMISSIONS_REQUEST_WRITE_CALENDAR)
     }
 
