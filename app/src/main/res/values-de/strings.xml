@@ -61,4 +61,5 @@
     <string name="tab_team">Teams</string>
     <string name="chooser_select_season">Saison auswählen</string>
     <string name="chooser_negative">Abbrechen</string>
+    <string name="no_data_fault">Daten (noch) nicht verfügbar</string>
 </resources>

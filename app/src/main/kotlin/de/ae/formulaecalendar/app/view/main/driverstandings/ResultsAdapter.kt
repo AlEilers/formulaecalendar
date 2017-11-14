@@ -1,19 +1,19 @@
 package de.ae.formulaecalendar.app.view.main.driverstandings
 
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import de.ae.formulaecalendar.app.R
+import de.ae.formulaecalendar.app.view.main.listfragment.ListAdapter
 import de.ae.formulaecalendar.formulaerest.pojo.driverstanding.ChampionshipData
 
 /**
  * Created by aeilers on 17.02.2017.
  */
-class ResultsAdapter : RecyclerView.Adapter<ResultsHolder>() {
+class ResultsAdapter : ListAdapter<ChampionshipData, ResultsHolder>() {
     private var data: ChampionshipData? = null
 
-    fun setResults(data: ChampionshipData) {
-        this.data = data
+    override fun setContent(content: ChampionshipData) {
+        this.data = content
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ResultsHolder {

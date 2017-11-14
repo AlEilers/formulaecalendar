@@ -1,6 +1,9 @@
 package de.ae.formulaecalendar.app.view.main.driverstandings
 
 import android.util.Log
+import de.ae.formulaecalendar.app.R
+import de.ae.formulaecalendar.app.view.main.listfragment.ListPresenter
+import de.ae.formulaecalendar.app.view.main.listfragment.ListView
 import de.ae.formulaecalendar.formulaerest.DataStore
 import de.ae.formulaecalendar.formulaerest.RemoteStore
 import de.ae.formulaecalendar.formulaerest.pojo.driverstanding.ChampionshipData
@@ -14,12 +17,13 @@ import io.reactivex.schedulers.Schedulers
 /**
  * Created by aeilers on 17.02.2017.
  */
-class DriverStandingsPresenter(val view: DriverStandingsView,
+class DriverStandingsPresenter(val view: ListView<ChampionshipData>,
                                val model: DataStore = RemoteStore,
                                val observer: Scheduler = AndroidSchedulers.mainThread(),
-                               val subscriber: Scheduler = Schedulers.newThread()) {
+                               val subscriber: Scheduler = Schedulers.newThread())
+    : ListPresenter {
 
-    fun loadContent(season: String? = null) {
+    override fun loadContent(season: String?) {
         view.setLoadingViewVisibility(true)
         view.setRecyclerViewVisibility(false)
 
@@ -39,13 +43,17 @@ class DriverStandingsPresenter(val view: DriverStandingsView,
                     override fun onComplete() {
                         view.setLoadingViewVisibility(false)
                         view.setRecyclerViewVisibility(true)
-                        view.setSnackbarVisibility(false)
+                        view.hideSnackbar()
                     }
 
                     override fun onError(t: Throwable) {
                         view.setLoadingViewVisibility(false)
                         view.setRecyclerViewVisibility(false)
-                        view.setSnackbarVisibility(true)
+                        if (t is NullPointerException) {
+                            view.showSnackbar(R.string.no_data_fault)
+                        } else {
+                            view.showSnackbar(R.string.connection_fault)
+                        }
                         Log.w("DriverStandingPresenter", "Cannot load view: ${t.message}")
                     }
 

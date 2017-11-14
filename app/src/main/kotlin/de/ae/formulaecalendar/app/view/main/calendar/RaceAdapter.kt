@@ -4,13 +4,13 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.support.v4.app.ActivityOptionsCompat
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import de.ae.formulaecalendar.app.R
 import de.ae.formulaecalendar.app.resource.LocalResourceStore
 import de.ae.formulaecalendar.app.view.details.DetailsActivity
+import de.ae.formulaecalendar.app.view.main.listfragment.ListAdapter
 import de.ae.formulaecalendar.formulaerest.pojo.calendar.CalendarDatum
 import de.ae.formulaecalendar.formulaerest.pojo.calendar.RaceCalendarData
 import de.ae.formulaecalendar.formulaerest.pojo.calendar.nextRace
@@ -22,15 +22,15 @@ import org.threeten.bp.format.DateTimeFormatter
 /**
  * Created by aeilers on 17.02.2017.
  */
-class RaceAdapter(val context: Context) : RecyclerView.Adapter<RaceHolder>() {
+class RaceAdapter(val context: Context) : ListAdapter<RaceCalendarData, RaceHolder>() {
     private val format: String = context.getString(R.string.format_date) + " " + context.getString(R.string.format_time)
     private val zone: ZoneId = ZoneId.systemDefault()
     private var calendar: RaceCalendarData? = null
     private var nextRace: CalendarDatum? = null
 
-    fun setRaceCalendar(calendar: RaceCalendarData) {
-        this.calendar = calendar
-        this.nextRace = calendar.nextRace()
+    override fun setContent(content: RaceCalendarData) {
+        this.calendar = content
+        this.nextRace = content.nextRace()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RaceHolder {
