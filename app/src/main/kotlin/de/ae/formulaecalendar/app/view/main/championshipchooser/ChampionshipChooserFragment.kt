@@ -70,7 +70,7 @@ class ChampionshipChooserFragment() : DialogFragment() {
                 AlertDialog.Builder(it)
                         .setTitle(R.string.chooser_select_season)
                         .setNegativeButton(R.string.chooser_negative, null)
-                        .setAdapter(adapter, { dialog, value ->
+                        .setAdapter(adapter, { _, value ->
 
                             // prepare values
                             val championshipId = championships?.champsData

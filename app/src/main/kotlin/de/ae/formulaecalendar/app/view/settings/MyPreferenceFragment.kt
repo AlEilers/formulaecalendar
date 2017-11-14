@@ -31,12 +31,12 @@ class MyPreferenceFragment : PreferenceFragment(), ActivityCompat.OnRequestPermi
         addPreferencesFromResource(R.xml.preferences)
 
 
-        findPreference(notification).onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, newValue ->
+        findPreference(notification).onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, _ ->
             notificationChanged = true
             true
         }
 
-        findPreference(calendar).onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, newValue ->
+        findPreference(calendar).onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, _ ->
             requestPermission()
             true
         }

@@ -21,7 +21,7 @@ class MainActivity constructor() : AppCompatActivity(), MainView, Observable<Str
     var presenter: MainPresenter? = null
 
     override val observer: MutableList<Observer<String?>> = mutableListOf()
-    var season: String by Delegates.observable("") { property, oldValue, newValue ->
+    var season: String by Delegates.observable("") { _, _, newValue ->
         notifyObservers(newValue)
         presenter?.loadContent(newValue)
     }
