@@ -57,11 +57,6 @@ dependencies {
     compile "com.android.support:customtabs:$support_version"
     compile "com.android.support.constraint:constraint-layout:1.0.2"
 
-    //Firebase
-    ext.firebase_version = '11.6.0'
-    compile "com.google.firebase:firebase-core:$firebase_version"
-    compile "com.google.firebase:firebase-crash:$firebase_version"
-
     //RxJava Android Extensions
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
 
@@ -75,4 +70,3 @@ dependencies {
         exclude group: 'com.jakewharton.threetenabp', module: 'threetenabp'
     }
 }
-apply plugin: 'com.google.gms.google-services'
