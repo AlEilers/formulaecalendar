@@ -3,10 +3,8 @@ package de.ae.formulaecalendar.app.view.details
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
-import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-import com.google.firebase.analytics.FirebaseAnalytics
 import de.ae.formulaecalendar.app.R
 import de.ae.formulaecalendar.app.resource.LocalResourceStore
 import de.ae.formulaecalendar.app.resource.ResourceStore
@@ -26,21 +24,7 @@ import org.threeten.bp.format.DateTimeFormatter
  * Created by aeilers on 18.02.2017.
  */
 class DetailsPresenter(private val view: DetailsView, private val model: DataStore = RemoteStore, private val observer: Scheduler = AndroidSchedulers.mainThread(), private val subscriber: Scheduler = Schedulers.newThread(), private val resource: ResourceStore = LocalResourceStore) {
-    var mFirebaseAnalytics: FirebaseAnalytics? = null
-    private val showRaceEvent = "show_race"
-    private val showRaceIDParam = FirebaseAnalytics.Param.ITEM_ID
-    private val showRaceNameParam = FirebaseAnalytics.Param.ITEM_NAME
-    private val showraceBundle = Bundle()
-
     private var race: CalendarDatum? = null
-
-    init {
-        try {
-            mFirebaseAnalytics = FirebaseAnalytics.getInstance(view.getContext())
-        } catch (e: NullPointerException) {
-            Log.w("DetailsPresenter", "Cannot instanciate FirebaseAnalytics, probably in test mode")
-        }
-    }
 
     fun loadData(race: CalendarDatum?) {
         if (race != null) {
@@ -81,8 +65,6 @@ class DetailsPresenter(private val view: DetailsView, private val model: DataSto
     }
 
     private fun setContent(race: CalendarDatum?) {
-        race?.let { logToFirebase(it) }
-
         this.race = race
         val context = view.getContext()
 
@@ -143,14 +125,6 @@ class DetailsPresenter(private val view: DetailsView, private val model: DataSto
                 view.setResultsLoadingVisibility(false)
                 view.setResultsVisibility(false)
             }
-        }
-    }
-
-    private fun logToFirebase(race: CalendarDatum) {
-        if (mFirebaseAnalytics != null) {
-            showraceBundle.putInt(showRaceIDParam, race.raceId?.toInt() ?: -1)
-            showraceBundle.putString(showRaceNameParam, race.raceName)
-            mFirebaseAnalytics?.logEvent(showRaceEvent, showraceBundle)
         }
     }
 
