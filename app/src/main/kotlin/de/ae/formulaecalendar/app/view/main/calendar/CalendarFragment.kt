@@ -1,20 +1,18 @@
 package de.ae.formulaecalendar.app.view.main.calendar
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
-import android.view.View
 import de.ae.formulaecalendar.app.R
 import de.ae.formulaecalendar.app.view.main.listfragment.ListFragment
 import de.ae.formulaecalendar.app.view.main.listfragment.ListPresenter
 import de.ae.formulaecalendar.formulaerest.pojo.calendar.RaceCalendarData
 import de.ae.formulaecalendar.formulaerest.pojo.calendar.posNextRace
-import kotlinx.android.synthetic.main.fragment_calendar.view.*
 
 
 /**
  * Created by aeilers on 17.02.2017.
  */
 class CalendarFragment : ListFragment<RaceCalendarData, RaceHolder, RaceAdapter>() {
+    override val presenter: ListPresenter = CalendarPresenter(this)
 
     override val layout: Int = R.layout.fragment_calendar
 
@@ -23,8 +21,6 @@ class CalendarFragment : ListFragment<RaceCalendarData, RaceHolder, RaceAdapter>
     override val loadingViewId: Int = R.id.calendar_progress_bar
 
     override fun getRecyclerViewAdapter(context: Context): RaceAdapter = RaceAdapter(context)
-
-    override fun createPresenter(): ListPresenter = CalendarPresenter(this)
 
     override var snackbarNotification: Int = R.string.no_data_fault
 

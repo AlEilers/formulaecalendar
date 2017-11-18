@@ -7,7 +7,7 @@ import org.threeten.bp.ZonedDateTime
 import java.util.Calendar
 
 /**
- * Created by alexa on 02.04.2017.
+ * Created by aeilers on 02.04.2017.
  */
 
 // RaceCalendarData Extension

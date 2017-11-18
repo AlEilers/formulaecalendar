@@ -6,7 +6,7 @@ import okhttp3.Response
 import okhttp3.ResponseBody
 
 /**
- * Created by alexa on 24.07.2017.
+ * Created by aeilers on 24.07.2017.
  *
  * Set the right encoding to one special request
  */

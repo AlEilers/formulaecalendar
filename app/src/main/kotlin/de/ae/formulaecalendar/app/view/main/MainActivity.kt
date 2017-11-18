@@ -1,5 +1,7 @@
 package de.ae.formulaecalendar.app.view.main
 
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.TabLayout
@@ -9,22 +11,16 @@ import android.view.MenuItem
 import com.jakewharton.threetenabp.AndroidThreeTen
 import de.ae.formulaecalendar.app.R
 import de.ae.formulaecalendar.app.view.main.championshipchooser.ChampionshipChooserFragment
-import de.ae.formulaecalendar.app.view.observer.Observable
-import de.ae.formulaecalendar.app.view.observer.Observer
+import de.ae.formulaecalendar.app.view.main.sharedvalues.SharedViewModel
 import de.ae.formulaecalendar.app.view.settings.MyPreferenceActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.toolbar.*
-import kotlin.properties.Delegates
 
 
-class MainActivity constructor() : AppCompatActivity(), MainView, Observable<String?> {
-    var presenter: MainPresenter? = null
+class MainActivity constructor() : AppCompatActivity(), MainView {
+    private val presenter: MainPresenter = MainPresenter(this)
 
-    override val observer: MutableList<Observer<String?>> = mutableListOf()
-    var season: String by Delegates.observable("") { _, _, newValue ->
-        notifyObservers(newValue)
-        presenter?.loadContent(newValue)
-    }
+    private var sharedViewModel: SharedViewModel? = null;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,10 +54,13 @@ class MainActivity constructor() : AppCompatActivity(), MainView, Observable<Str
         })
 
         //load Content
-        presenter = MainPresenter(this)
-        presenter?.loadContent()
-        presenter?.manageCalendar(this.applicationContext)
-        presenter?.scheduleNotifications(this.applicationContext)
+        presenter.loadContent()
+        presenter.manageCalendar(this.applicationContext)
+        presenter.scheduleNotifications(this.applicationContext)
+
+        // get sharedViewModel
+        sharedViewModel = ViewModelProviders.of(this).get(SharedViewModel::class.java)
+        sharedViewModel?.getSelectedSeason()?.observe(this, Observer { presenter.loadContent(it) })
 
 
     }
@@ -77,16 +76,16 @@ class MainActivity constructor() : AppCompatActivity(), MainView, Observable<Str
             true
         }
         R.id.action_rate -> {
-            presenter?.openPlayStore(this)
+            presenter.openPlayStore(this)
             true
         }
         R.id.action_feedback -> {
-            presenter?.giveFeedback(this)
+            presenter.giveFeedback(this)
             true
         }
         R.id.action_filter -> {
             ChampionshipChooserFragment()
-                    .register { season = it }
+                    .register { sharedViewModel?.select(it) }
                     .show(supportFragmentManager, "championshipId")
             true
         }
@@ -95,9 +94,5 @@ class MainActivity constructor() : AppCompatActivity(), MainView, Observable<Str
 
     override fun setTitle(title: String) {
         supportActionBar?.title = title
-    }
-
-    override fun getCurrentValue(): String? {
-        return season
     }
 }
