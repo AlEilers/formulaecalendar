@@ -23,6 +23,8 @@ interface DataStore {
 
     fun getCurrentRaceCalendar(): Observable<RaceCalendarData?>
 
+    fun getAllRacesCalendar(): Observable<RaceCalendarData?>
+
     fun getDriverStanding(championshipId: String): Observable<de.ae.formulaecalendar.formulaerest.pojo.driverstanding.ChampionshipData?>
 
     fun getCurrentDriverStanding(): Observable<de.ae.formulaecalendar.formulaerest.pojo.driverstanding.ChampionshipData?>
