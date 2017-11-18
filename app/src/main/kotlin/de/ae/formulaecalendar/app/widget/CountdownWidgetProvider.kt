@@ -80,3 +80,7 @@ abstract class CountdownWidgetProvider constructor(val layout: Int) : AppWidgetP
         return context
     }
 }
+
+class BrightCountdownWidgetProvider : CountdownWidgetProvider(R.layout.widget_countdown_bright)
+
+class DarkCountdownWidgetProvider : CountdownWidgetProvider(R.layout.widget_countdown_dark)
