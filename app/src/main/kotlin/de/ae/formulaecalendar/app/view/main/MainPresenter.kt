@@ -82,7 +82,7 @@ class MainPresenter constructor(private val view: MainView,
     }
 
     fun manageCalendar(context: Context) {
-        MyCalendarProvider(context).manageCalendar(context, model.getCurrentRaceCalendar())
+        MyCalendarProvider(context).manageCalendar(context, model.getAllRacesCalendar())
     }
 
     fun scheduleNotifications(context: Context) {
