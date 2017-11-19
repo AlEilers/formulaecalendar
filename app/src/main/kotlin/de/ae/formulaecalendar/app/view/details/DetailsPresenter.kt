@@ -18,6 +18,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import org.threeten.bp.ZoneId
+import org.threeten.bp.ZonedDateTime
 import org.threeten.bp.format.DateTimeFormatter
 
 /**
@@ -34,7 +35,10 @@ class DetailsPresenter(private val view: DetailsView, private val model: DataSto
         } else {
             view.setRaceLoadingVisibility(true)
             view.setMainViewVisibility(false)
-            model.getCurrentRaceCalendar()
+
+            val allRaces: MutableList<CalendarDatum> = mutableListOf()
+
+            model.getAllRacesCalendar()
                     .subscribeOn(subscriber) // Create a new Thread
                     .observeOn(observer) // Use the UI thread
                     .subscribe(object : Observer<RaceCalendarData?> {
@@ -43,6 +47,12 @@ class DetailsPresenter(private val view: DetailsView, private val model: DataSto
                         }
 
                         override fun onComplete() {
+                            val next = allRaces.sortedBy { it.raceStart }
+                                    .filter { it.raceStart.isAfter(ZonedDateTime.now()) }
+                                    .firstOrNull()
+                            next?.let { setContent(it) }
+                                    ?: Log.w("DetailsPresenter", "Cannot load view: next race from Server is null")
+
                             view.setRaceLoadingVisibility(false)
                             view.setMainViewVisibility(true)
                             view.setRaceSnackbarVisibility(false)
@@ -56,9 +66,7 @@ class DetailsPresenter(private val view: DetailsView, private val model: DataSto
                         }
 
                         override fun onNext(data: RaceCalendarData?) {
-                            setContent(data?.nextRace())
-                            data?.nextRace()?.let { setContent(it) }
-                                    ?: Log.w("DetailsPresenter", "Cannot load view: next race from Server is null")
+                            data?.calendarData?.let { allRaces.addAll(it) }
                         }
                     })
         }

@@ -24,7 +24,7 @@ import io.reactivex.schedulers.Schedulers
 /**
  * Created by aeilers on 19.02.2017.
  */
-class MyCalendarProvider {
+class MyCalendarProvider(context: Context) : Observer<RaceCalendarData?> {
     private val prefCalendar = "pref_calendar"
     private val prefQuali = "pref_quali"
     private val timezone = "GMT"
@@ -39,16 +39,16 @@ class MyCalendarProvider {
     private var enableRace: Boolean = false
     private var enableQuali: Boolean = false
 
-    constructor(context: Context) {
-        this.cr = context.contentResolver
+    private val allRaces: MutableList<CalendarDatum> = mutableListOf()
 
+    init {
+        this.cr = context.contentResolver
         calendarColor = ContextCompat.getColor(context, R.color.colorPrimary)
         this.accountName = context.getString(R.string.cal_account_name)
         this.calendarName = context.getString(R.string.cal_calendar_name)
         this.raceTitle = context.getString(R.string.cal_event_race)
         this.qualiTitle = context.getString(R.string.cal_event_quali)
         this.roundTitle = context.getString(R.string.cal_event_round)
-
         async {
             val prefs = PreferenceManager.getDefaultSharedPreferences(context)
             await { enableRace = prefs.getBoolean(prefCalendar, false) }
@@ -57,56 +57,49 @@ class MyCalendarProvider {
     }
 
     fun manageCalendar(context: Context, obs: Observable<RaceCalendarData?>) {
-        val calId: Int
 
         //check permission
         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.WRITE_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
             Log.w("MyCalendarProvider", "Cannot create calendar: Permission not granted")
             return
-        } else {
-            calId = this.getCalId()
         }
 
-        if (enableRace) { //if calendar is enabled
+        if (enableRace) {
             obs.subscribeOn(Schedulers.newThread())
                     .observeOn(Schedulers.newThread())
-                    .subscribe(object : Observer<RaceCalendarData?> {
-                        override fun onSubscribe(d: Disposable?) {
+                    .subscribe(this)
+        } else {
+            val calId = this.getCalId()
+            if (calId > 0) { //if calendar is disabled but exists
+                val uri = ContentUris.withAppendedId(CalendarContract.Calendars.CONTENT_URI, calId.toLong())
+                this.deleteCalendar(uri)
+            }
+        }
+    }
 
-                        }
+    override fun onSubscribe(d: Disposable?) {
+        allRaces.clear()
+    }
 
-                        override fun onComplete() {
-
-                        }
-
-                        override fun onError(t: Throwable) {
-                            Log.w("MyCalendarProvider", "Cannot create calendar: ${t.message}")
-                        }
-
-                        override fun onNext(raceCalendarData: RaceCalendarData?) {
-                            var id = calId
-                            if (id == 0) {  //if calendar does not exist, create it
-                                insertCalendar()
-                                id = getCalId()
-                            } else {  //if calendar already exists, delete all events in it
-                                deleteAllEvents(id)
-                            }
-
-                            //insert new events
-                            val data = raceCalendarData?.calendarData
-                            if (data != null) {
-                                insertRaces(id, data, enableQuali)
-                            } else {
-                                Log.w("MyCalendarProvider", "Cannot create calendar: raceCalendarData is null")
-                            }
-                        }
-
-                    })
-        } else if (calId > 0) { //if calendar is disabled but exists
-            val uri = ContentUris.withAppendedId(CalendarContract.Calendars.CONTENT_URI, calId.toLong())
-            this.deleteCalendar(uri)
+    override fun onComplete() {
+        var id = this.getCalId()
+        if (id == 0) {  //if calendar does not exist, create it
+            insertCalendar()
+            id = getCalId()
+        } else {  //if calendar already exists, delete all events in it
+            deleteAllEvents(id)
         }
 
+        //insert new events
+        insertRaces(id, allRaces, enableQuali)
+    }
+
+    override fun onError(t: Throwable) {
+        Log.w("MyCalendarProvider", "Cannot create calendar: ${t.message}")
+    }
+
+    override fun onNext(raceCalendarData: RaceCalendarData?) {
+        raceCalendarData?.calendarData?.let { allRaces.addAll(it) }
     }
 
     /**

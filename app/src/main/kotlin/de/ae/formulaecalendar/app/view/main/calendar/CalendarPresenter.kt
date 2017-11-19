@@ -17,12 +17,16 @@ import io.reactivex.schedulers.Schedulers
 /**
  * Created by aeilers on 17.02.2017.
  */
-class CalendarPresenter(val view: ListView<RaceCalendarData>,
-                        val model: DataStore = RemoteStore,
-                        val observer: Scheduler = AndroidSchedulers.mainThread(),
-                        val subscriber: Scheduler = Schedulers.newThread())
-    : ListPresenter {
+class CalendarPresenter(private val view: ListView<RaceCalendarData>,
+                        private val model: DataStore = RemoteStore,
+                        private val observer: Scheduler = AndroidSchedulers.mainThread(),
+                        private val subscriber: Scheduler = Schedulers.newThread())
+    : ListPresenter, Observer<RaceCalendarData?> {
 
+    /**
+     * if season is null or empty get current season,
+     * otherwise get selected season
+     */
     override fun loadContent(season: String?) {
         view.setLoadingViewVisibility(true)
         view.setRecyclerViewVisibility(false)
@@ -35,31 +39,30 @@ class CalendarPresenter(val view: ListView<RaceCalendarData>,
 
         data.subscribeOn(subscriber) // Create a new Thread
                 .observeOn(observer) // Use the UI thread
-                .subscribe(object : Observer<RaceCalendarData?> {
-                    override fun onSubscribe(d: Disposable?) {
+                .subscribe(this)
+    }
 
-                    }
+    override fun onComplete() {
+        view.setLoadingViewVisibility(false)
+        view.setRecyclerViewVisibility(true)
+        view.hideSnackbar()
+    }
 
-                    override fun onComplete() {
-                        view.setLoadingViewVisibility(false)
-                        view.setRecyclerViewVisibility(true)
-                        view.hideSnackbar()
-                    }
+    override fun onNext(value: RaceCalendarData?) {
+        value?.let { view.setContent(it) }
+    }
 
-                    override fun onError(t: Throwable) {
-                        view.setLoadingViewVisibility(false)
-                        view.setRecyclerViewVisibility(false)
-                        if (t is NullPointerException) {
-                            view.showSnackbar(R.string.no_data_fault)
-                        } else {
-                            view.showSnackbar(R.string.connection_fault)
-                        }
-                        Log.w("CalendarPresenter", "Cannot load view: ${t.message}")
-                    }
+    override fun onSubscribe(d: Disposable?) {
+    }
 
-                    override fun onNext(data: RaceCalendarData?) {
-                        data?.let { view.setContent(it) }
-                    }
-                })
+    override fun onError(e: Throwable) {
+        view.setLoadingViewVisibility(false)
+        view.setRecyclerViewVisibility(false)
+        if (e is NullPointerException) {
+            view.showSnackbar(R.string.no_data_fault)
+        } else {
+            view.showSnackbar(R.string.connection_fault)
+        }
+        Log.w("CalendarPresenter", "Cannot load view: ${e.message}")
     }
 }

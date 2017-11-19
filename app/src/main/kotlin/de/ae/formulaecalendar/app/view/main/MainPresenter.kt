@@ -22,10 +22,11 @@ import io.reactivex.schedulers.Schedulers
 /**
  * Created by aeilers on 17.02.2017.
  */
-class MainPresenter constructor(val view: MainView,
-                                val model: DataStore = RemoteStore,
-                                val observer: Scheduler = AndroidSchedulers.mainThread(),
-                                val subscriber: Scheduler = Schedulers.newThread()) {
+class MainPresenter constructor(private val view: MainView,
+                                private val model: DataStore = RemoteStore,
+                                private val observer: Scheduler = AndroidSchedulers.mainThread(),
+                                private val subscriber: Scheduler = Schedulers.newThread())
+    : MaybeObserver<ChampsDatum?>{
 
     fun loadContent(season: String? = null) {
         val data = if (season == null) {
@@ -36,25 +37,25 @@ class MainPresenter constructor(val view: MainView,
 
         data.subscribeOn(subscriber) // Create a new Thread
                 .observeOn(observer) // Use the UI thread
-                .subscribe(object : MaybeObserver<ChampsDatum?> {
-                    override fun onSubscribe(d: Disposable?) {
+                .subscribe(this)
+    }
 
-                    }
+    override fun onSubscribe(d: Disposable?) {
 
-                    override fun onComplete() {
+    }
 
-                    }
+    override fun onComplete() {
 
-                    override fun onError(t: Throwable) {
-                        Log.w("MainPresenter", "Cannot load view: ${t.message}")
-                    }
+    }
 
-                    override fun onSuccess(champsDatum: ChampsDatum?) {
-                        champsDatum?.championship?.let {
-                            view.setTitle(it.toLowerCase().capitalize())
-                        } ?: Log.w("MainPresenter", "Cannot load view: title is null")
-                    }
-                })
+    override fun onError(t: Throwable) {
+        Log.w("MainPresenter", "Cannot load view: ${t.message}")
+    }
+
+    override fun onSuccess(champsDatum: ChampsDatum?) {
+        champsDatum?.championship?.let {
+            view.setTitle(it.toLowerCase().capitalize())
+        } ?: Log.w("MainPresenter", "Cannot load view: title is null")
     }
 
     fun giveFeedback(activity: Activity) {
@@ -81,10 +82,10 @@ class MainPresenter constructor(val view: MainView,
     }
 
     fun manageCalendar(context: Context) {
-        MyCalendarProvider(context).manageCalendar(context, model.getCurrentRaceCalendar())
+        MyCalendarProvider(context).manageCalendar(context, model.getAllRacesCalendar())
     }
 
     fun scheduleNotifications(context: Context) {
-        NotificationScheduler().scheduleNotifications(context, model.getCurrentRaceCalendar())
+        NotificationScheduler().scheduleNotifications(context, model.getAllRacesCalendar())
     }
 }

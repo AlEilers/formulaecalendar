@@ -1,5 +1,7 @@
 package de.ae.formulaecalendar.app.view.main.listfragment
 
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
 import android.support.design.widget.Snackbar
@@ -10,8 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import de.ae.formulaecalendar.app.R
-import de.ae.formulaecalendar.app.view.observer.Observable
-import de.ae.formulaecalendar.app.view.observer.Observer
+import de.ae.formulaecalendar.app.view.main.sharedvalues.SharedViewModel
 
 /**
  * Created by aeilers on 17.02.2017.
@@ -19,26 +20,34 @@ import de.ae.formulaecalendar.app.view.observer.Observer
  * R: DataType
  * T: ListAdapter<RecyclerViewHolder<DataType>>
  */
-abstract class ListFragment<S, U : RecyclerView.ViewHolder, T : ListAdapter<S, U>> : Fragment(), ListView<S>, Observer<String?> {
+abstract class ListFragment<S, U : RecyclerView.ViewHolder, T : ListAdapter<S, U>> : Fragment(), ListView<S> {
+
+    private lateinit var sharedViewModel: SharedViewModel
+    protected abstract val presenter: ListPresenter
 
     //---------Create View-------------------
     protected var contentList: RecyclerView? = null
     protected var loadingView: View? = null
     protected var adapter: T? = null
-    protected var presenter: ListPresenter? = null
 
     abstract val layout: Int
     abstract val recyclerViewId: Int
     abstract val loadingViewId: Int
     abstract fun getRecyclerViewAdapter(context: Context): T
-    abstract fun createPresenter(): ListPresenter
+    //abstract fun createPresenter(): ListPresenter
 
     /**
      * create presenter
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        presenter = this.createPresenter()
+
+        // get SharedViewModel
+        this.activity?.let {
+            sharedViewModel = ViewModelProviders.of(it).get(SharedViewModel::class.java)
+            sharedViewModel.getSelectedSeason().observe(this, Observer { presenter.loadContent(it) })
+        }
+
     }
 
     /**
@@ -65,7 +74,7 @@ abstract class ListFragment<S, U : RecyclerView.ViewHolder, T : ListAdapter<S, U
         contentList?.drawingCacheQuality = View.DRAWING_CACHE_QUALITY_HIGH
 
         //load content by presenter
-        presenter?.loadContent(selectedSeason?.getCurrentValue())
+        presenter.loadContent(sharedViewModel.getSelectedSeason().value)
 
         return view
     }
@@ -88,35 +97,6 @@ abstract class ListFragment<S, U : RecyclerView.ViewHolder, T : ListAdapter<S, U
      */
     override fun onDestroy() {
         super.onDestroy()
-        presenter = null
-    }
-
-    //---------Observe the selected season---------
-    private var selectedSeason: Observable<String?>? = null
-
-    /**
-     * register observer
-     */
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
-        selectedSeason = context as? Observable<String?>
-        selectedSeason?.register(this)
-    }
-
-    /**
-     * unregister from observable
-     */
-    override fun onDetach() {
-        super.onDetach()
-        selectedSeason?.unregister(this)
-        selectedSeason = null
-    }
-
-    /**
-     * listen to changes on observable
-     */
-    override fun update(newValue: String?) {
-        presenter?.loadContent(newValue)
     }
 
     //---------Set Content-----------
@@ -185,7 +165,7 @@ abstract class ListFragment<S, U : RecyclerView.ViewHolder, T : ListAdapter<S, U
     private fun createSnackbar() {
         contentList?.let {
             snackbar = Snackbar.make(it, snackbarNotification, Snackbar.LENGTH_INDEFINITE)
-            snackbar?.setAction(R.string.snackbar_retry, { presenter?.loadContent(selectedSeason?.getCurrentValue()) })
+            snackbar?.setAction(R.string.snackbar_retry, { presenter.loadContent(sharedViewModel.getSelectedSeason().value) })
             snackbar?.show()
         }
     }
