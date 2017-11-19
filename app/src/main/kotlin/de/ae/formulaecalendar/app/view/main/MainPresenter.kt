@@ -86,6 +86,6 @@ class MainPresenter constructor(private val view: MainView,
     }
 
     fun scheduleNotifications(context: Context) {
-        NotificationScheduler().scheduleNotifications(context, model.getCurrentRaceCalendar())
+        NotificationScheduler().scheduleNotifications(context, model.getAllRacesCalendar())
     }
 }
