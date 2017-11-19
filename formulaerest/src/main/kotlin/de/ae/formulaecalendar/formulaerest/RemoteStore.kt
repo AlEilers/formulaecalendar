@@ -24,6 +24,7 @@ object RemoteStore : DataStore {
     private var allChampionShips: Observable<ChampionshipsData?>
     private var currentChampionShip: Maybe<ChampsDatum?>
     private var currentRaceCalendar: Observable<RaceCalendarData?>
+    private var allRacesCalendar: Observable<RaceCalendarData?>
     private var driverStanding: Observable<de.ae.formulaecalendar.formulaerest.pojo.driverstanding.ChampionshipData?>
     private var teamStanding: Observable<de.ae.formulaecalendar.formulaerest.pojo.teamstanding.ChampionshipData?>
 
@@ -48,6 +49,7 @@ object RemoteStore : DataStore {
         allChampionShips = createAllChampionShips()
         currentChampionShip = createCurrentChampionShip()
         currentRaceCalendar = createCurrentRaceCalendar()
+        allRacesCalendar = createAllRacesCalendar()
         driverStanding = createCurrentDriverStanding()
         teamStanding = createCurrentTeamStanding()
     }
@@ -104,6 +106,21 @@ object RemoteStore : DataStore {
         return rest.getCalendar(championshipId)
                 .map { it.serieData?.raceCalendar?.raceCalendarData }
                 .cache()
+    }
+
+    private fun createAllRacesCalendar(): Observable<RaceCalendarData?> {
+        return allChampionShips
+                .map { it?.champsData }
+                .flatMapIterable { it }
+                .map { rest.getCalendar(it?.championshipId ?: "") }
+                .concatMap { it }
+                .map { it.serieData?.raceCalendar?.raceCalendarData }
+                .doOnError { allRacesCalendar = createAllRacesCalendar() }
+                .cache()
+    }
+
+    override fun getAllRacesCalendar(): Observable<RaceCalendarData?> {
+        return allRacesCalendar
     }
 
     private fun createCurrentDriverStanding(): Observable<de.ae.formulaecalendar.formulaerest.pojo.driverstanding.ChampionshipData?> {

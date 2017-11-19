@@ -18,7 +18,7 @@ import io.reactivex.schedulers.Schedulers
 
 
 /**
- * Created by alexa on 05.09.2017.
+ * Created by aeilers on 05.09.2017.
  */
 class ChampionshipChooserFragment() : DialogFragment() {
     val model: DataStore = RemoteStore
