@@ -120,20 +120,6 @@ object LocalResourceStore : ResourceStore {
         })
 
         resources.add(Resource().apply {
-            name = "logo"
-            title = "EPrix logo"
-            author = "Gustavo Girardelli"
-            license = "Creative Commons Attribution-Share Alike 4.0 International " +
-                    "(https://goo.gl/gtCYbm)"
-            uri = "https://goo.gl/8qJsWI"
-            description = "The image was used for the app icon. By the license of the EPrix logo " +
-                    "(\"If you alter, transform, or build upon this work, you may distribute the " +
-                    "resulting work only under the same or similar license to this one.\") I " +
-                    "release the new icon under the same license as the EPrix logo. Downloadable " +
-                    "under http://imgur.com/NzEF8b1"
-        })
-
-        resources.add(Resource().apply {
             name = "2016020100" //Hong Kong
             title = "Overlook Hong Kong Island north coast, Victoria Harbour and Kowloon from " +
                     "middle section of Lugard Road at daytime (enlarged version and better " +
