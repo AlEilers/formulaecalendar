@@ -312,6 +312,33 @@ object LocalResourceStore : ResourceStore {
             uri = "https://goo.gl/pJnW9J"
             id = R.drawable.zurich
         })
+
+        resources.add(Resource().apply {
+            name = "2018021100" //Bern
+            title = "CH Bern Kramgasse"
+            author = "Daniel Schwen"
+            license = "Creative Commons Attribution-Share Alike 4.0 International (https://goo.gl/Y66kJp)"
+            uri = "https://goo.gl/ZQbKfD"
+            id = R.drawable.bern
+        })
+
+        resources.add(Resource().apply {
+            name = "2018020100" //Ad Diriyah
+            title = "Diriyahpic"
+            author = "Petrovic-Njegos"
+            license = "Creative Commons Attribution-Share Alike 3.0 Unported (https://goo.gl/MUaj05)"
+            uri = "https://goo.gl/vniNrP"
+            id = R.drawable.addiriyah
+        })
+
+        resources.add(Resource().apply {
+            name = "2018020600" //Sanya
+            title = "Phoenix Island, Sanya Bay - 02"
+            author = "Anna Frodesiak, design by MAD Studio"
+            license = "Creative Commons CC0 1.0 Universal Public Domain Dedication (https://goo.gl/X6XqK2)"
+            uri = "https://goo.gl/y2mFZ3"
+            id = R.drawable.sanya
+        })
     }
 
     override fun getResources(): List<Resource> {
