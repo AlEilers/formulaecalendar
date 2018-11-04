@@ -53,6 +53,8 @@ fun CalendarDatum.getZoneId(): ZoneId? {
     }
 }
 
+fun CalendarDatum.isRaceNameAvailable() = !raceName.isNullOrBlank() && !raceName.equals("?")
+
 val CalendarDatum.raceStart: ZonedDateTime
     get() {
         val cal = java.util.Calendar.getInstance()

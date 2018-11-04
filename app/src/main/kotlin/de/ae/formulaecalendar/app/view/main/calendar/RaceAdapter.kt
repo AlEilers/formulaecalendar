@@ -11,10 +11,7 @@ import de.ae.formulaecalendar.app.R
 import de.ae.formulaecalendar.app.resource.LocalResourceStore
 import de.ae.formulaecalendar.app.view.details.DetailsActivity
 import de.ae.formulaecalendar.app.view.main.listfragment.ListAdapter
-import de.ae.formulaecalendar.formulaerest.pojo.calendar.CalendarDatum
-import de.ae.formulaecalendar.formulaerest.pojo.calendar.RaceCalendarData
-import de.ae.formulaecalendar.formulaerest.pojo.calendar.nextRace
-import de.ae.formulaecalendar.formulaerest.pojo.calendar.raceStart
+import de.ae.formulaecalendar.formulaerest.pojo.calendar.*
 import org.threeten.bp.ZoneId
 import org.threeten.bp.format.DateTimeFormatter
 
@@ -41,7 +38,8 @@ class RaceAdapter(val context: Context) : ListAdapter<RaceCalendarData, RaceHold
     override fun onBindViewHolder(holder: RaceHolder, position: Int) {
         val race = calendar?.calendarData?.get(position)
 
-        holder.description.text = race?.raceName
+        holder.description.text =
+                if (race?.isRaceNameAvailable() == true) race?.raceName else race?.city
 
         val zdt = race?.raceStart?.withZoneSameInstant(zone)
         holder.date.text = zdt?.format(DateTimeFormatter.ofPattern(format))
