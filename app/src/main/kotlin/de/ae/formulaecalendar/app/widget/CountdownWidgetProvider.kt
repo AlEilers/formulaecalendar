@@ -8,7 +8,6 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
 import android.widget.RemoteViews
-import com.jakewharton.threetenabp.AndroidThreeTen
 import de.ae.formulaecalendar.app.R
 import de.ae.formulaecalendar.app.view.details.DetailsActivity
 
@@ -31,9 +30,6 @@ abstract class CountdownWidgetProvider constructor(val layout: Int) : AppWidgetP
         this.context = context
         this.appWidgetManager = appWidgetManager
         this.appWidgetIds = appWidgetIds
-
-        //initialize ThreeTen
-        AndroidThreeTen.init(context)
 
         prefs = PreferenceManager.getDefaultSharedPreferences(context)
         val name = prefs?.getString(PREF_NAME, "") ?: ""

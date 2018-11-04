@@ -3,31 +3,23 @@
     <PreferenceCategory
         android:title="@string/pref_notification_title"
         android:key="pref_notification_category">
-        <ListPreference
-            android:key="pref_notification"
-            android:title="@string/pref_notification_time_title"
-            android:dialogTitle="@string/pref_notification_time_description"
-            android:entries="@array/pref_notification_time"
-            android:entryValues="@array/pref_notification_value"
-            android:defaultValue="@string/pref_notification_default" />
+        <SwitchPreference
+            android:key="@string/pref_notification_enabled"
+            android:title="@string/pref_notification_switch_title"
+            android:summary="@string/pref_notification_switch_description"
+            android:disableDependentsState="false"
+            android:defaultValue="true"/>
     </PreferenceCategory>
 
     <PreferenceCategory
         android:title="@string/pref_calendar_title"
         android:key="pref_calendar_category">
         <SwitchPreference
-            android:key="pref_calendar"
-            android:summary="@string/pref_calendar_description"
-            android:title="@string/pref_calendar_add"
+            android:key="pref_calendar_enabled"
+            android:title="@string/pref_calendar_switch_title"
+            android:summary="@string/pref_calendar_switch_description"
             android:disableDependentsState="false"
             android:defaultValue="false"/>
-        <SwitchPreference
-            android:dependency="pref_calendar"
-            android:key="pref_quali"
-            android:title="@string/pref_calendar_show_quali"
-            android:summary="@string/pref_calendar_show_quali_description"
-            android:disableDependentsState="false"
-            android:defaultValue="true"/>
     </PreferenceCategory>
 
     <PreferenceCategory

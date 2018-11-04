@@ -17,8 +17,6 @@
     <string name="details_no_results">Noch keine Ergebnisse</string>
     <string name="feedback_subject">Feedback zu Formula E Kalender</string>
     <string name="title_send_feedback">Sende feedback via</string>
-    <string name="format_date">dd. LLL yyyy</string>
-    <string name="format_time">HH:mm \'Uhr\'</string>
     <string name="menu_filter">Saison</string>
     <string name="menu_settings">Einstellungen</string>
     <string name="menu_rate">Bewerte diese App</string>
@@ -28,13 +26,7 @@
     <string name="noti_content">am %s</string>
     <string name="noti_no_title">Bevorstehendes Forme E Rennen</string>
     <string name="pref_about_title">Info</string>
-    <string name="pref_calendar_add">Kalender hinzufügen</string>
-    <string name="pref_calendar_description">Füge einen Kalender mit allen Rennen in deine Kalender-App hinzu</string>
-    <string name="pref_calendar_show_quali">Zeige Qualifying</string>
-    <string name="pref_calendar_show_quali_description">Zeige auch das Qualifying im Kalender an</string>
     <string name="pref_calendar_title">Kalender</string>
-    <string name="pref_notification_time_description">Erinnerung zum Rennen</string>
-    <string name="pref_notification_time_title">Erinnerung anzeigen</string>
     <string name="pref_notification_title">Benachrichtigungen</string>
     <string-array name="pref_notification_time">
         <item>keine Benachrichtigung</item>
@@ -48,8 +40,6 @@
     <string name="widget_loading">Lädt...</string>
     <string name="cal_account_name">Formel E Kalender</string>
     <string name="cal_calendar_name">Formel E</string>
-    <string name="cal_event_race">Rennen</string>
-    <string name="cal_event_quali">Qualifikation</string>
     <string name="cal_event_round">Runde</string>
     <string name="shortcut_details_label">Nächstes Rennen</string>
     <string name="connection_fault">Daten können nicht geladen werden.\nBitte überprüfe die Internetverbindung.</string>
@@ -62,4 +52,9 @@
     <string name="chooser_select_season">Saison auswählen</string>
     <string name="chooser_negative">Abbrechen</string>
     <string name="no_data_fault">Daten (noch) nicht verfügbar</string>
+    <string name="pref_notification_switch_title">Erinnerung anzeigen</string>
+    <string name="pref_notification_switch_description">Benachrichtigung am Tag des Rennens anzeigen</string>
+    <string name="pref_calendar_switch_description">Füge einen Kalender mit allen Rennen in deine Kalender-App hinzu</string>
+    <string name="pref_calendar_switch_title">Kalendar hinzufuegen</string>
+    <string name="details_turns">Kurven</string>
 </resources>

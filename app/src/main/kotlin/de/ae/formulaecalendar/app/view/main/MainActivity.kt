@@ -8,7 +8,6 @@ import android.support.design.widget.TabLayout
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-import com.jakewharton.threetenabp.AndroidThreeTen
 import de.ae.formulaecalendar.app.R
 import de.ae.formulaecalendar.app.view.main.championshipchooser.ChampionshipChooserFragment
 import de.ae.formulaecalendar.app.view.main.sharedvalues.SharedViewModel
@@ -25,9 +24,6 @@ class MainActivity constructor() : AppCompatActivity(), MainView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        //initialize ThreeTen
-        AndroidThreeTen.init(this)
 
         //set Toolbar
         setSupportActionBar(toolbar_view)

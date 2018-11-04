@@ -18,8 +18,6 @@
     <!-- calendar -->
     <string name="cal_account_name">Formula E Calendar</string>
     <string name="cal_calendar_name">Formula E</string>
-    <string name="cal_event_race">Race</string>
-    <string name="cal_event_quali">Qualifying</string>
     <string name="cal_event_round">Round</string>
 
     <!-- Menu -->
@@ -39,40 +37,19 @@
     <string name="feedback_subject">Feedback to Formula E Calendar</string>
     <string name="title_send_feedback">Send feedback via</string>
 
-    <!-- Date and Time -->
-    <string name="format_date">LLL dd, yyyy</string>
-    <string name="format_time">KK:mm a</string>
-
     <!-- Card -->
     <string name="card_next_up">Next Race</string>
 
     <!-- Settings -->
+    <string name="pref_notification_enabled" translatable="false">pref_notification_enabled</string>
     <string name="pref_notification_title">Notification</string>
-    <string-array name="pref_notification_time">
-        <item>no reminder</item>
-        <item>at start</item>
-        <item>30 minutes before the race</item>
-        <item>1 hour before the race</item>
-        <item>1 day before the race</item>
-    </string-array>
-    <string-array name="pref_notification_value" translatable="false">
-        <item>-1</item>
-        <item>0</item>
-        <item>30</item>
-        <item>60</item>
-        <item>1440</item>
-    </string-array>
-    <string name="pref_notification_default" translatable="false">1440</string>
+    <string name="pref_notification_switch_title">Show reminder</string>
+    <string name="pref_notification_switch_description">Show a notification the day of the race</string>
 
-    <string name="pref_notification_time_description">Reminder for Races</string>
-    <string name="pref_notification_time_title">Show reminder</string>
-
-    <string name="pref_calendar_description">Adds a calendar with all races to your calendar app</string>
+    <string name="pref_calendar_enabled" translatable="false">pref_calendar_enabled</string>
     <string name="pref_calendar_title">Calendar</string>
-
-    <string name="pref_calendar_add">Add calendar</string>
-    <string name="pref_calendar_show_quali">Show qualifying</string>
-    <string name="pref_calendar_show_quali_description">Show also the qualifying in the calendar</string>
+    <string name="pref_calendar_switch_title">Add calendar</string>
+    <string name="pref_calendar_switch_description">Adds a calendar with all races to your calendar app</string>
 
     <string name="pref_about_title">About</string>
 
@@ -94,6 +71,7 @@
     <string name="details_laps">laps</string>
     <string name="details_on_map">%s in Google Maps</string>
     <string name="details_distance">km</string>
+    <string name="details_turns">turns</string>
     <string name="details_results">Results</string>
     <string name="details_no_results">No results yet</string>
     <string name="details_no_mps">No Google Maps found</string>

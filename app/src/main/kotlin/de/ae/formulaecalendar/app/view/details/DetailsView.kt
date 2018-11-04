@@ -21,19 +21,16 @@ interface DetailsView {
 
     fun setRaceSnackbarVisibility(visible: Boolean)
 
-    //round
+    //details
     fun setRound(round: String)
 
     fun setDate(date: String)
 
-    fun setQualiTime(time: String)
-
-    fun setRaceTime(time: String)
-
-    //circiut
     fun setDistance(distance: String)
 
     fun setLaps(laps: String)
+
+    fun setTurns(turns: String)
 
     fun setMap(map: String)
 

@@ -9,33 +9,30 @@ import android.content.Intent
 import android.os.Build
 import android.preference.PreferenceManager
 import android.util.Log
-import com.jakewharton.threetenabp.AndroidThreeTen
 import de.ae.formulaecalendar.app.R
 import de.ae.formulaecalendar.formulaerest.RemoteStore
 import de.ae.formulaecalendar.formulaerest.pojo.calendar.CalendarDatum
+import de.ae.formulaecalendar.formulaerest.pojo.calendar.DATE_FORMAT
 import de.ae.formulaecalendar.formulaerest.pojo.calendar.RaceCalendarData
-import de.ae.formulaecalendar.formulaerest.pojo.calendar.raceStart
+import de.ae.formulaecalendar.formulaerest.pojo.calendar.isDateInFuture
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import org.threeten.bp.ZoneId
-import org.threeten.bp.format.DateTimeFormatter
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * Created by aeilers on 18.02.2017.
  */
 class NotificationScheduler : BroadcastReceiver() {
-    val pref_notification = "pref_notification"
+    private val simpleDateFormat = SimpleDateFormat(DATE_FORMAT, Locale.getDefault())
 
     override fun onReceive(context: Context, intent: Intent) {
-        AndroidThreeTen.init(context)
         scheduleNotifications(context, RemoteStore.getCurrentRaceCalendar())
     }
 
     fun scheduleNotifications(context: Context, obs: Observable<RaceCalendarData?>) {
-        AndroidThreeTen.init(context)
-
 
         obs.subscribeOn(Schedulers.newThread())
                 .observeOn(Schedulers.newThread())
@@ -53,37 +50,39 @@ class NotificationScheduler : BroadcastReceiver() {
                     }
 
                     override fun onNext(raceCalendarData: RaceCalendarData?) {
-                        raceCalendarData?.calendarData?.let { schedule(context, it) } ?:
-                                Log.w("NotificationScheduler", "Cannot schedule notification: RaceCalendarData is null")
+                        raceCalendarData?.calendarData?.let { schedule(context, it) }
+                                ?: Log.w("NotificationScheduler", "Cannot schedule notification: RaceCalendarData is null")
                     }
                 })
     }
 
     private fun schedule(context: Context, races: List<CalendarDatum>) {
-
-        val offset = calculateOffset(context)
-        if (offset < 0) return
+        if (!isNotificationsEnabled(context)) return
 
         val alarmManager = context.getSystemService(ALARM_SERVICE) as AlarmManager
 
-        races.filter { it.raceStart.toEpochSecond() * 1000 > System.currentTimeMillis() + offset }
+        races.filter { race -> race.raceDate?.let { isDateInFuture(it) } == true }
                 .forEach {
                     val intent = createIntent(context, it)
-                    val pendingIntent = PendingIntent.getService(context, Integer.parseInt(it.sequence), intent, 0)
-                    val raceStartMilis = it.raceStart.toEpochSecond() * 1000
+                    val pendingIntent = PendingIntent.getService(
+                            context,
+                            Integer.parseInt(it.sequence?: ""),
+                            intent,
+                            0
+                    )
+                    val raceStartMilis = it.raceDate?.time ?: 0
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                        alarmManager.setExact(AlarmManager.RTC_WAKEUP, raceStartMilis - offset, pendingIntent)
+                        alarmManager.setExact(AlarmManager.RTC_WAKEUP, raceStartMilis, pendingIntent)
                     } else {
-                        alarmManager.set(AlarmManager.RTC_WAKEUP, raceStartMilis - offset, pendingIntent)
+                        alarmManager.set(AlarmManager.RTC_WAKEUP, raceStartMilis, pendingIntent)
                     }
                 }
     }
 
-    private fun calculateOffset(context: Context): Int {
+    private fun isNotificationsEnabled(context: Context): Boolean {
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
-        val value = prefs.getString(pref_notification, context.getString(R.string.pref_notification_default))
-        val offset = value.toInt()
-        return offset * 60 * 1000
+        val preferenceKey = context.getString(R.string.pref_notification_enabled)
+        return prefs.getBoolean(preferenceKey, true)
     }
 
     private fun createIntent(context: Context, race: CalendarDatum) =
@@ -93,9 +92,7 @@ class NotificationScheduler : BroadcastReceiver() {
                     .putExtra("NOTIFICATION_ID", race.raceId)
 
     private fun createContent(context: Context, race: CalendarDatum): String {
-        val format = context.getString(R.string.format_date) + ' ' + context.getString(R.string.format_time)
-        val zdt = race.raceStart.withZoneSameInstant(ZoneId.systemDefault())
-        val time = zdt.format(DateTimeFormatter.ofPattern(format))
+        val time = simpleDateFormat.format(race.raceDate)
         return String.format(context.getString(R.string.noti_content), time)
     }
 

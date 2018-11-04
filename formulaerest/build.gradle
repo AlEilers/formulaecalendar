@@ -31,9 +31,6 @@ dependencies {
     //kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
-    //ThreeTen Android backport
-    api 'com.jakewharton.threetenabp:threetenabp:1.1.1'
-
     //Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.2.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.2.0'

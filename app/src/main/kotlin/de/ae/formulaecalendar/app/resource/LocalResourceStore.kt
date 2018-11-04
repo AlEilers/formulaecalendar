@@ -177,7 +177,7 @@ object LocalResourceStore : ResourceStore {
         })
 
         resources.add(Resource().apply {
-            name = "2014020900,2015020800" //Berlin
+            name = "2014020900,2015020800,2017020900" //Berlin
             title = "Cityscape Berlin"
             author = "Thomas Wolf, www.foto-tw.de"
             license = "Creative Commons Attribution 3.0 Unported (https://goo.gl/MUaj05)"
@@ -278,7 +278,7 @@ object LocalResourceStore : ResourceStore {
         })
 
         resources.add(Resource().apply {
-            name = "2017020400" //Santiago de chile
+            name = "2017020400,2018020300" //Santiago de chile
             title = "Santiago de Chile de noche"
             author = "Javmoraga"
             license = "Creative Commons Attribution-Share Alike 3.0 Unported (https://goo.gl/MUaj05)"
