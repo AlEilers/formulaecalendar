@@ -28,13 +28,6 @@
     <string name="pref_about_title">Info</string>
     <string name="pref_calendar_title">Kalender</string>
     <string name="pref_notification_title">Benachrichtigungen</string>
-    <string-array name="pref_notification_time">
-        <item>keine Benachrichtigung</item>
-        <item>zu Beginn</item>
-        <item>30 Minuten vorher</item>
-        <item>1 Stunde vorher</item>
-        <item>1 Tag vorher</item>
-    </string-array>
     <string name="widget_next_up">Nächstes Rennen</string>
     <string name="widget_no_next">Kein Rennen</string>
     <string name="widget_loading">Lädt...</string>

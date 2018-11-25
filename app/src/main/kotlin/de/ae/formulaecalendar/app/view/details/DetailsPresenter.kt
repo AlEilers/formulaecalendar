@@ -110,7 +110,7 @@ class DetailsPresenter(private val view: DetailsView, private val model: DataSto
             view.setLaps(laps_text + " " + context.getString(R.string.details_laps))
 
             //set distance
-            val length = Integer.parseInt(race.raceDistance) / 1000
+            val length = Integer.parseInt(race.raceDistance ?: "0") / 1000
             view.setDistance(length.toString() + " " + context.getString(R.string.details_distance))
 
             //set turns

@@ -38,7 +38,8 @@ class RaceAdapter(val context: Context) : ListAdapter<RaceCalendarData, RaceHold
         val race = calendar?.calendarData?.get(position)
 
         holder.description.text =
-                if (race?.isRaceNameAvailable() == true) race?.raceName else race?.city
+                if (race?.isRaceNameAvailable() == true) race.raceName
+                else race?.city
 
         holder.date.text = simpleDateFormat.format(race?.raceDate)
 
