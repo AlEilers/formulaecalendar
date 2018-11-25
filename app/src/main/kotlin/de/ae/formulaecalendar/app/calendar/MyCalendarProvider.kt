@@ -22,12 +22,14 @@ import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import java.util.*
 
 /**
  * Created by aeilers on 19.02.2017.
  */
 class MyCalendarProvider(context: Context) : Observer<RaceCalendarData?> {
     private val prefCalendar = "pref_calendar_enabled"
+    private val millisInOneDay = 24 * 60 * 60 * 1000
 
     private val cr: ContentResolver
     private val calendarColor: Int
@@ -123,8 +125,8 @@ class MyCalendarProvider(context: Context) : Observer<RaceCalendarData?> {
         val description = "$roundTitle "
 
         for (race in races) {
-            val start = race.raceDate?.time ?: 0
-            val end = start + 24 * 60 * 60 * 1000
+            val start = (race.raceDate?.time ?: 0) + millisInOneDay
+            val end = start + millisInOneDay
             val eventname =
                     if (race.isRaceNameAvailable()) {
                         race.raceName
@@ -167,6 +169,8 @@ class MyCalendarProvider(context: Context) : Observer<RaceCalendarData?> {
         values.put(CalendarContract.Events.DESCRIPTION, description)
         values.put(CalendarContract.Events.CALENDAR_ID, calId)
         values.put(CalendarContract.Events.EVENT_TIMEZONE, TIMEZONE_UTC)
+
+
 
         return cr.insert(CalendarContract.Events.CONTENT_URI, values)
     }
