@@ -4,17 +4,14 @@ import android.util.Log
 import de.ae.formulaecalendar.app.R
 import de.ae.formulaecalendar.formulaerest.DataStore
 import de.ae.formulaecalendar.formulaerest.RemoteStore
-import de.ae.formulaecalendar.formulaerest.pojo.calendar.CalendarDatum
-import de.ae.formulaecalendar.formulaerest.pojo.calendar.RaceCalendarData
-import de.ae.formulaecalendar.formulaerest.pojo.calendar.raceStart
+import de.ae.formulaecalendar.formulaerest.pojo.calendar.*
 import io.reactivex.Observer
 import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import org.threeten.bp.ZoneId
-import org.threeten.bp.ZonedDateTime
-import org.threeten.bp.format.DateTimeFormatter
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * Created by aeilers on 18.02.2017.
@@ -24,7 +21,8 @@ class CountdownWidgetPresenter constructor(private val view: CountdownWidgetView
                                            private val observer: Scheduler = AndroidSchedulers.mainThread(),
                                            private val subscriber: Scheduler = Schedulers.newThread())
     : Observer<RaceCalendarData?> {
-    
+
+    private val simpleDateFormat = SimpleDateFormat(DATE_FORMAT, Locale.getDefault())
     private val allRaces: MutableList<CalendarDatum> = mutableListOf()
 
     private val HOUR_IN_MILLIS = (1000 * 60 * 60).toLong()
@@ -48,15 +46,21 @@ class CountdownWidgetPresenter constructor(private val view: CountdownWidgetView
     }
 
     override fun onComplete() {
-        val next = allRaces.sortedBy { it.raceStart }
-                .filter { it.raceStart.isAfter(ZonedDateTime.now()) }
+        val nextRace = allRaces.sortedBy { it.raceDate }
+                .filter { race -> race.raceDate?.let { isDateInFuture(it) } ?: false }
                 .firstOrNull()
-        if (next != null) {
-            val title = next.raceName ?: ""
-            val countdown = millisToCountdown(next.raceStart.toEpochSecond() * 1000)
-            val dateStr = dateToString(next.raceStart)
-            view.setContent(title, countdown, dateStr, true)
-            view.saveNext(title, next.raceStart.toEpochSecond() * 1000, dateStr)
+        if (nextRace != null) {
+            val title =
+                    if (nextRace.isRaceNameAvailable()) {
+                        nextRace.raceName ?: ""
+                    } else {
+                        nextRace.city ?: ""
+                    }
+            val millisecondsToNextRace = nextRace.raceDate?.time ?: 0
+            val countdownString = millisToCountdown(millisecondsToNextRace)
+            val dateStr = simpleDateFormat.format(nextRace.raceDate)
+            view.setContent(title, countdownString, dateStr, true)
+            view.saveNext(title, millisecondsToNextRace, dateStr)
         } else {
             val title = ""
             val countdown = view.getContext()?.getString(R.string.widget_no_next)
@@ -83,11 +87,5 @@ class CountdownWidgetPresenter constructor(private val view: CountdownWidgetView
         val diffDays = (diffTime / DAY_IN_MILLIS).toInt()
         val diffHours = (diffTime % DAY_IN_MILLIS / HOUR_IN_MILLIS).toInt()
         return diffDays.toString() + "d " + diffHours.toString() + 'h'
-    }
-
-    private fun dateToString(date: ZonedDateTime): String {
-        val format = view.getContext()?.getString(R.string.format_date) + " " + view.getContext()?.getString(R.string.format_time)
-        val zdt = date.withZoneSameInstant(ZoneId.systemDefault())
-        return zdt.format(DateTimeFormatter.ofPattern(format))
     }
 }

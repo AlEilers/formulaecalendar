@@ -19,10 +19,8 @@ import de.ae.formulaecalendar.formulaerest.RemoteStore
 class MyPreferenceFragment : PreferenceFragment(), ActivityCompat.OnRequestPermissionsResultCallback {
 
     private val MY_PERMISSIONS_REQUEST_WRITE_CALENDAR = 1
-    private val notification = "pref_notification"
-    private val calendar = "pref_calendar"
-    private val quali = "pref_quali"
-
+    private val notification = "pref_notification_enabled"
+    private val calendar = "pref_calendar_enabled"
     private var notificationChanged = false
     private var calendarChanged = false
 
@@ -30,18 +28,12 @@ class MyPreferenceFragment : PreferenceFragment(), ActivityCompat.OnRequestPermi
         super.onCreate(savedInstanceState)
         addPreferencesFromResource(R.xml.preferences)
 
-
         findPreference(notification).onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, _ ->
             notificationChanged = true
             true
         }
 
         findPreference(calendar).onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, _ ->
-            requestPermission()
-            true
-        }
-
-        findPreference(quali).onPreferenceChangeListener = Preference.OnPreferenceChangeListener { _, _ ->
             requestPermission()
             true
         }

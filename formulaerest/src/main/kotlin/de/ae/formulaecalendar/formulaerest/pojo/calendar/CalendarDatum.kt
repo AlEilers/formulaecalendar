@@ -1,7 +1,6 @@
 package de.ae.formulaecalendar.formulaerest.pojo.calendar
 
 import com.google.gson.annotations.SerializedName
-import org.threeten.bp.ZoneId
 import java.io.Serializable
 import java.util.*
 
@@ -46,8 +45,8 @@ data class CalendarDatum(
         var scheduledLaps: String? = null,
 
         @SerializedName("RaceDistance")
-        var raceDistance: String? = null
-) : Serializable {
+        var raceDistance: String? = null,
 
-    var zoneId: ZoneId? = null
-}
+        @SerializedName("CircuitTurns")
+        var circuitTurns: String? = null
+) : Serializable

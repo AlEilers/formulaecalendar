@@ -100,26 +100,6 @@ object LocalResourceStore : ResourceStore {
         })
 
         resources.add(Resource().apply {
-            name = "threeten"
-            title = "ThreeTen Android Backport"
-            description = "ThreeTen Android Backport is used in this app"
-            license = "Copyright (C) 2015 Jake Wharton\n" +
-                    "\n" +
-                    "Licensed under the Apache License, Version 2.0 (the \"License\"); " +
-                    "you may not use this file except in compliance with the License. " +
-                    "You may obtain a copy of the License at\n" +
-                    "\n" +
-                    "http://www.apache.org/licenses/LICENSE-2.0\n" +
-                    "\n" +
-                    "Unless required by applicable law or agreed to in writing, software " +
-                    "distributed under the License is distributed on an \"AS IS\" BASIS, " +
-                    "WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. " +
-                    "See the License for the specific language governing permissions and " +
-                    "limitations under the License."
-            uri = "https://github.com/JakeWharton/ThreeTenABP"
-        })
-
-        resources.add(Resource().apply {
             name = "2016020100" //Hong Kong
             title = "Overlook Hong Kong Island north coast, Victoria Harbour and Kowloon from " +
                     "middle section of Lugard Road at daytime (enlarged version and better " +
@@ -177,7 +157,7 @@ object LocalResourceStore : ResourceStore {
         })
 
         resources.add(Resource().apply {
-            name = "2014020900,2015020800" //Berlin
+            name = "2014020900,2015020800,2017020900" //Berlin
             title = "Cityscape Berlin"
             author = "Thomas Wolf, www.foto-tw.de"
             license = "Creative Commons Attribution 3.0 Unported (https://goo.gl/MUaj05)"
@@ -278,7 +258,7 @@ object LocalResourceStore : ResourceStore {
         })
 
         resources.add(Resource().apply {
-            name = "2017020400" //Santiago de chile
+            name = "2017020400,2018020300" //Santiago de chile
             title = "Santiago de Chile de noche"
             author = "Javmoraga"
             license = "Creative Commons Attribution-Share Alike 3.0 Unported (https://goo.gl/MUaj05)"
@@ -311,6 +291,33 @@ object LocalResourceStore : ResourceStore {
             license = "Creative Commons Attribution-Share Alike 3.0 Unported (https://goo.gl/MUaj05)"
             uri = "https://goo.gl/pJnW9J"
             id = R.drawable.zurich
+        })
+
+        resources.add(Resource().apply {
+            name = "2018021100" //Bern
+            title = "CH Bern Kramgasse"
+            author = "Daniel Schwen"
+            license = "Creative Commons Attribution-Share Alike 4.0 International (https://goo.gl/Y66kJp)"
+            uri = "https://goo.gl/ZQbKfD"
+            id = R.drawable.bern
+        })
+
+        resources.add(Resource().apply {
+            name = "2018020100" //Ad Diriyah
+            title = "Diriyahpic"
+            author = "Petrovic-Njegos"
+            license = "Creative Commons Attribution-Share Alike 3.0 Unported (https://goo.gl/MUaj05)"
+            uri = "https://goo.gl/vniNrP"
+            id = R.drawable.addiriyah
+        })
+
+        resources.add(Resource().apply {
+            name = "2018020600" //Sanya
+            title = "Phoenix Island, Sanya Bay - 02"
+            author = "Anna Frodesiak, design by MAD Studio"
+            license = "Creative Commons CC0 1.0 Universal Public Domain Dedication (https://goo.gl/X6XqK2)"
+            uri = "https://goo.gl/y2mFZ3"
+            id = R.drawable.sanya
         })
     }
 

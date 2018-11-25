@@ -12,32 +12,31 @@ import android.preference.PreferenceManager
 import android.provider.CalendarContract
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
+import android.text.format.Time.TIMEZONE_UTC
 import android.util.Log
-import co.metalab.asyncawait.async
 import de.ae.formulaecalendar.app.R
-import de.ae.formulaecalendar.formulaerest.pojo.calendar.*
+import de.ae.formulaecalendar.formulaerest.pojo.calendar.CalendarDatum
+import de.ae.formulaecalendar.formulaerest.pojo.calendar.RaceCalendarData
+import de.ae.formulaecalendar.formulaerest.pojo.calendar.isRaceNameAvailable
 import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import java.util.*
 
 /**
  * Created by aeilers on 19.02.2017.
  */
 class MyCalendarProvider(context: Context) : Observer<RaceCalendarData?> {
-    private val prefCalendar = "pref_calendar"
-    private val prefQuali = "pref_quali"
-    private val timezone = "GMT"
+    private val prefCalendar = "pref_calendar_enabled"
+    private val millisInOneDay = 24 * 60 * 60 * 1000
 
     private val cr: ContentResolver
     private val calendarColor: Int
     private val accountName: String
     private val calendarName: String
-    private val raceTitle: String
-    private val qualiTitle: String
     private val roundTitle: String
-    private var enableRace: Boolean = false
-    private var enableQuali: Boolean = false
+    private var calendarEnabled: Boolean = false
 
     private val allRaces: MutableList<CalendarDatum> = mutableListOf()
 
@@ -46,14 +45,10 @@ class MyCalendarProvider(context: Context) : Observer<RaceCalendarData?> {
         calendarColor = ContextCompat.getColor(context, R.color.colorPrimary)
         this.accountName = context.getString(R.string.cal_account_name)
         this.calendarName = context.getString(R.string.cal_calendar_name)
-        this.raceTitle = context.getString(R.string.cal_event_race)
-        this.qualiTitle = context.getString(R.string.cal_event_quali)
         this.roundTitle = context.getString(R.string.cal_event_round)
-        async {
-            val prefs = PreferenceManager.getDefaultSharedPreferences(context)
-            await { enableRace = prefs.getBoolean(prefCalendar, false) }
-            await { enableQuali = prefs.getBoolean(prefQuali, false) }
-        }
+
+        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
+        calendarEnabled = prefs.getBoolean(prefCalendar, false)
     }
 
     fun manageCalendar(context: Context, obs: Observable<RaceCalendarData?>) {
@@ -64,7 +59,7 @@ class MyCalendarProvider(context: Context) : Observer<RaceCalendarData?> {
             return
         }
 
-        if (enableRace) {
+        if (calendarEnabled) {
             obs.subscribeOn(Schedulers.newThread())
                     .observeOn(Schedulers.newThread())
                     .subscribe(this)
@@ -91,7 +86,7 @@ class MyCalendarProvider(context: Context) : Observer<RaceCalendarData?> {
         }
 
         //insert new events
-        insertRaces(id, allRaces, enableQuali)
+        insertRaces(id, allRaces)
     }
 
     override fun onError(t: Throwable) {
@@ -126,20 +121,23 @@ class MyCalendarProvider(context: Context) : Observer<RaceCalendarData?> {
     }
 
 
-    private fun insertRaces(calId: Int, races: List<CalendarDatum>, quali: Boolean) {
-        val race_title = "($raceTitle)"
-        val quali_title = "($qualiTitle)"
+    private fun insertRaces(calId: Int, races: List<CalendarDatum>) {
         val description = "$roundTitle "
 
-        for (race in races) {    //insert race event
-            insertEvent(calId, race.raceStart.toEpochSecond() * 1000, race.raceEnd.toEpochSecond() * 1000, race.raceName + ' ' + race_title, description + race.sequence)
-            if (quali) {    //insert quali event
-                insertEvent(calId, race.qualiStart.toEpochSecond() * 1000, race.qualiEnd.toEpochSecond() * 1000, race.raceName + ' ' + quali_title, description + race.sequence)
-            }
+        for (race in races) {
+            val start = (race.raceDate?.time ?: 0) + millisInOneDay
+            val end = start + millisInOneDay
+            val eventname =
+                    if (race.isRaceNameAvailable()) {
+                        race.raceName
+                    } else {
+                        race.city
+                    } ?: "?"
+            insertEvent(calId, start, end, eventname, description + race.sequence)
         }
     }
 
-    private fun insertCalendar(): Uri {
+    private fun insertCalendar(): Uri? {
         val values = ContentValues()
         values.put(CalendarContract.Calendars.ACCOUNT_NAME, accountName)
         values.put(CalendarContract.Calendars.ACCOUNT_TYPE, CalendarContract.ACCOUNT_TYPE_LOCAL)
@@ -147,7 +145,7 @@ class MyCalendarProvider(context: Context) : Observer<RaceCalendarData?> {
         values.put(CalendarContract.Calendars.CALENDAR_DISPLAY_NAME, calendarName)
         values.put(CalendarContract.Calendars.CALENDAR_COLOR, calendarColor)
         values.put(CalendarContract.Calendars.CALENDAR_ACCESS_LEVEL, CalendarContract.Calendars.CAL_ACCESS_OWNER)
-        values.put(CalendarContract.Calendars.CALENDAR_TIME_ZONE, timezone)
+        values.put(CalendarContract.Calendars.CALENDAR_TIME_ZONE, TIMEZONE_UTC)
         values.put(CalendarContract.Calendars.SYNC_EVENTS, 1)
 
         val builder = CalendarContract.Calendars.CONTENT_URI.buildUpon()
@@ -162,14 +160,17 @@ class MyCalendarProvider(context: Context) : Observer<RaceCalendarData?> {
         cr.delete(uri, null, null)
     }
 
-    private fun insertEvent(calId: Int, start: Long, end: Long, title: String, description: String): Uri {
+    private fun insertEvent(calId: Int, start: Long, end: Long, title: String, description: String): Uri? {
         val values = ContentValues()
+        values.put(CalendarContract.Events.ALL_DAY, 1)
         values.put(CalendarContract.Events.DTSTART, start)
         values.put(CalendarContract.Events.DTEND, end)
         values.put(CalendarContract.Events.TITLE, title)
         values.put(CalendarContract.Events.DESCRIPTION, description)
         values.put(CalendarContract.Events.CALENDAR_ID, calId)
-        values.put(CalendarContract.Events.EVENT_TIMEZONE, timezone)
+        values.put(CalendarContract.Events.EVENT_TIMEZONE, TIMEZONE_UTC)
+
+
 
         return cr.insert(CalendarContract.Events.CONTENT_URI, values)
     }

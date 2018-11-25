@@ -11,20 +11,16 @@ import de.ae.formulaecalendar.app.R
 import de.ae.formulaecalendar.app.resource.LocalResourceStore
 import de.ae.formulaecalendar.app.view.details.DetailsActivity
 import de.ae.formulaecalendar.app.view.main.listfragment.ListAdapter
-import de.ae.formulaecalendar.formulaerest.pojo.calendar.CalendarDatum
-import de.ae.formulaecalendar.formulaerest.pojo.calendar.RaceCalendarData
-import de.ae.formulaecalendar.formulaerest.pojo.calendar.nextRace
-import de.ae.formulaecalendar.formulaerest.pojo.calendar.raceStart
-import org.threeten.bp.ZoneId
-import org.threeten.bp.format.DateTimeFormatter
+import de.ae.formulaecalendar.formulaerest.pojo.calendar.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 /**
  * Created by aeilers on 17.02.2017.
  */
 class RaceAdapter(val context: Context) : ListAdapter<RaceCalendarData, RaceHolder>() {
-    private val format: String = context.getString(R.string.format_date) + " " + context.getString(R.string.format_time)
-    private val zone: ZoneId = ZoneId.systemDefault()
+    private val simpleDateFormat = SimpleDateFormat(DATE_FORMAT, Locale.getDefault())
     private var calendar: RaceCalendarData? = null
     private var nextRace: CalendarDatum? = null
 
@@ -41,10 +37,11 @@ class RaceAdapter(val context: Context) : ListAdapter<RaceCalendarData, RaceHold
     override fun onBindViewHolder(holder: RaceHolder, position: Int) {
         val race = calendar?.calendarData?.get(position)
 
-        holder.description.text = race?.raceName
+        holder.description.text =
+                if (race?.isRaceNameAvailable() == true) race.raceName
+                else race?.city
 
-        val zdt = race?.raceStart?.withZoneSameInstant(zone)
-        holder.date.text = zdt?.format(DateTimeFormatter.ofPattern(format))
+        holder.date.text = simpleDateFormat.format(race?.raceDate)
 
         race?.circuitId?.let {
             val resourceId = LocalResourceStore.getResourceId(it)

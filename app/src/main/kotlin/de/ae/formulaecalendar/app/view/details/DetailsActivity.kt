@@ -9,7 +9,6 @@ import android.support.v7.widget.LinearLayoutManager
 import android.transition.Fade
 import android.view.View
 import android.view.WindowManager
-import com.jakewharton.threetenabp.AndroidThreeTen
 import de.ae.formulaecalendar.app.R
 import de.ae.formulaecalendar.formulaerest.pojo.calendar.CalendarDatum
 import de.ae.formulaecalendar.formulaerest.pojo.race.SesRace
@@ -32,9 +31,6 @@ class DetailsActivity constructor() : AppCompatActivity(), DetailsView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_details)
-
-        //initialize ThreeTen
-        AndroidThreeTen.init(this)
 
         //set toolbar
         setSupportActionBar(toolbar_view)
@@ -129,20 +125,16 @@ class DetailsActivity constructor() : AppCompatActivity(), DetailsView {
         details_text_date.text = date
     }
 
-    override fun setQualiTime(time: String) {
-        details_text_quali.text = time
-    }
-
-    override fun setRaceTime(time: String) {
-        details_text_race.text = time
-    }
-
     override fun setDistance(distance: String) {
         details_text_distance.text = distance
     }
 
     override fun setLaps(laps: String) {
         details_text_laps.text = laps
+    }
+
+    override fun setTurns(turns: String) {
+        details_text_turns.text = turns
     }
 
     override fun setMap(map: String) {

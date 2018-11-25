@@ -17,14 +17,15 @@ import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import org.threeten.bp.ZoneId
-import org.threeten.bp.ZonedDateTime
-import org.threeten.bp.format.DateTimeFormatter
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * Created by aeilers on 18.02.2017.
  */
 class DetailsPresenter(private val view: DetailsView, private val model: DataStore = RemoteStore, private val observer: Scheduler = AndroidSchedulers.mainThread(), private val subscriber: Scheduler = Schedulers.newThread(), private val resource: ResourceStore = LocalResourceStore) {
+    private val simpleDateFormat = SimpleDateFormat(DATE_FORMAT, Locale.getDefault())
+
     private var race: CalendarDatum? = null
 
     fun loadData(race: CalendarDatum?) {
@@ -47,9 +48,9 @@ class DetailsPresenter(private val view: DetailsView, private val model: DataSto
                         }
 
                         override fun onComplete() {
-                            val next = allRaces.sortedBy { it.raceStart }
-                                    .filter { it.raceStart.isAfter(ZonedDateTime.now()) }
-                                    .firstOrNull()
+                            val posisitonOfNextRace = getNextRace(allRaces)
+                            var next: CalendarDatum? = null
+                            if(posisitonOfNextRace >= 0) next = allRaces[posisitonOfNextRace]
                             next?.let { setContent(it) }
                                     ?: Log.w("DetailsPresenter", "Cannot load view: next race from Server is null")
 
@@ -81,7 +82,11 @@ class DetailsPresenter(private val view: DetailsView, private val model: DataSto
         } else {
 
             //set Header
-            val title = race.raceName
+            val title = if (race.isRaceNameAvailable()) {
+                race.raceName
+            } else {
+                race.city
+            }
             if (title != null) {
                 view.setTitle(title)
             }
@@ -97,30 +102,20 @@ class DetailsPresenter(private val view: DetailsView, private val model: DataSto
             view.setRound(context.getString(R.string.cal_event_round) + ' ' + race.sequence)
 
             //Set date
-            val raceStartDate = race.raceStart.withZoneSameInstant(ZoneId.systemDefault())
-            val date = raceStartDate.format(DateTimeFormatter.ofPattern(context.getString(R.string.format_date)))
+            val date = simpleDateFormat.format(race.raceDate)
             view.setDate(date)
-
-            //Set Quali Time
-            val qualiStartDate = race.qualiStart.withZoneSameInstant(ZoneId.systemDefault())
-            val qualiStart = qualiStartDate.format(DateTimeFormatter.ofPattern(context.getString(R.string.format_time)))
-            val qualiEndDate = race.qualiEnd.withZoneSameInstant(ZoneId.systemDefault())
-            val qualiEnd = qualiEndDate.format(DateTimeFormatter.ofPattern(context.getString(R.string.format_time)))
-            view.setQualiTime(qualiStart + " - " + qualiEnd)
-
-            //Set Race Time
-            val raceStart = raceStartDate.format(DateTimeFormatter.ofPattern(context.getString(R.string.format_time)))
-            val raceEndDate = race.raceEnd.withZoneSameInstant(ZoneId.systemDefault())
-            val raceEnd = raceEndDate.format(DateTimeFormatter.ofPattern(context.getString(R.string.format_time)))
-            view.setRaceTime(raceStart + " - " + raceEnd)
 
             //Set laps
             val laps_text = if (race.laps != null) race.laps else "0"
             view.setLaps(laps_text + " " + context.getString(R.string.details_laps))
 
             //set distance
-            val length = Integer.parseInt(race.raceDistance) / 1000
+            val length = Integer.parseInt(race.raceDistance ?: "0") / 1000
             view.setDistance(length.toString() + " " + context.getString(R.string.details_distance))
+
+            //set turns
+            val turns = race.circuitTurns ?: "0"
+            view.setTurns(turns + " " + context.getString(R.string.details_turns))
 
             //set map
             val map = context.getString(R.string.details_on_map)
